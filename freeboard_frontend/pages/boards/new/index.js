@@ -1,94 +1,155 @@
-import {Wrapper,Title, Input, Input__Short, Input__Short__Wrapper,
-    Input__Label, Star, Input__Input,
-    Input__Long, Input__Input__Content, Input__Input__Address,Input__Address, Address__Detail,
-    Search, Picture__Wrapper, Picture, Picture__Icon, Picture__Label, 
-    Radio__Wrapper, Radio, Radio__Label, Create
+import {Wrapper,Title, Input, InputShort, InputshortWrapper,
+    InputLabel, Star, InputInput,
+    Writer, Password, ContentTitle, Content,
+    InputLong, InputInputAddress,InputAddress, AddressDetail,
+    Search, PictureWrapper, Picture, PictureIcon, PictureLabel, 
+    RadioWrapper, Radio, RadioLabel, Create, Error
 } from "../../../styles/createBoard"
+import { useState } from 'react'
 
 export default function createBoard() {
+
+    const [writer, setWriter] = useState("")
+    const [writerError, setWriterError] = useState("")
+    const [password, setPassword] = useState("")
+    const [passwordError, setPasswordError] = useState("")
+    const [contentTitle, setContentTitle] = useState("")
+    const [contentTitleError, setContentTitleError] = useState("")
+    const [content, setContent] = useState("")
+    const [contentError, setContentError] = useState("")
+    
+    function onChangeWriter(event){
+        setWriter(event.target.value)
+    }
+    function onChangePassword(event){
+        setPassword(event.target.value)
+    }
+    function onChangeContentTitle(event){
+        setContentTitle(event.target.value)
+    }
+    function onChangeContent(event){
+        setContent(event.target.value)
+    }
+
+    let isValid = true
+    function onClickButton(){
+        if(writer === ""){
+            setWriterError("이름을 입력해주세요.")
+            isValid = false
+        } else {
+            setWriterError("")
+        }
+        if(password === ""){
+            setPasswordError("비밀번호를 입력해주세요.")
+            isValid = false
+        } else {
+            setPasswordError("")
+        }
+        if(contentTitle === ""){
+            setContentTitleError("제목을 입력해주세요.")
+            isValid = false
+        } else {
+            setContentTitleError("")
+        }
+        if(content === ""){
+            setContentError("내용을 입력해주세요.")
+            isValid = false
+        } else {
+            setContentError("")
+        }
+        if(isValid === true){
+            alert("게시글이 등록되었습니다.")
+        }
+    }
+
+
   return (
     <Wrapper>
         <Title>게시물 등록</Title>
         <Input>
-            <Input__Short>
-                <Input__Short__Wrapper>
-                    <Input__Label>작성자<Star>*</Star></Input__Label>
-                    <Input__Input type="text" placeholder="이름을 적어주세요."/>
-                </Input__Short__Wrapper>
+            <InputShort>
+                <InputshortWrapper>
+                    <InputLabel>작성자<Star>*</Star></InputLabel>
+                    <Writer onChange={onChangeWriter} type="text" placeholder="이름을 적어주세요."/>
+                    <Error>{writerError}</Error>
+                </InputshortWrapper>
            
-                <Input__Short__Wrapper>
-                    <Input__Label>비밀번호</Input__Label>
-                    <Input__Input type="text" placeholder="비밀번호를 입력해주세요."/>
-                </Input__Short__Wrapper>
-            </Input__Short>
+                <InputshortWrapper>
+                    <InputLabel>비밀번호<Star>*</Star></InputLabel>
+                    <Password onChange={onChangePassword} type="text" placeholder="비밀번호를 입력해주세요."/>
+                    <Error>{passwordError}</Error>
+                </InputshortWrapper>
+            </InputShort>
         </Input>
 
         <Input>
-            <Input__Long>
-                <Input__Label>제목</Input__Label>
-                <Input__Input type="text" placeholder="제목을 작성해주세요."/>
-                <Input__Label>내용</Input__Label>
-                <Input__Input__Content type="text" placeholder="내용을 작성해주세요."/>
-            </Input__Long>
+            <InputLong>
+                <InputLabel>제목<Star>*</Star></InputLabel>
+                <ContentTitle onChange={onChangeContentTitle}  type="text" placeholder="제목을 작성해주세요."/>
+                <Error>{contentTitleError}</Error>
+                <InputLabel>내용<Star>*</Star></InputLabel>
+                <Content onChange={onChangeContent}  type="text" placeholder="내용을 작성해주세요."/>
+                <Error>{contentError}</Error>
+            </InputLong>
         </Input>
 
         <Input>
-            <Input__Long>
-                <Input__Label>주소</Input__Label>
-                <Input__Address>
-                    <Input__Input__Address type="text" placeholder="07250"/>
+            <InputLong>
+                <InputLabel>주소</InputLabel>
+                <InputAddress>
+                    <InputInputAddress type="text" placeholder="07250"/>
                     <Search>우편번호 검색</Search>
-                </Input__Address>
-                <Address__Detail type="text"/>
-                <Address__Detail type="text"/>
-            </Input__Long>
+                </InputAddress>
+                <AddressDetail type="text"/>
+                <AddressDetail type="text"/>
+            </InputLong>
         </Input>
 
         <Input>
-            <Input__Long>
-                <Input__Label>유튜브</Input__Label>
-                <Input__Input type="text" placeholder="링크를 복사해주세요."/>
-            </Input__Long>
+            <InputLong>
+                <InputLabel>유튜브</InputLabel>
+                <InputInput type="text" placeholder="링크를 복사해주세요."/>
+            </InputLong>
         </Input>
 
         <Input>
-            <Input__Long>
-                <Input__Label>사진 첨부</Input__Label>
-                <Picture__Wrapper>
+            <InputLong>
+                <InputLabel>사진 첨부</InputLabel>
+                <PictureWrapper>
                     <Picture>
-                        <Picture__Icon>+</Picture__Icon>
-                        <Picture__Label>Upload</Picture__Label>
+                        <PictureIcon>+</PictureIcon>
+                        <PictureLabel>Upload</PictureLabel>
                     </Picture>
                     <Picture>
-                        <Picture__Icon>+</Picture__Icon>
-                        <Picture__Label>Upload</Picture__Label>
+                        <PictureIcon>+</PictureIcon>
+                        <PictureLabel>Upload</PictureLabel>
                     </Picture>
                     <Picture>
-                        <Picture__Icon>+</Picture__Icon>
-                        <Picture__Label>Upload</Picture__Label>
+                        <PictureIcon>+</PictureIcon>
+                        <PictureLabel>Upload</PictureLabel>
                     </Picture>
-                </Picture__Wrapper>
-            </Input__Long>
+                </PictureWrapper>
+            </InputLong>
         </Input>
 
         <Input>
-            <Input__Long>
-                <Input__Label>메인 설정</Input__Label>
-                <Radio__Wrapper>
-                    <Radio__Label>
+            <InputLong>
+                <InputLabel>메인 설정</InputLabel>
+                <RadioWrapper>
+                    <RadioLabel>
                         <Radio type="radio" value="youtube" name="main" checked/>
                         유튜브
-                    </Radio__Label>
-                    <Radio__Label>
+                    </RadioLabel>
+                    <RadioLabel>
                         <Radio type="radio" value="picture" name="main" />
                         사진
-                    </Radio__Label>
-                </Radio__Wrapper>
-            </Input__Long>
+                    </RadioLabel>
+                </RadioWrapper>
+            </InputLong>
         </Input>
 
-        <Create>등록하기</Create>
-        
+        <Create onClick={onClickButton}>등록하기</Create>
+
     </Wrapper>
   )
 }
