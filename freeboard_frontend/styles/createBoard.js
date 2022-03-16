@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.form`
 display: block;
-margin:0;
+margin:100px auto;
 width: 1200px;
 padding: 60px 100px 100px 100px;
 border: 1px solid black;
