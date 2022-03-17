@@ -1,3 +1,6 @@
+//객체 안의 객체 넣는 방법 예시
+
+
 import axios from 'axios'
 import {useState} from 'react'
 import { useMutation, gql } from '@apollo/client'
