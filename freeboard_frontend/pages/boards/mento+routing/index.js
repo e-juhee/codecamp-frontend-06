@@ -24,6 +24,7 @@ import {
 } from '../../../styles/mento/emotion'
 import { useState } from 'react'
 import {useMutation,gql} from '@apollo/client'
+import {useRouter} from 'next/router'
 
 
 const CREATE_BOARD = gql`
@@ -41,6 +42,8 @@ const CREATE_BOARD = gql`
 
 export default function BoardsNewPage(){
   
+    const router = useRouter()
+
     const [createBoard] = useMutation(CREATE_BOARD)  
     const [data, setData] = useState("");
 
@@ -98,6 +101,24 @@ export default function BoardsNewPage(){
       }
       if(writer !== "" && password !== "" && title !== "" && contents !== "") {
         alert("게시물 등록에 성공하였습니다!")
+
+        try{
+          const result = await createBoard({
+              variables: {createBoardInput: {writer: writer, password: password, title: title, contents: contents}} 
+          })
+          console.log(result)
+          console.log(result.data)
+          console.log(result.data.createBoard)
+          console.log(result.data.createBoard._id)
+          alert('게시글이 정상적으로 등록되었습니다.')
+          router.push(`/boards/${result.data.createBoard._id}`)
+  
+        }catch(error){
+            alert(error.message)
+        }    
+
+
+
       }
 
       //입력값 보내기
@@ -116,7 +137,6 @@ export default function BoardsNewPage(){
 
     return (
       <Wrapper>
-        <div>{data}</div>
         <Title>게시판 등록</Title>
         <WriterWrapper>
           <InputWrapper>

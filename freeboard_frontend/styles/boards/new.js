@@ -14,7 +14,7 @@ export const Wrapper = styled.form`
   justify-content: center;
   align-items: center;
   width: 1200px;
-  margin:100px;
+  margin:100px auto;
   padding: 60px 100px 100px 100px;
   border: 1px solid gray;
 `
