@@ -104,14 +104,14 @@ export default function BoardsNewPage(){
 
         try{
           const result = await createBoard({
-              variables: {createBoardInput: {writer: writer, password: password, title: title, contents: contents}} 
+              variables: {createBoardInput: {writer, password, title, contents}} 
           })
           console.log(result)
           console.log(result.data)
           console.log(result.data.createBoard)
           console.log(result.data.createBoard._id)
-          alert('게시글이 정상적으로 등록되었습니다.')
-          router.push(`/boards/${result.data.createBoard._id}`)
+          // alert('게시글이 정상적으로 등록되었습니다.')
+          // router.push(`/boards/${result.data.createBoard._id}`)
   
         }catch(error){
             alert(error.message)

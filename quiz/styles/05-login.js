@@ -1,249 +1,161 @@
 import styled from "@emotion/styled";
 
+
 export const Background = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 640px;
-    height: 1138px;
-    margin: 100px auto;
-    background-image: url(../bg.png);
-    background-size: 640px 1138px;
+  width: 640px;
+  height: 1138px;
+  margin: 100px auto;
+  background-image: url(../bg.png);
+  background-size: cover;
 `;
+
 export const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 640px;
-    height: 1138px;
-    /* opacity: 0.2; */
-     background-color: rgba(0,0,0,0.1);
-    padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 181px 50px 83px 50px;
+  background-color: rgba(0,0,0,0.1);
+`;
+
+export const LogoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  padding-bottom: 27px;
+`;
+export const Logo = styled.div`
+  width: 100px;
+  height: 100px;
+  background-image: url("/login-state/logo.png");
+  background-size: cover; 
+  position: relative;
+  top:-80px;
+  left: -18px;
+
+
+`;
+export const LogoShadow = styled.div`
+  width: 63px;
+  height: 17px;
+  background-image: url("/login-state/logo-shadow.png");
+  background-size: cover;
+  position: absolute;
 `;
 
 export const Title = styled.div`
+  width: 100%;
+  padding-bottom: 162px;
   font-size: 60px;
-    color: white;
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
+  color: white;
+  font-weight: bold;
+  text-align: center;
 `;
 
-export const Label = styled.div`
-  padding-bottom: 16px;
-  font-size: 16px;
-  font-weight: 500;
-`;
-
-export const InputWrapper = styled.div`
+export const LoginWrapper = styled.div`
   padding-top: 18px;
   width: 100%;
 `;
+export const InputWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 70px;
+  `;
 
-export const Email = styled.input`
+export const Input = styled.input`
   width: 100%;
-  height: 53px;
-  padding-left: 16px;
-  border: 1px solid #D2D2D2;
-  border-radius: 7px;
-`;
-
-export const EmailError = styled.div`
-  width: 100%;
-  text-align: center;
-  color: red;
-  font-size: 11px;
-`;
-export const Name = styled.input`
-  width: 100%;
-  height: 53px;
-  padding-left: 16px;
-  border: 1px solid #D2D2D2;
-  border-radius: 7px;
+  height: 70px;
+  padding-right: 50px;
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 1px rgba(255,255,255,0.4);
+  color: white;
+  font-family: SpoqaHanSans;
+  font-size: 24px;
 `;
 
-export const NameError = styled.div`
-  width: 100%;
-  text-align: center;
-  color: red;
-  font-size: 11px;
-`;
-export const Password = styled.input`
-  width: 100%;
-  height: 53px;
-  padding-left: 16px;
-  border: 1px solid #D2D2D2;
-  border-radius: 7px;
-`;
+export const Delete = styled.button`
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 0;
+  background-image: url("/login-state/delete.png");
+  background-size: cover;
+  position: absolute;
+  right: 15px;
+  top: 25px;
+  cursor: pointer;
 
-export const PasswordError = styled.div`
-  width: 100%;
-  text-align: center;
-  color: red;
-  font-size: 11px;
 `;
-export const Password2 = styled.input`
+export const Error = styled.div`
   width: 100%;
-  height: 53px;
-  padding-left: 16px;
-  border: 1px solid #D2D2D2;
-  border-radius: 7px;
+  height: 20px;
+  margin: 10px 0 20px 0;
+  font-size: 18px;
+  color: #ff1b6d;
 `;
-
-export const Password2Error = styled.div`
+export const LoginButton = styled.button`
   width: 100%;
-  text-align: center;
-  color: red;
-  font-size: 11px;
+  height: 76px;
+  opacity: 0.6;
+  margin-bottom: 44px;
+  border-radius: 38px;
+  background-color: #ff1b6d;
+  border: 0 ;
+  font-family: SpoqaHanSans;
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
 `;
-
 export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  padding-top: 18px;
-`;
-
-export const PhoneWrapper = styled.div`
-  padding-top: 18px;
-  width: 100%;
-`;
-
-export const PhoneNumber = styled.div`
-  display: flex;
-  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding-top: 18px;
   width: 100%;
+  padding: 44px 73px 0 73px;
+  margin-bottom: 61px;
 `;
-
-export const Phone1 = styled.input`
-  width: 100px;
-  height: 40px;
-  padding-left: 16px;
-  border: 1px solid #D2D2D2;
-  border-radius: 7px;
+export const Button = styled.button`
+background-color: transparent;
+border: 0;
+font-size: 20px;
+color: white;
+cursor: pointer;
 `;
-
-export const Phone2 = styled.input`
-  width: 100px;
-  height: 40px;
-  padding-left: 16px;
-  border: 1px solid #D2D2D2;
-  border-radius: 7px;
+export const Split = styled.div`
+  width: 1px;
+  height: 12px;
+  border: solid 1px rgba(255,255,255,0.4);
 `;
-
-export const Phone3 = styled.input`
-  width: 100px;
-  height: 40px;
-  padding-left: 16px;
-  border: 1px solid #D2D2D2;
-  border-radius: 7px;
-`;
-
-export const AuthWrapper = styled.div`
+export const KakaoWrapper = styled.button`
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
   align-items: center;
-  padding-top: 18px;
-  width: 100%;
-`;
-export const AuthNumber = styled.div`
-  color: #0068FF;
-    font-size: 18px;
-`;
-export const SendButton = styled.button`
-    width: 120px;
-    height: 40px;
-    border-radius: 7px;
-    margin-left: 20px;
-    border: 1px solid #D2D2D2;
-    font-size: 16px;
-    color: #0068FF; 
-    background-color: white;
-    cursor: pointer;
-`;
-
-export const Timer = styled.div`
-    color: #0068FF;
-    font-size: 18px;
-`;
-
-export const CompleteButton = styled.button`
-    width: 120px;
-    height: 40px;
-    border-radius: 7px;
-    margin-left: 20px;
-    border: 1px solid #D2D2D2;
-    font-size: 16px;
-    color: #0068FF; 
-    background-color: white;
-    cursor: pointer;
-`;
-
-
-export const Location = styled.select`
-    margin-top: 20px;
-    width: 100%;
-    height: 60px;
-    border: 1px solid #D2D2D2;
-    border-radius: 7px;
-    font-size: 16px;
-    padding: 18px;
-    color: #797979;
-`;
-
-export const LocationOption = styled.option`
-
-`;
-export const LocationError = styled.div`
-  width: 100%;
-  text-align: center;
-  color: red;
-  font-size: 11px;
-`;
-
-export const OptionWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
   justify-content: center;
   width: 100%;
-  padding-top: 40px;
-`;
-
-export const RadioButton = styled.input`
+  height: 76px;
+  background-color: transparent;
+  border-radius: 38px;
+  border: solid 2px #fae100;
   cursor: pointer;
 `;
-
-export const RadioLabel = styled.label`
-  margin-left: 8px;
+export const KakaoImg = styled.div`
+  width: 30px;
+  height: 30px;
   margin-right: 20px;
-  font-weight: 500;
-  cursor: pointer;
+  background-size: cover;
+  background-image: url("/login-state/kakao.png");
 `;
-
-export const OptionError = styled.div`
-  width: 100%;
-  text-align: center;
-  color: red;
-  font-size: 11px;
-  border-bottom: 1px solid #e6e6e6;
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-`;
-
-
-export const SubmitButton = styled.button`
-    width: 100%;
-    height: 75px;
-    border-radius: 10px;
-    font-size: 18px;
-    background-color: #FFFFFF; 
-    color: #0068FF; 
-    border: 1px solid #0068FF ;
-    cursor: pointer;
+export const KakaoText = styled.div`
+ font-size: 26px;
+  font-weight: bold;
+  color: #fae100;
 `;

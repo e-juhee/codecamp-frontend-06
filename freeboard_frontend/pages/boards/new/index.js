@@ -57,7 +57,7 @@ export default function BoardsNewPage() {
         console.log("data");
         console.log(data); //input 안의 값
 
-        //입력값 보내기
+    //입력값 보내기
         try{
             const result = await createBoard({ //input창을 만들고 onChange & state 이용하면 입력값을 받을 수 있다
                 variables: {createBoardInput: {writer: data.writer, password: data.password, title: data.title, contents: data.contents, youtubeUrl: data.youtubeUrl, boardAddress:{zipcode: data.zipcode, address: data.address, addressDetail: data.addressDetail}}} 

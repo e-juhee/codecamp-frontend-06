@@ -51,6 +51,7 @@ const FETCH_BOARD = gql`
     }
 `
 
+
 export default function BoardsDetailPage(){
     const router = useRouter()
     console.log(router)
@@ -104,6 +105,7 @@ export default function BoardsDetailPage(){
                         </PlayButton>
                     </Video>
                 </VideoWrapper>
+
                 <LikeWrapper>
                     <Like>
                         <LikeIcon></LikeIcon>
