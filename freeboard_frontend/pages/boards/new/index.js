@@ -35,7 +35,13 @@ const CREATE_BOARD = gql`
             writer
             title
             contents
+            youtubeUrl
+            likeCount
+            dislikeCount
+            images
+            boardAddress{zipcode, address, addressDetail}
             createdAt
+            updatedAt  
         }
     }
 `
@@ -51,31 +57,22 @@ export default function BoardsNewPage() {
         console.log("data");
         console.log(data); //input 안의 값
 
+        //입력값 보내기
         try{
-            const result = await createBoard({
-                variables: {createBoardInput: {writer: data.writer, password: data.password, title: data.title, contents: data.contents}} 
+            const result = await createBoard({ //input창을 만들고 onChange & state 이용하면 입력값을 받을 수 있다
+                variables: {createBoardInput: {writer: data.writer, password: data.password, title: data.title, contents: data.contents, youtubeUrl: data.youtubeUrl, boardAddress:{zipcode: data.zipcode, address: data.address, addressDetail: data.addressDetail}}} 
             })
             console.log("result")
             console.log(result)
             console.log("result.data")
             console.log(result.data)
-            alert('게시글이 정상적으로 등록되었습니다.')
+            // alert('게시글이 정상적으로 등록되었습니다.')
             router.push(`/boards/${result.data.createBoard._id}`)
     
         }catch(error){
             alert(error.message)
         }  
-        //입력값 보내기
-        const result = await createBoard({
-            variables: {createBoardInput: {
-                writer: data.writer,
-                password: data.password,
-                title: data.title,
-                contents: data.contents
-            }} //input창을 만들고 onChange & state 이용하면 입력값을 받을 수 있다
-        })
-        console.log("리턴값")
-        console.log(result)
+
 
     }
 
@@ -112,13 +109,13 @@ export default function BoardsNewPage() {
                     <ZipCode {...register("zipcode")} type="text" placeholder="00000"/>
                     <ZipCodeButton>우편번호 검색</ZipCodeButton>
                 </ZipCodeWrapper>
-                <Address {...register("address1")} type="text"/>
-                <Address {...register("address2")} type="text"/>
+                <Address {...register("address")} type="text"/>
+                <Address {...register("addressDetail")} type="text"/>
             </InputWrapper>
 
             <InputWrapper>
                 <Label>유튜브</Label>
-                <Input {...register("link")} type="text" placeholder="링크를 복사해주세요."/>
+                <Input {...register("youtubeUrl")} type="text" placeholder="링크를 복사해주세요."/>
             </InputWrapper>
 
             <InputWrapper>
@@ -143,13 +140,13 @@ export default function BoardsNewPage() {
                 <Label>메인 설정</Label>
                 <Radio {...register("youtube")} type="radio" id="youtube" name="radio-button" checked/>
                 <RadioLabel htmlFor="youtube">유튜브</RadioLabel>
-                <Radio {...register("image")} type="radio" id="image" name="radio-button" />
-                <RadioLabel htmlFor="image">사진</RadioLabel>
+                <Radio {...register("images")} type="radio" id="images" name="radio-button" />
+                <RadioLabel htmlFor="images">사진</RadioLabel>
             </SettingWrapper>
 
         <SubmitButton>등록하기</SubmitButton>
     </Wrapper>
-  )
+    )
 }
 
 

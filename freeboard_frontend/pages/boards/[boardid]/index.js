@@ -37,7 +37,16 @@ const FETCH_BOARD = gql`
             writer
             title
             contents
+            youtubeUrl
+            likeCount
+            dislikeCount
+            boardAddress{zipcode}
+            boardAddress{address}
+            boardAddress{addressDetail}
             createdAt
+            updatedAt
+            deletedAt
+            __typename
         }
     }
 `
@@ -68,11 +77,13 @@ export default function BoardsDetailPage(){
             <HeaderWrapper>
                 <ProfileImage></ProfileImage>
                 <ProfileWrapper>
-                    <Writer>{data? data.fetchBoard.writer : 'loading...'}</Writer>
-                    <CreateDate>Date : {data? data.fetchBoard.createdAt.substring(0,10).replaceAll('-','.') : 'loading...'}</CreateDate>
+                    <Writer>{data?.fetchBoard.writer}</Writer>
+                    <CreateDate>Date : {data?.fetchBoard.createdAt.substring(0,10).replaceAll('-','.')}</CreateDate>
                 </ProfileWrapper>
                 <InfoWrapper>
-                    <LocationToolTip id="toolTip">서울특별시 영등포구 양산로 200<br/>(영등포동5가, 영등포시장역) 영등포 타임스퀘어 2층</LocationToolTip>
+                    <LocationToolTip id="toolTip">{data?.fetchBoard.boardAddress.address}<br/>{data?.fetchBoard.boardAddress.addressDetail}</LocationToolTip>
+
+
                     <IconWrapper>
                         <LinkIcon></LinkIcon>
                         <LocationIcon onClick={onClickToolTip}>
@@ -85,7 +96,7 @@ export default function BoardsDetailPage(){
 
                 <Title>{data? data.fetchBoard.title : 'loading...'}</Title>
                 <Image></Image>
-                <Contents>{data? data.fetchBoard.contents : 'loading...'}</Contents>
+                <Contents>{data?.fetchBoard.contents }</Contents>
                 <VideoWrapper>
                     <Video>
                         <PlayButton>
@@ -96,11 +107,11 @@ export default function BoardsDetailPage(){
                 <LikeWrapper>
                     <Like>
                         <LikeIcon></LikeIcon>
-                        <LikeCount>1920</LikeCount>
+                        <LikeCount>{data?.fetchBoard.likeCount }</LikeCount>
                     </Like>
                     <Like>
                         <DisLikeIcon></DisLikeIcon>
-                        <DisLikeCount>1920</DisLikeCount>
+                        <DisLikeCount>{data?.fetchBoard.dislikeCount }</DisLikeCount>
                     </Like>
                 </LikeWrapper>
 

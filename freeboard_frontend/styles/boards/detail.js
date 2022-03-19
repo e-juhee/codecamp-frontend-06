@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-export const Wrapper = styled.form`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -155,6 +155,7 @@ export const PlayButton = styled.div`
   background-image: url("/boards/detail/Eclipse.png");
   background-size: auto; 
   background-repeat: no-repeat;
+  cursor: pointer;
 `
 export const PlayButtonInner = styled.div`
   width: 20px;
@@ -178,7 +179,6 @@ align-items: center;
 width: 40px;
 height: 51px;
 margin: auto 20px;
-cursor: pointer;
 `
 export const LikeIcon = styled.div`
   width: 20px;
@@ -186,14 +186,15 @@ export const LikeIcon = styled.div`
   background-image: url("/boards/detail/Like.png");
   background-size: auto; 
   background-repeat: no-repeat;
+  cursor: pointer;
 `
 export const DisLikeIcon = styled.div`
-
   width: 20px;
   height: 18px;
   background-image: url("/boards/detail/DisLike.png");
   background-size: auto; 
   background-repeat: no-repeat;
+  cursor: pointer;
 `
 export const LikeCount = styled.div`
   font-weight: 400;
