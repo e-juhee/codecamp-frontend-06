@@ -17,7 +17,7 @@ import {
   KakaoWrapper,
   KakaoImg,
   KakaoText
-} from '../../../styles/itsload'
+} from '../../styles/itsload'
 
 import { useState } from 'react'
 

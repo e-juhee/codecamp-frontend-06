@@ -27,7 +27,7 @@ import {
     FooterWrapper,
     Button
 } from "../../../styles/boards/detail"
-import {useQuery, gql} from '@apollo/client'
+import {useQuery, useMutation, gql} from '@apollo/client'
 import { useRouter } from 'next/router'
 
 const FETCH_BOARD = gql`
@@ -50,19 +50,25 @@ const FETCH_BOARD = gql`
         }
     }
 `
-
+    const LIKE_BOARD = gql`
+    mutation likeBoard($boardId:ID!){
+        likeBoard(boardId:$boardId)
+    }
+`
+    const DISLIKE_BOARD = gql`
+    mutation dislikeBoard($boardId:ID!){
+        dislikeBoard(boardId:$boardId)
+    }
+`
 
 export default function BoardsDetailPage(){
-    const router = useRouter()
-    console.log(router)
-    console.log(router.query)
-    console.log(router.query.boardid)
 
+    const router = useRouter()
     const { data } = useQuery(FETCH_BOARD, {
-        variables: {boardId : router.query.boardid}
+        variables: {boardId : router.query.boardid} //폴더명
     })
 
-
+    /*ToolTip show & hide*/
     const onClickToolTip = ()=>{
         let toolTipState = document.getElementById("toolTip");
         if(toolTipState.style.visibility === "visible"){
@@ -71,6 +77,43 @@ export default function BoardsDetailPage(){
             toolTipState.style.visibility = "visible"
         }
     }
+
+    /*LIKE_BOARD*/
+    const [likeBoard] = useMutation(LIKE_BOARD)  
+    const onClickLike = async ()=>{
+        try{
+            const result = await likeBoard({ 
+                variables: {boardId: router.query.boardid }} 
+            )
+            location.reload()
+        }catch(error){
+            alert(error.message)
+        }  
+    }
+    
+    /*DISLIKE_BOARD*/
+    const [dislikeBoard] = useMutation(DISLIKE_BOARD)  
+    const onClickDisLike = async ()=>{
+        try{
+            const result = await dislikeBoard({ 
+                variables: {boardId: router.query.boardid }} 
+            )
+            location.reload()
+        }catch(error){
+            alert(error.message)
+        }  
+    }
+
+    // console.log('router')
+    // console.log(router)
+    // console.log('router.query')
+    // console.log(router.query)
+    // console.log('router.pathname')
+    // console.log(router.pathname)
+    // console.log('router.asPath')
+    // console.log(router.asPath)
+    // console.log('router.isReady')
+    // console.log(router.isReady)
 
     return (
         
@@ -108,11 +151,11 @@ export default function BoardsDetailPage(){
 
                 <LikeWrapper>
                     <Like>
-                        <LikeIcon></LikeIcon>
+                        <LikeIcon onClick={onClickLike}></LikeIcon>
                         <LikeCount>{data?.fetchBoard.likeCount }</LikeCount>
                     </Like>
                     <Like>
-                        <DisLikeIcon></DisLikeIcon>
+                        <DisLikeIcon onClick={onClickDisLike}></DisLikeIcon>
                         <DisLikeCount>{data?.fetchBoard.dislikeCount }</DisLikeCount>
                     </Like>
                 </LikeWrapper>

@@ -1,4 +1,4 @@
-//emotion.js 바꿔야 함..
+//실행 안됨 코드만 참고(styles 파일 바꿔야 함..)
 
 import {Wrapper,Title, Input, InputShort, InputshortWrapper,
     InputLabel, Star, InputInput,
@@ -6,7 +6,7 @@ import {Wrapper,Title, Input, InputShort, InputshortWrapper,
     InputLong, InputInputAddress,InputAddress, AddressDetail,
     Search, PictureWrapper, Picture, PictureIcon, PictureLabel, 
     RadioWrapper, Radio, RadioLabel, Create, Error
-} from "../../../styles/createBoard"
+} from "../../../styles/boards-practice/emotion"
 import { useState } from 'react'
 
 

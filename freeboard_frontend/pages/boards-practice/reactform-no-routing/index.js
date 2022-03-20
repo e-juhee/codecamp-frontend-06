@@ -1,3 +1,4 @@
+//실행 안됨 코드만 참고(styles 파일 바꿔야 함..)
 import {
     Wrapper,
     Title, 

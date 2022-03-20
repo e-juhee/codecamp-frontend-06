@@ -18,9 +18,11 @@ export default function Day5RoutedPAge(){
     const router = useRouter()
     console.log(router)
     console.log(router.query)
+    console.log('query')
+    console.log(router.query)
 
     const { data } = useQuery(FETCH_PRODUCT, {
-        variables: {productId : router.query.id}
+        variables: {productId : router.query.id} //폴더명
     })
     
     console.log(data)

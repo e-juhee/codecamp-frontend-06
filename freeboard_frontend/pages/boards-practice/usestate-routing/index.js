@@ -21,7 +21,7 @@ import {
     ButtonWrapper,
     SubmitButton,
     Error
-} from '../../../styles/mento/emotion'
+} from '../../../styles/boards-practice/emotion'
 import { useState } from 'react'
 import {useMutation,gql} from '@apollo/client'
 import {useRouter} from 'next/router'
