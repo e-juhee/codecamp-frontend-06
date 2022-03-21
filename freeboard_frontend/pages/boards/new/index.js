@@ -53,7 +53,7 @@ export default function BoardsNewPage() {
     
     //react-hook-form: 에러메세지 표시
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = async (data) => {
+    const onSubmit = async (data) => { //async를 붙여야 await를 붙일 수 있다.
         console.log("data");
         console.log(data); //input 안의 값
 
@@ -67,7 +67,7 @@ export default function BoardsNewPage() {
             console.log("result.data")
             console.log(result.data)
             // alert('게시글이 정상적으로 등록되었습니다.')
-            router.push(`/boards/${result.data.createBoard._id}`)
+            router.push(`/boards/${result.data.createBoard._id}`) //[폴더명]은 뭐든지 다 받는 폴더이다. 해당되는 폴더가 없을 경우 [폴더명]이 실행된다. 해당되는 폴더가 있으면 해당하는 폴더로 이동한다.
     
         }catch(error){
             alert(error.message)

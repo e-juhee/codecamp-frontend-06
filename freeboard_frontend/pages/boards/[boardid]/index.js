@@ -121,7 +121,8 @@ export default function BoardsDetailPage(){
             <HeaderWrapper>
                 <ProfileImage></ProfileImage>
                 <ProfileWrapper>
-                    <Writer>{data?.fetchBoard?.writer}</Writer>
+                    {/* 옵셔널 체이닝: 데이터가 없으면(undefined) 일단 화면만 그려놓고, 데이터를 받아오면 데이터를 그려준다.*/}
+                    <Writer>{data?.fetchBoard?.writer}</Writer> 
                     <CreateDate>Date : {data?.fetchBoard?.createdAt.substring(0,10).replaceAll('-','.')}</CreateDate>
                 </ProfileWrapper>
                 <InfoWrapper>
@@ -138,6 +139,7 @@ export default function BoardsDetailPage(){
             </HeaderWrapper>
             
 
+                {/* 삼항 연산자: 데이터가 없을 때 나타낼 내용을 지정할 수 있다. 태그를 넣어도 된다. 가독성을 위해 한 줄 정도의 분량일 때만 사용하는 것이 좋다. */}
                 <Title>{data? data.fetchBoard?.title : 'loading...'}</Title>
                 <Image></Image>
                 <Contents>{data?.fetchBoard?.contents }</Contents>

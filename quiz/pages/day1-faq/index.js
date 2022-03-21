@@ -2,7 +2,7 @@ import { Profiler } from "react"
 import {  Wrapper, Wrapper__Header, Header, Search, Title, Header__Title, Header__Nav, Nav__Selected__Line, Profile, Profile__Image, Profile__Name, Profile__NameIcon, Nav, Nav__Selected, 
   Split, 
   Wrapper__Question, Question, Question__Number, Question__Title, Question__text, Quetion__Image,
-  Wrapper__Footer, Footer, Footer__Image, Footer__Text, Footer__Text__My } from "../../../styles/myPage"
+  Wrapper__Footer, Footer, Footer__Image, Footer__Text, Footer__Text__My } from "../../styles/myPage"
 
 export default function myPage() {
   return (
