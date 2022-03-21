@@ -27,7 +27,7 @@ import {
 export default function BoardWriteUI(props){
     return(
         <>
-        <Wrapper onSubmit={props.onSubmit}>
+        <Wrapper onSubmit={props.handleSubmit(props.onSubmit)}>
         <Title>게시물 등록</Title>
         
             <WriterWrapper>

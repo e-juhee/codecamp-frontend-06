@@ -17,7 +17,7 @@ export default function BoardWrite(){
         console.log(data); //input 안의 값
 
     //입력값 보내기
-        // try{
+        try{
             const result = await createBoard({ //input창을 만들고 onChange & state 이용하면 입력값을 받을 수 있다
                 variables: {createBoardInput: {writer: data.writer, password: data.password, title: data.title, contents: data.contents, youtubeUrl: data.youtubeUrl, boardAddress:{zipcode: data.zipcode, address: data.address, addressDetail: data.addressDetail}}} 
             })
@@ -25,12 +25,12 @@ export default function BoardWrite(){
             console.log(result)
             console.log("result.data")
             console.log(result.data)
-            // alert('게시글이 정상적으로 등록되었습니다.')
+            alert('게시글이 정상적으로 등록되었습니다.')
             router.push(`/boards/${result.data.createBoard._id}`) //[폴더명]은 뭐든지 다 받는 폴더이다. 해당되는 폴더가 없을 경우 [폴더명]이 실행된다. 해당되는 폴더가 있으면 해당하는 폴더로 이동한다.
     
-        // }catch(error){
-            // alert(error.message)
-        // }  
+        }catch(error){
+            alert(error.message)
+        }  
 
 
     }
