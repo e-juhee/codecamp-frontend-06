@@ -1,5 +1,9 @@
 import styled from '@emotion/styled'
 
+// export const SubmitButton = styled.button`
+//     background-color: ${(props) => props.isActive ? "red" : "none"};
+// `
+
 
 export const Wrapper = styled.form`
   display: flex;
@@ -142,7 +146,7 @@ export const SubmitButton = styled.button`
   height: 52px;
   border: none;
   border-radius: 5px;
-  background: #FFD600;
+  background-color: ${(props) => props.isActive ? "red" : "#FFD600;"};
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
