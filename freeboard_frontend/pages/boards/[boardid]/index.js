@@ -1,3 +1,5 @@
+/* FREEBOARD-DETAIL */
+
 import {
     Wrapper,
     HeaderWrapper,
