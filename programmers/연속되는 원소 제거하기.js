@@ -26,3 +26,16 @@ function solution(arr){
 
     return answer;
 }
+
+function sol2(arr){
+    const answer = [];
+    
+	for(let i=0;i<arr.length;i++){
+        console.log(arr[i],answer)
+        if(answer[answer.length-1] !== arr[i]){
+            answer.push(arr[i])
+        }
+    } 
+    return answer;
+  
+}

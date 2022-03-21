@@ -18,3 +18,28 @@ function solution(phone_number) {
   answer = slicedNum.padStart(phone_number.length, '*')
   return answer;
 }
+
+function sol2(phone_number) {
+  let answer = '';
+  
+  for(let i=0; i < phone_number.length; i++){
+      if(i < phone_number.length -4){
+          answer += "*";
+      }else{
+          answer += phone_number[i];
+      }
+  }
+  return answer;
+}
+
+function sol3(phone_number) {
+  let answer = '';
+  
+  // 1. 뒷 4자리를 제외한 앞에 번호들은 *로 채워준다.
+  answer = answer.padStart(phone_number.length-4, '*')
+  
+  //2. 뒷 4자리를 잘라서 문자열 뒤에 추가한다.
+  return answer + phone_number.slice(phone_number.length-4)
+  
+  
+}
