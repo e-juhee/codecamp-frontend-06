@@ -1,20 +1,52 @@
 import BoardDetailUI from "./BoardDetail.presenter" // ./: 현위치에서
-import {useQuery} from '@apollo/client'
+import {useQuery, useMutation} from '@apollo/client'
 import { useRouter } from 'next/router'
-import {FETCH_BOARD} from './BoardDetail.queries'
+import {FETCH_BOARD, LIKE_BOARD, DISLIKE_BOARD} from './BoardDetail.queries'
 
 
 export default function BoardDetail(){
 
 
-        const router = useRouter()
-        console.log(router)
+    const router = useRouter()
+    const { data } = useQuery(FETCH_BOARD, {
+        variables: {boardId : String(router.query.boardId)} //폴더명
+    })
+
+    /*ToolTip show & hide*/
+    const onClickToolTip = ()=>{
+        let toolTipState = document.getElementById("toolTip");
+        if(toolTipState.style.visibility === "visible"){
+            toolTipState.style.visibility = "hidden";
+        } else{
+            toolTipState.style.visibility = "visible"
+        }
+    }
+
+    /*LIKE_BOARD*/
+    const [likeBoard] = useMutation(LIKE_BOARD)  
+    const onClickLike = async ()=>{
+        try{
+            const result = await likeBoard({ 
+                variables: {boardId: router.query.boardId }} 
+            )
+            location.reload()
+        }catch(error){
+            alert(error.message)
+        }  
+    }
     
-        const { data } = useQuery(FETCH_BOARD, {
-            variables: {number:Number(router.query.number)} //aaa = url에 입력된 값
-        })
-        
-        console.log(data)
+    /*DISLIKE_BOARD*/
+    const [dislikeBoard] = useMutation(DISLIKE_BOARD)  
+    const onClickDisLike = async ()=>{
+        try{
+            const result = await dislikeBoard({ 
+                variables: {boardId: router.query.boardId }} 
+            )
+            location.reload()
+        }catch(error){
+            alert(error.message)
+        }  
+    }
     
     
 
@@ -27,6 +59,9 @@ export default function BoardDetail(){
             // 키는 자유롭게 지정이 가능하나, 가급적 통일한다.
             // 자식에게 보낼 데이터를 적는다.
             data ={data}
+            onClickToolTip={onClickToolTip}
+            onClickLike={onClickLike}
+            onClickDisLike={onClickDisLike}
             // isActive={isActive}
         />
     )
