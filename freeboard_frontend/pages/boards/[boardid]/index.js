@@ -121,11 +121,11 @@ export default function BoardsDetailPage(){
             <HeaderWrapper>
                 <ProfileImage></ProfileImage>
                 <ProfileWrapper>
-                    <Writer>{data?.fetchBoard.writer}</Writer>
-                    <CreateDate>Date : {data?.fetchBoard.createdAt.substring(0,10).replaceAll('-','.')}</CreateDate>
+                    <Writer>{data?.fetchBoard?.writer}</Writer>
+                    <CreateDate>Date : {data?.fetchBoard?.createdAt.substring(0,10).replaceAll('-','.')}</CreateDate>
                 </ProfileWrapper>
                 <InfoWrapper>
-                    <LocationToolTip id="toolTip">{data?.fetchBoard.boardAddress.address}<br/>{data?.fetchBoard.boardAddress.addressDetail}</LocationToolTip>
+                    <LocationToolTip id="toolTip">{data?.fetchBoard?.boardAddress.address}<br/>{data?.fetchBoard.boardAddress.addressDetail}</LocationToolTip>
 
 
                     <IconWrapper>
@@ -138,9 +138,9 @@ export default function BoardsDetailPage(){
             </HeaderWrapper>
             
 
-                <Title>{data? data.fetchBoard.title : 'loading...'}</Title>
+                <Title>{data? data.fetchBoard?.title : 'loading...'}</Title>
                 <Image></Image>
-                <Contents>{data?.fetchBoard.contents }</Contents>
+                <Contents>{data?.fetchBoard?.contents }</Contents>
                 <VideoWrapper>
                     <Video>
                         <PlayButton>
@@ -152,11 +152,11 @@ export default function BoardsDetailPage(){
                 <LikeWrapper>
                     <Like>
                         <LikeIcon onClick={onClickLike}></LikeIcon>
-                        <LikeCount>{data?.fetchBoard.likeCount }</LikeCount>
+                        <LikeCount>{data?.fetchBoard?.likeCount }</LikeCount>
                     </Like>
                     <Like>
                         <DisLikeIcon onClick={onClickDisLike}></DisLikeIcon>
-                        <DisLikeCount>{data?.fetchBoard.dislikeCount }</DisLikeCount>
+                        <DisLikeCount>{data?.fetchBoard?.dislikeCount }</DisLikeCount>
                     </Like>
                 </LikeWrapper>
 
