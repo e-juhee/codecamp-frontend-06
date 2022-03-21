@@ -65,7 +65,7 @@ export default function BoardsDetailPage(){
 
     const router = useRouter()
     const { data } = useQuery(FETCH_BOARD, {
-        variables: {boardId : router.query.boardid} //폴더명
+        variables: {boardId : router.query.boardId} //폴더명
     })
 
     /*ToolTip show & hide*/
