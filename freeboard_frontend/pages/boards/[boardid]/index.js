@@ -83,7 +83,7 @@ export default function BoardsDetailPage(){
     const onClickLike = async ()=>{
         try{
             const result = await likeBoard({ 
-                variables: {boardId: router.query.boardid }} 
+                variables: {boardId: router.query.boardId }} 
             )
             location.reload()
         }catch(error){
@@ -96,7 +96,7 @@ export default function BoardsDetailPage(){
     const onClickDisLike = async ()=>{
         try{
             const result = await dislikeBoard({ 
-                variables: {boardId: router.query.boardid }} 
+                variables: {boardId: router.query.boardId }} 
             )
             location.reload()
         }catch(error){
