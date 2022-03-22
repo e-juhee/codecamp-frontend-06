@@ -1,5 +1,5 @@
 /*
-운데 글자 가져오기
+가운데 글자 가져오기
 문제 설명
 단어 s의 가운데 글자를 반환하는 함수, solution을 만들어 보세요. 단어의 길이가 짝수라면 가운데 두글자를 반환하면 됩니다.
 
@@ -12,6 +12,7 @@ s	return
 r"	"we"
 */
 
+//Math.trunc
 function solution(s) {
     var answer = '';
     if(s.length%2===0){
@@ -21,6 +22,27 @@ function solution(s) {
     }
     return answer;
 }
+
+//Math.floor
+function solution2(s) {
+    const center = Math.floor(s.length/2)
+    console.log( s[center])
+    let answer = s[center];
+    
+    if(s.length % 2 === 0){
+        return s[center-1]+s[center]
+    }
+    return answer;
+}
+
+//삼항연산자 & slice
+function solution3(s) {
+    const center = Math.floor(s.length/2);
+    return s.length % 2 ===1
+            ? s[center]
+            : s.slice(center-1, center+1)
+}
+
 
 //s 의 가운데 글자 반환
 // 짝수면 가운데 두글자

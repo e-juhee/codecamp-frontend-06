@@ -27,7 +27,8 @@ export default function BoardWrite(){
             console.log("result.data")
             console.log(result.data)
             alert('게시글이 정상적으로 등록되었습니다.')
-            router.push(`/boards/${result.data.createBoard._id}`) //[폴더명]은 뭐든지 다 받는 폴더이다. 해당되는 폴더가 없을 경우 [폴더명]이 실행된다. 해당되는 폴더가 있으면 해당하는 폴더로 이동한다.
+            //실행되는 곳은 pages/boards/new/index.js이다. 그에 맞게 경로를 정해줘야 한다.
+            router.push(`/boards/${result.data.createBoard._id}`) //[폴더명]은 뭐든지 다 받는 폴더이다. 해당되는 폴더가 없을 경우 [폴더명]이 실행된다. 해당되는 폴더가 있으면([대괄호 폴더명]이 아니라 그냥 폴더명인 경우) 해당하는 폴더로 이동한다.
         }catch(error){
             alert(error.message)
         }  

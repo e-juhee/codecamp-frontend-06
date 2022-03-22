@@ -146,7 +146,7 @@ export const SubmitButton = styled.button`
   height: 52px;
   border: none;
   border-radius: 5px;
-  background-color: ${(props) => props.isActive ? "red" : "#FFD600;"};
+  background-color: ${(props) => props.isActive ? "#FFD600;" : "gray"};
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
