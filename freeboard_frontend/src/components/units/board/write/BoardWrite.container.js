@@ -15,7 +15,7 @@ export default function BoardWrite(){
     const router = useRouter()
     const [createBoard] = useMutation(CREATE_BOARD)
     const onSubmit = async (data) => { //async를 붙여야 await를 붙일 수 있다.
-        reset(result);
+        // reset(result);
         console.log("data");
         console.log(data); //input 안의 값
         try{

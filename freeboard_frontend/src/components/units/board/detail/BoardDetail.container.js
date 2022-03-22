@@ -1,7 +1,7 @@
 import BoardDetailUI from "./BoardDetail.presenter" // ./: 현위치에서
 import {useQuery, useMutation} from '@apollo/client'
 import { useRouter } from 'next/router'
-import {FETCH_BOARD, LIKE_BOARD, DISLIKE_BOARD} from './BoardDetail.queries'
+import {FETCH_BOARD, LIKE_BOARD, DISLIKE_BOARD, DELETE_BOARD} from './BoardDetail.queries'
 
 
 export default function BoardDetail(){
@@ -10,7 +10,10 @@ export default function BoardDetail(){
     const router = useRouter()
     const { data } = useQuery(FETCH_BOARD, {
         variables: {boardId : String(router.query.boardId)} //폴더명
+        
     })
+    console.log(data)
+    console.log(data?.fetchBoard._id)
 
     /*ToolTip show & hide*/
     const onClickToolTip = ()=>{
@@ -48,21 +51,45 @@ export default function BoardDetail(){
         }  
     }
     
+    /*DELETE_BOARD*/
+    // const { data } = useQuery(FETCH_BOARDS)
+    const [deleteBoard] = useMutation(DELETE_BOARD)
+
+    //event.target : 태그
+    const onClickDelete = (event) => {
+        // console.log(event.target.id)
+        try{
+            deleteBoard({
+                variables:{boardId:event.target.id}
+                // , refetchQueries: [{query:FETCH_BOARDS}]
+            })
+            alert("삭제되었습니다.")
+            router.push(`/boards`) 
+        }catch(error){
+            alert(error.message)
+            console.log("에러발생!!")
+        }
+        
+    }
+
+    /*Routing to Boards */
+    // const router = useRouter()
+    const onClickList = () => {
+            router.push(`/boards`) 
+        
+    }
     
 
 
 
     return(
-        // 자동완성으로 엔터 치면 자동으로 Import가 된다.
         <BoardDetailUI 
-            // props라는 객체가 생성되어 함수가 value로 들어가서 props를 통해 전달된다.
-            // 키는 자유롭게 지정이 가능하나, 가급적 통일한다.
-            // 자식에게 보낼 데이터를 적는다.
             data ={data}
             onClickToolTip={onClickToolTip}
             onClickLike={onClickLike}
             onClickDisLike={onClickDisLike}
-            // isActive={isActive}
+            onClickDelete={onClickDelete}
+            onClickList={onClickList}
         />
     )
 }

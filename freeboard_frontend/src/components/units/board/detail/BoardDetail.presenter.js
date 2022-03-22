@@ -42,7 +42,9 @@ export default function BoardDetailUI(props){
                 <CreateDate>Date : {props.data?.fetchBoard?.createdAt.substring(0,10).replaceAll('-','.')}</CreateDate>
             </ProfileWrapper>
             <InfoWrapper>
-                <LocationToolTip id="toolTip">{props.data?.fetchBoard?.boardAddress.address}<br/>{props.data?.fetchBoard?.boardAddress.addressDetail}</LocationToolTip>
+                <LocationToolTip id="toolTip">{props.data?.fetchBoard?.boardAddress?.address}
+                <br/>
+                {props.data?.fetchBoard?.boardAddress?.addressDetail}</LocationToolTip>
 
 
                 <IconWrapper>
@@ -79,9 +81,9 @@ export default function BoardDetailUI(props){
             </LikeWrapper>
 
         <FooterWrapper>
-            <Button>목록으로</Button>
+            <Button onClick={props.onClickList}>목록으로</Button>
             <Button>수정하기</Button>
-            <Button>삭제하기</Button>
+            <Button id={props.data?.fetchBoard?._id} onClick={props.onClickDelete}>삭제하기</Button>
         </FooterWrapper>
     </Wrapper>
     )
