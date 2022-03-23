@@ -5,7 +5,8 @@ import {FETCH_PRODUCT} from './ProductDetail.queries'
 
 
 export default function ProductDetail(){
-        const router = useRouter()
+        
+    const router = useRouter()
         console.log(router)
         console.log(router.query)
         console.log('query')

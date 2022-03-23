@@ -4,5 +4,5 @@ import BoardWrite from "../../../src/components/units/board/write/BoardWrite.con
 
 export default function BoardsNewPage() {
 
-    return <BoardWrite /> 
+    return <BoardWrite  isEdit={false}/> 
 }

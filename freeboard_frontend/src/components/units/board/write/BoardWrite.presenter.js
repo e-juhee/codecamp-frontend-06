@@ -27,13 +27,13 @@ import {
 export default function BoardWriteUI(props){
     return(
         <>
-        <Wrapper onSubmit={props.handleSubmit(props.onSubmit)}>
-        <Title>게시물 등록</Title>
+        <Wrapper onSubmit={props.isEdit? props.handleSubmit(props.onClickUpdate) : props.handleSubmit(props.onSubmit)}>
+        <Title>{props.isEdit? "게시물 수정" : "게시물 등록"}</Title>
         
             <WriterWrapper>
                 <InputWrapper>
                     <Label>작성자<Required>*</Required></Label>
-                    <ShortInput {...props.register("writer", { required: true })} onChange={e=>props.onChangeWriter(e)}  type="text" placeholder="이름을 적어주세요."/>
+                    <ShortInput {...props.register("writer", { required: true })} onChange={e=>props.onChangeWriter(e)}  type="text" placeholder="이름을 적어주세요." />
                     {props.errors.writer && <Error>이름을 입력해주세요.</Error>}
 
 
@@ -97,7 +97,7 @@ export default function BoardWriteUI(props){
                 <RadioLabel htmlFor="images">사진</RadioLabel>
             </SettingWrapper>
 
-            <SubmitButton isActive={props.isActive}>등록하기</SubmitButton>
+            <SubmitButton isActive={props.isActive}>{props.isEdit? "수정하기" : "등록하기"}</SubmitButton>
         </Wrapper>
         </>
     )

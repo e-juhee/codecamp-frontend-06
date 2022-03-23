@@ -76,7 +76,10 @@ export default function BoardDetail(){
     // const router = useRouter()
     const onClickList = () => {
             router.push(`/boards`) 
-        
+    }
+    
+    const onClickUpdate = () => {
+            router.push(`/boards/${router.query.boardId}/edit`) 
     }
     
 
@@ -90,6 +93,7 @@ export default function BoardDetail(){
             onClickDisLike={onClickDisLike}
             onClickDelete={onClickDelete}
             onClickList={onClickList}
+            onClickUpdate={onClickUpdate}
         />
     )
 }

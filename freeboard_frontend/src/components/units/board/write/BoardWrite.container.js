@@ -1,17 +1,38 @@
 import BoardWriteUI from "./BoardWrite.presenter" // ./: 현위치에서
 import {useMutation} from '@apollo/client'
 import { useRouter } from 'next/router'
-import {CREATE_BOARD} from './BoardWrite.queries'
+import {CREATE_BOARD, UPDATE_BOARD} from './BoardWrite.queries'
 import { useForm } from 'react-hook-form';
 import {useState} from 'react'
 
 
-export default function BoardWrite(){
+export default function BoardWrite(props){
 
-    //react-hook-form: 에러메세지 표시
+    /*react-hook-form: 에러메세지 표시*/
     const { register, handleSubmit, formState: { errors } , watch} = useForm();
 
-    //입력값 보내기 & 라우팅
+
+    /*4개의 필수값이 입력되면 버튼 색깔 바꾸기*/
+    const [isActive, setIsActive] = useState(true);
+    const onChangeWriter = (e)=>{
+        e.preventDefault()
+        e.target.value &&  watch("password") &&  watch("title") &&  watch("contents") ? setIsActive(false) : setIsActive(true)
+    }
+    const onChangePassword = (e)=>{
+        e.preventDefault()
+        e.target.value &&  watch("writer") &&  watch("title") &&  watch("contents") ? setIsActive(false) : setIsActive(true)
+    }
+    const onChangeTitle = (e)=>{
+        e.preventDefault()
+        e.target.value &&  watch("writer") &&  watch("password") &&  watch("contents") ? setIsActive(false) : setIsActive(true)
+    }
+    const onChangeContent = (e)=>{
+        e.preventDefault()
+        e.target.value &&  watch("writer") &&  watch("password") &&  watch("title") ? setIsActive(false) : setIsActive(true)
+    }
+
+
+    /* CREATE_BOARD : 입력값 보내기 & detail로 라우팅*/
     const router = useRouter()
     const [createBoard] = useMutation(CREATE_BOARD)
     const onSubmit = async (data) => { //async를 붙여야 await를 붙일 수 있다.
@@ -34,20 +55,28 @@ export default function BoardWrite(){
         }  
     }
 
-    //4개의 필수값이 입력되면 버튼 색깔 바꾸기
-    const [isActive, setIsActive] = useState(true);
-    const onChangeWriter = (e)=>{
-        e.target.value &&  watch("password") &&  watch("title") &&  watch("contents") ? setIsActive(false) : setIsActive(true)
+    
+    const [updateBoard] = useMutation(UPDATE_BOARD)
+    /* 수정 버튼 클릭*/
+    const onClickUpdate = async (data)=>{
+        console.log('router')
+        console.log(router.query.boardId)
+        await updateBoard({
+            variables: {boardId: router.query.boardId, 
+                        password: data.password,
+                        updateBoardInput: {title: data.title, contents: data.contents, youtubeUrl: data.youtubeUrl, 
+                                            boardAddress:{zipcode: data.zipcode, address: data.address, addressDetail: data.addressDetail}}} 
+        })
+        alert('수정이 완료되었습니다.')
+        router.push(`//boards/${router.query.boardId}`) 
+        //myNumber는 경로에서 가져온 것이다.
+        //router.query.myNumber는수정화면에서 사용 가능 ! 등록 화면의 경로에는 myNumber가 없기 때문이다.
+        // updateBoard를 result에 담아서 오른쪽처럼 써도 된다. ${result.data.updateBoard.number}
     }
-    const onChangePassword = (e)=>{
-        e.target.value &&  watch("writer") &&  watch("title") &&  watch("contents") ? setIsActive(false) : setIsActive(true)
-    }
-    const onChangeTitle = (e)=>{
-        e.target.value &&  watch("writer") &&  watch("password") &&  watch("contents") ? setIsActive(false) : setIsActive(true)
-    }
-    const onChangeContent = (e)=>{
-        e.target.value &&  watch("writer") &&  watch("password") &&  watch("title") ? setIsActive(false) : setIsActive(true)
-    }
+
+
+
+
 
 
     return(
@@ -66,6 +95,8 @@ export default function BoardWrite(){
             onChangePassword={onChangePassword}
             onChangeTitle={onChangeTitle}
             onChangeContent={onChangeContent}
+            onClickUpdate={onClickUpdate}
+            isEdit={props.isEdit}
         />
     )
 }
