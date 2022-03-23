@@ -1,6 +1,7 @@
 
 //default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
 
+import { getDate } from "../../../../commons/libraries/utils"
 import{
     Wrapper,
     HeaderWrapper,
@@ -39,7 +40,8 @@ export default function BoardDetailUI(props){
             <ProfileWrapper>
                 {/* 옵셔널 체이닝: 데이터가 없으면(undefined) 일단 화면만 그려놓고, 데이터를 받아오면 데이터를 그려준다.*/}
                 <Writer>{props.data?.fetchBoard?.writer}</Writer> 
-                <CreateDate>Date : {props.data?.fetchBoard?.createdAt.substring(0,10).replaceAll('-','.')}</CreateDate>
+                {/* <CreateDate>Date : {props.data?.fetchBoard?.createdAt.substring(0,10).replaceAll('-','.')}</CreateDate> */}
+                <CreateDate>Date : {getDate(props.data?.fetchBoard?.createdAt)}</CreateDate>
             </ProfileWrapper>
             <InfoWrapper>
                 <LocationToolTip id="toolTip">{props.data?.fetchBoard?.boardAddress?.address}

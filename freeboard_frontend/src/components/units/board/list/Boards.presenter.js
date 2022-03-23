@@ -1,3 +1,4 @@
+import { getDate } from "../../../../commons/libraries/utils"
 import * as S from "./Boards.style"
 //default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
 
@@ -104,14 +105,26 @@ export default function BoardsUI(props){
                 </tr>
                 </thead>
                 <tbody>
-                {props.data?.fetchBoards.map((el, index)=>( 
+                {/* {props.data?.fetchBoards.map((el, index)=>( 
                     <tr key={el._id} >
                         <S.TD style={{width:"100px"}}>{index+1}</S.TD>
-                        <S.TD  onClick={props.onClickBoard(el)} style={{width:"800px"}}>{el.title}</S.TD>
+                        <S.TD id={el._id} onClick={props.onClickBoard} style={{width:"800px"}}>{el.title}</S.TD>
                         <S.TD>{el.writer}</S.TD>
                         <S.TD>{el.createdAt.substring(0,10).replaceAll('-','.')}</S.TD>
                     </tr>
-                ))}
+                ))} */}
+                {props.data?.fetchBoards.map((el, index)=> ( 
+                    <tr key={el._id} >
+                        <S.TD style={{width:"100px"}}>{index+1}</S.TD>
+                        <S.TD id={el._id} onClick={props.onClickBoard} style={{width:"800px"}}>{el.title}</S.TD>
+                        <S.TD>{el.writer}</S.TD>
+                        {/* <S.TD>{el.createdAt.substring(0,10).replaceAll('-','.')}</S.TD> */}
+                        <S.TD>{getDate(el.createdAt)}</S.TD>
+                    </tr>
+                )
+                
+                
+                )}
                 </tbody>
             </S.Table>
 
