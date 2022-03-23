@@ -26,7 +26,9 @@ export default function Boards(){
  const onClickBoard = (e) => { 
     console.log("onClickBoard 실행")
     console.log(e)   
-    // router.push(`/boards/${e._id}`)
+    router.push(`/boards/${e.target.id}`)
+    //event.targetㅣ 태그
+    //event.target.value: 인풋창에 입력한 값
 
         }
 
