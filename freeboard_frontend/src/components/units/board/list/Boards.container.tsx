@@ -1,6 +1,6 @@
 import BoardsUI from "./Boards.presenter" // ./: 현위치에서
 import {useQuery} from '@apollo/client'
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router'
 import {FETCH_BOARDS} from './Boards.queries'
 
 
@@ -23,7 +23,7 @@ export default function Boards(){
 
 /*Routing to BoardDetial*/
 //routing 실패..
- const onClickBoard = (e) => { 
+ const onClickBoard = (e:any) => { 
     console.log("onClickBoard 실행")
     console.log(e)   
     router.push(`/boards/${e.target.id}`)
@@ -31,11 +31,6 @@ export default function Boards(){
     //event.target.value: 인풋창에 입력한 값
 
         }
-
-
-
-
-
 
     return(
         <BoardsUI 

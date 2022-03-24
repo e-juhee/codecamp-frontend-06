@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es5", //어떤 버전의 js로 바꿀 것인지
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true, //라이브러리의 타입도 체크할 것인지
+    "strict": true, //엄격하게 관리할 것인지! false -> true로 변경
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts", //*: 확장자가 ts인 모든 폴더/모든 파일, 폴더 안의 폴더 모두 검증하겠다.
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

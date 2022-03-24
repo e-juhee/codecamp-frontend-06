@@ -31,8 +31,9 @@ import{
     FooterWrapper,
     Button
 } from "./BoardDetail.style"
+import { IBoardDetailProps } from "./BoardDetail.types"
 
-export default function BoardDetailUI(props){
+export default function BoardDetailUI(props: IBoardDetailProps){
     return(
         <Wrapper>
         <HeaderWrapper>

@@ -17,7 +17,7 @@ export default function BoardDetail(){
 
     /*ToolTip show & hide*/
     const onClickToolTip = ()=>{
-        let toolTipState = document.getElementById("toolTip");
+        let toolTipState:any = document.getElementById("toolTip");
         if(toolTipState.style.visibility === "visible"){
             toolTipState.style.visibility = "hidden";
         } else{
@@ -33,7 +33,7 @@ export default function BoardDetail(){
                 variables: {boardId: router.query.boardId }} 
             )
             location.reload()
-        }catch(error){
+        }catch(error:any){
             alert(error.message)
         }  
     }
@@ -46,7 +46,7 @@ export default function BoardDetail(){
                 variables: {boardId: router.query.boardId }} 
             )
             location.reload()
-        }catch(error){
+        }catch(error:any){
             alert(error.message)
         }  
     }
@@ -56,7 +56,7 @@ export default function BoardDetail(){
     const [deleteBoard] = useMutation(DELETE_BOARD)
 
     //event.target : 태그
-    const onClickDelete = (event) => {
+    const onClickDelete = (event:any) => {
         // console.log(event.target.id)
         try{
             deleteBoard({
@@ -65,7 +65,7 @@ export default function BoardDetail(){
             })
             alert("삭제되었습니다.")
             router.push(`/boards`) 
-        }catch(error){
+        }catch(error:any){
             alert(error.message)
             console.log("에러발생!!")
         }

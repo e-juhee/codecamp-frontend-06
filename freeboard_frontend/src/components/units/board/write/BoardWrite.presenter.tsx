@@ -23,8 +23,11 @@ import {
     RadioLabel,
     SubmitButton
 } from './BoardWrite.style'
+import { IBoardWriteUIProps } from './BoardWrite.types'
 
-export default function BoardWriteUI(props){
+
+
+export default function BoardWriteUI(props : IBoardWriteUIProps){
     return(
         <>
         <Wrapper onSubmit={props.isEdit? props.handleSubmit(props.onClickUpdate) : props.handleSubmit(props.onSubmit)}>
@@ -33,11 +36,8 @@ export default function BoardWriteUI(props){
             <WriterWrapper>
                 <InputWrapper>
                     <Label>작성자<Required>*</Required></Label>
-                    <ShortInput {...props.register("writer", { required: true })} onChange={e=>props.onChangeWriter(e)}  type="text" placeholder="이름을 적어주세요." />
+                    <ShortInput {...props.register("writer", { required: true })} onChange={e=>props.onChangeWriter(e)}  type="text" placeholder="이름을 적어주세요."  defaultValue={props.data?.fetchBoard.writer}/>
                     {props.errors.writer && <Error>이름을 입력해주세요.</Error>}
-
-
-                    
                 </InputWrapper>
 
                 <InputWrapper>
@@ -49,26 +49,26 @@ export default function BoardWriteUI(props){
     
             <InputWrapper>
                 <Label>제목<Required>*</Required></Label>
-                <Input {...props.register("title", { required: true })} onChange={e=>props.onChangeTitle(e)}   type="text" placeholder="제목을 작성해주세요."/>
+                <Input {...props.register("title", { required: true })} onChange={e=>props.onChangeTitle(e)}   type="text" placeholder="제목을 작성해주세요." defaultValue={props.data?.fetchBoard.title}/>
                 {props.errors.title && <Error>제목을 입력해주세요.</Error>}
                 <Label>내용<Required>*</Required></Label>
-                <ContentInput {...props.register("contents", { required: true })} onChange={e=>props.onChangeContent(e)}  type="text" placeholder="내용을 작성해주세요."/>
+                <ContentInput {...props.register("contents", { required: true })} onChange={e=>props.onChangeContent(e)}  type="text" placeholder="내용을 작성해주세요."  defaultValue={props.data?.fetchBoard.contents}/>
                 {props.errors.contents && <Error>내용을 입력해주세요.</Error>}
             </InputWrapper>
         
             <InputWrapper>
                 <Label>주소</Label>
                 <ZipCodeWrapper>
-                    <ZipCode {...props.register("zipcode")} type="text" placeholder="00000"/>
+                    <ZipCode {...props.register("zipcode")} type="text" placeholder="00000"  defaultValue={props.data?.fetchBoard.boardAddress.zipcode}/>
                     <ZipCodeButton>우편번호 검색</ZipCodeButton>
                 </ZipCodeWrapper>
-                <Address {...props.register("address")} type="text"/>
-                <Address {...props.register("addressDetail")} type="text"/>
+                <Address {...props.register("address")} type="text"  defaultValue={props.data?.fetchBoard.boardAddress.address}/>
+                <Address {...props.register("addressDetail")} type="text"  defaultValue={props.data?.fetchBoard.boardAddress.addressDetail}/>
             </InputWrapper>
 
             <InputWrapper>
                 <Label>유튜브</Label>
-                <Input {...props.register("youtubeUrl")} type="text" placeholder="링크를 복사해주세요."/>
+                <Input {...props.register("youtubeUrl")} type="text" placeholder="링크를 복사해주세요."  defaultValue={props.data?.fetchBoard.youtubeUrl}/>
             </InputWrapper>
 
             <InputWrapper>

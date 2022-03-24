@@ -113,7 +113,7 @@ export default function BoardsUI(props){
                         <S.TD>{el.createdAt.substring(0,10).replaceAll('-','.')}</S.TD>
                     </tr>
                 ))} */}
-                {props.data?.fetchBoards.map((el, index)=> ( 
+                {props.data?.fetchBoards.map((el:any, index:any)=> ( 
                     <tr key={el._id} >
                         <S.TD style={{width:"100px"}}>{index+1}</S.TD>
                         <S.TD id={el._id} onClick={props.onClickBoard} style={{width:"800px"}}>{el.title}</S.TD>
