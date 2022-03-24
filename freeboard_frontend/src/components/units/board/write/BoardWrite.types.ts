@@ -27,7 +27,7 @@ export interface ISubmitButton{
 
 export interface IVariables {
     boardId: string
-    password : number
+    password : string
     updateBoardInput?: IUpdateBoardInput
     }
 
