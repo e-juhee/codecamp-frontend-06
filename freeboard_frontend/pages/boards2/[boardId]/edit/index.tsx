@@ -28,7 +28,6 @@ export default function BoardEditPage(){
     const router = useRouter()
     const { data } = useQuery(FETCH_BOARD, {
         variables: {boardId : String(router.query.boardId)} //폴더명
-        
     })
 
     return <BoardWrite isEdit={true}  data={data}/>

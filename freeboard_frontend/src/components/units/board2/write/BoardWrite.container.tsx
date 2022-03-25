@@ -43,7 +43,7 @@ export default function BoardWrite(props: IBoardWriteProps){
         e.target.value &&  writer &&  password &&  contents ? setIsActive(true) : setIsActive(false)
         if(e.target.value !== ""){setTitleError("")}
     }
-    const onChangeContents = (e: ChangeEvent<HTMLInputElement>)=>{
+    const onChangeContents = (e: ChangeEvent<HTMLTextAreaElement>)=>{
         setContents(e.target.value)
         e.target.value &&  writer &&  password &&  title ? setIsActive(true) : setIsActive(false)
         if(e.target.value !== ""){setContentsError("")}
@@ -100,6 +100,14 @@ export default function BoardWrite(props: IBoardWriteProps){
     /* UPDATE_BOARD */
     const [updateBoard] = useMutation(UPDATE_BOARD)
     const onClickUpdate = async ()=>{
+        if(!title && !contents){
+            alert('수정한 내용이 없습니다.')
+            return
+        }
+        if(!password){
+            alert('비밀번호를 입력해주세요.')
+            return
+        }
         //variables : 값이 들어가 있는(사용자가 수정한) state만 넣는 객체 생성 (수정하지 않은 state는 제외하고 수정한 state만 쿼리에 전달)
         const myVariables : IVariables = { //boardId와 password는 꼭 필요하니까 먼저 넣어둠
             boardId: String(router.query.boardId), password: password, //boardId: router가 가지고 있는 boardId(경로의 아이디)를 입력해준다. (boardId는 사용자가 입력하는 값이 아니라, 리턴값으로 주어지는 값이기 때문)
@@ -110,12 +118,16 @@ export default function BoardWrite(props: IBoardWriteProps){
         if(zipcode !== "") myVariables.updateBoardInput.boardAddress.zipcode = zipcode
         if(address !== "") myVariables.updateBoardInput.boardAddress.address = address
         if(addressDetail !== "") myVariables.updateBoardInput.boardAddress.addressDetail = addressDetail
+        try{
         await updateBoard({
             variables: myVariables //위에서 만든 (변경이 일어난 state만 들어있는) 객체를 updateBoard에 입력값으로 전달
         })
         alert('수정이 완료되었습니다.')
         /* Detail 화면으로 라우팅*/
         router.push(`/boards2/${router.query.boardId}`) //CREATE에서 쓴 ${result.data.updateBoard._id}를 써도 된다. //boardId는 내가 생성한 [대괄호 폴더명] (참고: UPDATE가 아닌 CREATE 화면에는 경로에 boardId가 없기 때문에 리턴 받는 아이디로 라우팅 해야만 한다!)
+        }catch(error:any){
+            alert(error.message)
+        }
     }
 
     return(

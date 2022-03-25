@@ -37,7 +37,11 @@ export default function BoardWriteUI(props : IBoardWriteUIProps){
                     onChange={e=>props.onChangeWriter(e)} 
                     type="text" 
                     placeholder="이름을 적어주세요." 
-                    defaultValue={props.data?.fetchBoard?.writer}
+                    defaultValue={props.data?.fetchBoard.writer} //등록하기에서 왔으면 data가 없음
+                    readOnly={props.data?.fetchBoard.writer} //클릭 안됨
+                    // readOnly={!!props.data?.fetchBoard.writer} //부정연산자
+                    // readOnly={Boolean(props.data?.fetchBoard.writer)} //boolean
+                    // disabled={true} //readOnly 대신 disabled를 써도 되지만, 회색으로 변함
                     />
                     <Error>{props.writerError}</Error>
                 </InputWrapper>
