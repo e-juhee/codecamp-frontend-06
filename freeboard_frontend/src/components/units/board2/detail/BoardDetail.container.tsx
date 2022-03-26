@@ -14,8 +14,6 @@ export default function BoardDetail(props: IBoardDetailProps) {
   const { data } = useQuery(FETCH_BOARD, {
     variables: { boardId: String(router.query.boardId) }, //폴더명
   });
-  console.log(data);
-  console.log(data?.fetchBoard._id);
 
   /*ToolTip show & hide*/
   const onClickToolTip = () => {

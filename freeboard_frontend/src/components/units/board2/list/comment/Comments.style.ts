@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { ICommentsUIProps } from "./Comments.types";
 export const CStarWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -66,16 +65,22 @@ export const CRight = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export const CUpdate = styled.div`
+export const CUpdate = styled.button`
   width: 18px;
   height: 18px;
   margin-right: 16px;
   background-image: url("/boards/detail/comment/CUpdate.png");
   background-size: cover;
+  border: none;
+  background-color: white;
+  cursor: pointer;
 `;
 export const CDelete = styled.button`
   width: 18px;
   height: 18px;
   background-image: url("/boards/detail/comment/CDelete.png");
   background-size: cover;
+  border: none;
+  background-color: white;
+  cursor: pointer;
 `;

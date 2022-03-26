@@ -10,8 +10,6 @@ export default function Comments() {
   const { data } = useQuery(FETCH_BOARD_COMMENTS, {
     variables: { boardId: String(router.query.boardId) },
   });
-  console.log("<<COMMENTS>>");
-  console.log(data);
 
   /*DELETE_BOARD_COMMENT*/
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
@@ -34,5 +32,6 @@ export default function Comments() {
       console.log("에러발생!!");
     }
   };
+
   return <CommentsUI data={data} onClickDelete={onClickDelete} />;
 }
