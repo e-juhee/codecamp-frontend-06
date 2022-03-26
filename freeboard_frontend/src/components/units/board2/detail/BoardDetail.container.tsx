@@ -54,7 +54,6 @@ export default function BoardDetail(props: IBoardDetailProps) {
   };
 
   /*DELETE_BOARD*/
-  // const { data } = useQuery(FETCH_BOARDS)
   const [deleteBoard] = useMutation(DELETE_BOARD);
 
   //event.target : 태그

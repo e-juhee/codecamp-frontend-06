@@ -42,7 +42,7 @@ export default function CommentWrite() {
     setRating(score);
   };
 
-  /* CREATE_BOARD */
+  /* CREATE_BOARD_COMMENT */
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT); //queries에 작성한 쿼리를 가져와서 createBoard에 저장한다.
   const onClickCreate = async () => {
     //async를 붙여야 await를 붙일 수 있다.

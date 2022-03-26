@@ -30,7 +30,7 @@ export default function CommentsUI(props: ICommentsUIProps) {
             </S.CMiddle>
             <S.CRight>
               <S.CUpdate></S.CUpdate>
-              <S.CDelete></S.CDelete>
+              <S.CDelete id={el._id} onClick={props.onClickDelete}></S.CDelete>
             </S.CRight>
           </S.CDetail>
         ))}

@@ -73,7 +73,7 @@ export const CUpdate = styled.div`
   background-image: url("/boards/detail/comment/CUpdate.png");
   background-size: cover;
 `;
-export const CDelete = styled.div`
+export const CDelete = styled.button`
   width: 18px;
   height: 18px;
   background-image: url("/boards/detail/comment/CDelete.png");
