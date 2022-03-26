@@ -28,27 +28,27 @@ export default function CommentWriteUI(props: ICommentWriteProps) {
             {/* value={props.rating} */}
             <S.CStar
               id="1"
-              isStar={props.isStar1}
+              isStar={props.rating >= 1}
               onClick={props.onClickStar}
             ></S.CStar>
             <S.CStar
               id="2"
-              isStar={props.isStar2}
+              isStar={props.rating >= 2}
               onClick={props.onClickStar}
             ></S.CStar>
             <S.CStar
               id="3"
-              isStar={props.isStar3}
+              isStar={props.rating >= 3}
               onClick={props.onClickStar}
             ></S.CStar>
             <S.CStar
               id="4"
-              isStar={props.isStar4}
+              isStar={props.rating >= 4}
               onClick={props.onClickStar}
             ></S.CStar>
             <S.CStar
               id="5"
-              isStar={props.isStar5}
+              isStar={props.rating >= 5}
               onClick={props.onClickStar}
             ></S.CStar>
           </S.CStarWrapper>

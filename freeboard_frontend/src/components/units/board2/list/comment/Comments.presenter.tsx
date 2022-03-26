@@ -16,11 +16,11 @@ export default function CommentsUI(props: ICommentsUIProps) {
               <S.CDetailHeader>
                 <S.CWriter>{el.writer}</S.CWriter>
                 <S.CStarWrapper>
-                  <S.CStar isStar={props.isStar1}></S.CStar>
-                  <S.CStar isStar={props.isStar2}></S.CStar>
-                  <S.CStar isStar={props.isStar3}></S.CStar>
-                  <S.CStar isStar={props.isStar4}></S.CStar>
-                  <S.CStar isStar={props.isStar5}></S.CStar>
+                  <S.CStar isStar={el.rating >= 1}></S.CStar>
+                  <S.CStar isStar={el.rating >= 2}></S.CStar>
+                  <S.CStar isStar={el.rating >= 3}></S.CStar>
+                  <S.CStar isStar={el.rating >= 4}></S.CStar>
+                  <S.CStar isStar={el.rating >= 5}></S.CStar>
                 </S.CStarWrapper>
               </S.CDetailHeader>
               <S.CBody>

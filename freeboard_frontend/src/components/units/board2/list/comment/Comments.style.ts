@@ -16,11 +16,6 @@ export const CStar = styled.div`
       ? "url('/boards/detail/comment/CYellowStar.png')"
       : "url('/boards/detail/comment/CGrayStar.png')"};
 `;
-export const CYStar = styled.div`
-  width: 20px;
-  height: 20px;
-  background-image: url("/boards/detail/comment/CYellowStar.png");
-`;
 export const CListWrapper = styled.div`
   display: flex;
   flex-direction: column;

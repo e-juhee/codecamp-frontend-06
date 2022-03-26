@@ -74,66 +74,22 @@ export default function CommentWrite() {
         });
         console.log("<<CREATE_BOARD_COMMENT의 result>>");
         console.log(result);
+        //댓글 등록 후 초기값으로 변경
         setWriter("");
         setContents("");
         setPassword("");
+        setRating(5);
       } catch (error) {
         if (error instanceof Error) alert(error.message);
       }
     }
   };
 
-  const [isStar1, setIsStar1] = useState(true);
-  const [isStar2, setIsStar2] = useState(true);
-  const [isStar3, setIsStar3] = useState(true);
-  const [isStar4, setIsStar4] = useState(true);
-  const [isStar5, setIsStar5] = useState(true);
-
   const onClickStar = (e: MouseEvent<HTMLButtonElement>) => {
     console.log("onClickStar 실행");
     if (e.target instanceof Element) {
       console.log("별점" + e.target.id);
       setRating(Number(e.target.id));
-
-      switch (e.target.id) {
-        case "1":
-          setIsStar1(true);
-          setIsStar2(false);
-          setIsStar3(false);
-          setIsStar4(false);
-          setIsStar5(false);
-          break;
-        case "2":
-          setIsStar1(true);
-          setIsStar2(true);
-          setIsStar3(false);
-          setIsStar4(false);
-          setIsStar5(false);
-          break;
-        case "3":
-          setIsStar1(true);
-          setIsStar2(true);
-          setIsStar3(true);
-          setIsStar4(false);
-          setIsStar5(false);
-          break;
-
-        case "4":
-          setIsStar1(true);
-          setIsStar2(true);
-          setIsStar3(true);
-          setIsStar4(true);
-          setIsStar5(false);
-          break;
-
-        case "5":
-          setIsStar1(true);
-          setIsStar2(true);
-          setIsStar3(true);
-          setIsStar4(true);
-          setIsStar5(true);
-          break;
-      }
       console.log(rating);
     }
   };
@@ -181,11 +137,7 @@ export default function CommentWrite() {
       onClickStar={onClickStar}
       // onChangeRating={onChangeRating}
       onClickCreate={onClickCreate}
-      isStar1={isStar1}
-      isStar2={isStar2}
-      isStar3={isStar3}
-      isStar4={isStar4}
-      isStar5={isStar5}
+
       // onClickUpdate={onClickUpdate}
       // data={props.data} //edit/index.js 수정하기 페이지에서 보내준 fetchBoard 결과
     />

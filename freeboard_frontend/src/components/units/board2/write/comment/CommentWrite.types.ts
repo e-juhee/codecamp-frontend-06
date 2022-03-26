@@ -15,12 +15,4 @@ export interface ICommentWriteProps {
   onClickStar: (e: MouseEvent<HTMLButtonElement>) => void;
   // onChangeRating?: (score: number) => void;
   onClickCreate: (e: MouseEvent<HTMLButtonElement>) => void;
-  // setIsStar1: Dispatch<SetStateAction<boolean>>;
-  // isStar: boolean;
-  isStar1: boolean;
-  isStar2: boolean;
-  isStar3: boolean;
-  isStar4: boolean;
-  isStar5: boolean;
-  isStar?: boolean;
 }

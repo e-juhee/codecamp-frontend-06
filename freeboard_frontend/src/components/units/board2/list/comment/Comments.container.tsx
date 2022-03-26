@@ -12,22 +12,6 @@ export default function Comments() {
   });
   console.log("<<COMMENTS>>");
   console.log(data);
-  console.log(data?.fetchBoardComments);
 
-  const isStar1 = true;
-  const isStar2 = true;
-  const isStar3 = true;
-  const isStar4 = true;
-  const isStar5 = true;
-
-  return (
-    <CommentsUI
-      data={data}
-      isStar1={isStar1}
-      isStar2={isStar2}
-      isStar3={isStar3}
-      isStar4={isStar4}
-      isStar5={isStar5}
-    />
-  );
+  return <CommentsUI data={data} />;
 }
