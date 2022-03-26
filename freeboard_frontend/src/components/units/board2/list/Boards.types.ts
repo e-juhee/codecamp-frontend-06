@@ -1,3 +1,1 @@
-// onClickWrite 
-// data
-// onClickBoard
+export {};
