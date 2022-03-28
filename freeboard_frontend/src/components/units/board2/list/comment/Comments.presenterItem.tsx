@@ -13,7 +13,11 @@ export default function CommentsItemUI(props: ICommentsUIProps) {
   return (
     <>
       {!isEdit && (
-        <S.CDetail key={props.el._id}>
+        <S.CDetail
+          key={props.el._id}
+          id={props.el.writer}
+          onClick={props.onClickComment}
+        >
           <S.CLeft>
             <S.CProfileImage></S.CProfileImage>
           </S.CLeft>

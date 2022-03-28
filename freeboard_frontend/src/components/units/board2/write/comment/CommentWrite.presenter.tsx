@@ -15,8 +15,15 @@ export default function CommentWriteUI(props: ICommentWriteProps) {
 
         <S.CInputHeader>
           <S.CInputShort
-            onChange={(e) => props.onChangeWriter(e)}
-            value={props.writer}
+            onChange={(e) => props.onChangeWriter(e)} //입력하면 onChange가 작동 -> event.target.value가 state에 들어감 -> props를 통해 변경된 state가 props.writer로 들어옴
+            value={props.writer} // value와 defaultValue의 차이: defaultValue는 변경 가능, value는 변경 불가능
+            // 제어 컴포넌트 controlled component: state에 값을 미리 넣어 놓으면, 바로 input box 안에 입력된 상태로 나옴
+            // 따라서, state를 빈값으로 만들면 input box도 비워진다.
+            // 제어 컴포넌트의 단점: 하나 입력할 때마다 props 내려가고 전달하고 ~~ 느리다 / 긴 장문의 글에는 부적합
+            // 장점: 글 등록 후 초기화 할 때 유용하다. 이렇게 안하면 getElementById 이런거 써야되는데 좋은 방법이 아니다.
+            // 안전, 성능 떨어짐: 현재 작성되어 있는 것이 state라는 것을 장담할 수 있다. (특정 버그 상황 등 정확도가 중요한 상황에는 제어 컴포넌트가 더 안전)
+            // 위 같은 상황 아니면 비제어로 한다. 버벅임이 없도록!
+
             type="text"
             readOnly={props.isEdit}
             placeholder="작성자"
