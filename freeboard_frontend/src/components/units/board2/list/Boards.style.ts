@@ -59,6 +59,11 @@ export const BestProfile = styled.div`
   flex-direction: row;
   margin-bottom: 10px;
 `;
+export const ProfileImg = styled.div`
+  background-image: url("./boards/list/Profile.png");
+  width: 20px;
+  height: 20px;
+`;
 export const Writer = styled.div`
   padding-left: 6px;
   height: 24px;
@@ -76,6 +81,11 @@ export const BestRightWrapper = styled.div`
   justify-content: space-between;
   width: 24px;
   height: 50px;
+`;
+export const LikeImg = styled.div`
+  background-image: url("./boards/list/Like.png");
+  width: 20px;
+  height: 18px;
 `;
 export const BestLike = styled.div`
   height: 27px;

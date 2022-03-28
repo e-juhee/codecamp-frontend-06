@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { DislikeOutlined, LikeOutlined } from "@ant-design/icons";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -133,37 +134,6 @@ export const VideoWrapper = styled.div`
   width: 100%;
   margin-bottom: 160px;
 `;
-export const Video = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 486px;
-  height: 240px;
-  background-image: url("/boards/detail/Video.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-`;
-export const PlayButton = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 48px;
-  height: 48px;
-  background-image: url("/boards/detail/Eclipse.png");
-  background-size: auto;
-  background-repeat: no-repeat;
-  cursor: pointer;
-`;
-export const PlayButtonInner = styled.div`
-  width: 20px;
-  height: 20px;
-  margin-left: 8px;
-  background-image: url("/boards/detail/Play.png");
-  background-size: auto;
-  background-repeat: no-repeat;
-`;
 export const LikeWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -178,20 +148,13 @@ export const Like = styled.div`
   height: 51px;
   margin: auto 20px;
 `;
-export const LikeIcon = styled.div`
-  width: 20px;
-  height: 18px;
-  background-image: url("/boards/detail/Like.png");
-  background-size: auto;
-  background-repeat: no-repeat;
+export const LikeIcon = styled(LikeOutlined)`
+  color: #ffd600;
+  font-size: 18px;
   cursor: pointer;
 `;
-export const DisLikeIcon = styled.div`
-  width: 20px;
-  height: 18px;
-  background-image: url("/boards/detail/DisLike.png");
-  background-size: auto;
-  background-repeat: no-repeat;
+export const DisLikeIcon = styled(DislikeOutlined)`
+  font-size: 18px;
   cursor: pointer;
 `;
 export const LikeCount = styled.div`

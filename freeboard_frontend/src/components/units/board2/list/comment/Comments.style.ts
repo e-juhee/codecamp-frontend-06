@@ -7,7 +7,7 @@ export const CStarWrapper = styled.div`
   width: 116px;
   height: 100%;
 `;
-export const CStar = styled.div`
+export const CStar = styled.div<{ isStar: boolean }>`
   width: 20px;
   height: 20px;
   background-image: ${(props: any) =>

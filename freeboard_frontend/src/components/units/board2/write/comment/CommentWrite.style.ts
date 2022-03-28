@@ -46,10 +46,10 @@ export const CStarWrapper = styled.div`
   width: 116px;
   height: 100%;
 `;
-export const CStar = styled.button`
+export const CStar = styled.button<{ isStar: boolean }>`
   width: 20px;
   height: 20px;
-  background-image: ${(props: any) =>
+  background-image: ${(props) =>
     props.isStar
       ? "url('/boards/detail/comment/CYellowStar.png')"
       : "url('/boards/detail/comment/CGrayStar.png')"};

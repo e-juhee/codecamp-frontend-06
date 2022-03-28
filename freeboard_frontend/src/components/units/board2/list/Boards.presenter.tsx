@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { getDate } from "../../../../commons/libraries/utils";
 import * as S from "./Boards.style";
+import { IBoardsUIProps } from "./Boards.types";
 //default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
 
-export default function BoardsUI(props: any) {
+export default function BoardsUI(props: IBoardsUIProps) {
   return (
     <>
       <S.Wrapper>
@@ -16,13 +17,13 @@ export default function BoardsUI(props: any) {
             <S.BestBoardBody>
               <S.BestLeftWrapper>
                 <S.BestProfile>
-                  <img src={"./boards/list/Profile.png"}></img>
+                  <S.ProfileImg></S.ProfileImg>
                   <S.Writer>노원두</S.Writer>
                 </S.BestProfile>
                 <S.BestDate>Date : 2021.02.18</S.BestDate>
               </S.BestLeftWrapper>
               <S.BestRightWrapper>
-                <img src={"./boards/list/Like.png"}></img>
+                <S.LikeImg></S.LikeImg>
                 <S.BestLike>356</S.BestLike>
               </S.BestRightWrapper>
             </S.BestBoardBody>
@@ -33,13 +34,13 @@ export default function BoardsUI(props: any) {
             <S.BestBoardBody>
               <S.BestLeftWrapper>
                 <S.BestProfile>
-                  <img src={"./boards/list/Like.png"}></img>
+                  <S.ProfileImg></S.ProfileImg>
                   <S.Writer>노원두</S.Writer>
                 </S.BestProfile>
                 <S.BestDate>Date : 2021.02.18</S.BestDate>
               </S.BestLeftWrapper>
               <S.BestRightWrapper>
-                <img src={"./boards/list/Like.png"}></img>
+                <S.LikeImg></S.LikeImg>
                 <S.BestLike>356</S.BestLike>
               </S.BestRightWrapper>
             </S.BestBoardBody>
@@ -50,13 +51,13 @@ export default function BoardsUI(props: any) {
             <S.BestBoardBody>
               <S.BestLeftWrapper>
                 <S.BestProfile>
-                  <img src={"./boards/list/Profile.png"}></img>
+                  <S.ProfileImg></S.ProfileImg>
                   <S.Writer>노원두</S.Writer>
                 </S.BestProfile>
                 <S.BestDate>Date : 2021.02.18</S.BestDate>
               </S.BestLeftWrapper>
               <S.BestRightWrapper>
-                <img src={"./boards/list/Like.png"}></img>
+                <S.LikeImg></S.LikeImg>
                 <S.BestLike>356</S.BestLike>
               </S.BestRightWrapper>
             </S.BestBoardBody>
@@ -67,13 +68,13 @@ export default function BoardsUI(props: any) {
             <S.BestBoardBody>
               <S.BestLeftWrapper>
                 <S.BestProfile>
-                  <img src={"./boards/list/Profile.png"}></img>
+                  <S.ProfileImg></S.ProfileImg>
                   <S.Writer>노원두</S.Writer>
                 </S.BestProfile>
                 <S.BestDate>Date : 2021.02.18</S.BestDate>
               </S.BestLeftWrapper>
               <S.BestRightWrapper>
-                <img src={"./boards/list/Like.png"}></img>
+                <S.LikeImg></S.LikeImg>
                 <S.BestLike>356</S.BestLike>
               </S.BestRightWrapper>
             </S.BestBoardBody>

@@ -6,9 +6,8 @@ import { MouseEvent } from "react";
 
 export default function CommentsUI(props: ICommentsUIProps) {
   const onClickComment = (event: MouseEvent<HTMLDivElement>) => {
-    alert(event.currentTarget.id + "님이 작성한 글입니다.");
-    console.log("onClickComment");
-    console.log(event.target);
+    //이벤트 버블링 실습
+    alert(event.currentTarget.id + "님이 작성한 글입니다."); // target이 아닌 currentTarget으로 해야 이벤트 버블링이 일어나지 않는다!
   };
 
   return (
@@ -16,7 +15,7 @@ export default function CommentsUI(props: ICommentsUIProps) {
       <S.CListWrapper>
         {props.data?.fetchBoardComments.map((el: any) => (
           <CommentsItemUI
-            onClickComment={onClickComment}
+            onClickComment={onClickComment} //이벤트 버블링 실습
             key={el._id}
             el={el}
             data={props.data}

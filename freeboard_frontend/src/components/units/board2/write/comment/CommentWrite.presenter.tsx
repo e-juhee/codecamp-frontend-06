@@ -1,8 +1,8 @@
 //default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
-import { ICommentWriteProps } from "./CommentWrite.types";
+import { ICommentWriteProps, ICommentWriteUIProps } from "./CommentWrite.types";
 import * as S from "./CommentWrite.style";
 
-export default function CommentWriteUI(props: ICommentWriteProps) {
+export default function CommentWriteUI(props: ICommentWriteUIProps) {
   return (
     <>
       <S.CWrapper>
@@ -68,7 +68,7 @@ export default function CommentWriteUI(props: ICommentWriteProps) {
           <S.CTextArea
             onChange={(e) => props.onChangeContents(e)}
             value={props.contents}
-            defaultValue={props?.data?.fetchBoardComments.contents}
+            defaultValue={props?.data?.fetchBoardComments.contents} //실패 ㅜㅜ
             placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
           ></S.CTextArea>
           <S.CInputFooter>

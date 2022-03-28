@@ -1,42 +1,36 @@
-import BoardsUI from "./Boards.presenter" // ./: 현위치에서
-import {useQuery} from '@apollo/client'
-import {useRouter} from 'next/router'
-import {FETCH_BOARDS} from './Boards.queries'
-import { MouseEvent } from "react"
+import BoardsUI from "./Boards.presenter"; // ./: 현위치에서
+import { useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+import { FETCH_BOARDS } from "./Boards.queries";
+import { MouseEvent } from "react";
 
+export default function Boards() {
+  /*FETCH_BOARDS*/
+  const { data } = useQuery(FETCH_BOARDS);
 
-export default function Boards(){
+  const router = useRouter();
+  /*Routing to BoardWrite*/
+  //event.target : 태그
+  const onClickWrite = () => {
+    // console.log(event.target.id)
+    router.push(`/boards2/new`);
+  };
 
-    /*FETCH_BOARDS*/
-    const { data } = useQuery(FETCH_BOARDS)
-
-    const router = useRouter()
-    /*Routing to BoardWrite*/
-    //event.target : 태그
-    const onClickWrite = () => {
-
-        // console.log(event.target.id)
-            router.push(`/boards2/new`) 
-        
-    }
-
-
-
-/*Routing to BoardDetial*/
- const onClickBoard = (e:MouseEvent<HTMLButtonElement>) => { 
-    console.log("onClickBoard 실행")
-    console.log(e)   
-    if(e.target instanceof Element) router.push(`/boards2/${e.target.id}`)
+  /*Routing to BoardDetail*/
+  const onClickBoard = (event: MouseEvent<HTMLDivElement>) => {
+    // console.log("onClickBoard 실행");
+    // console.log(e);
+    if (event.target instanceof Element)
+      router.push(`/boards2/${event.target.id}`);
     //event.targetㅣ 태그
     //event.target.value: 인풋창에 입력한 값
+  };
 
-        }
-
-    return(
-        <BoardsUI 
-            onClickWrite ={onClickWrite}
-            data={data}
-            onClickBoard={onClickBoard}
-        />
-    )
+  return (
+    <BoardsUI
+      onClickWrite={onClickWrite}
+      data={data}
+      onClickBoard={onClickBoard}
+    />
+  );
 }

@@ -7,9 +7,9 @@ import {
   DISLIKE_BOARD,
   DELETE_BOARD,
 } from "./BoardDetail.queries";
-import { IBoardDetailProps } from "./BoardDetail.types";
+import { MouseEvent } from "react";
 
-export default function BoardDetail(props: IBoardDetailProps) {
+export default function BoardDetail() {
   const router = useRouter();
   const { data } = useQuery(FETCH_BOARD, {
     variables: { boardId: String(router.query.boardId) }, //폴더명
@@ -18,7 +18,7 @@ export default function BoardDetail(props: IBoardDetailProps) {
   /*ToolTip show & hide*/
   const onClickToolTip = () => {
     let toolTipState: any = document.getElementById("toolTip");
-    if (toolTipState.style.visibility === "visible") {
+    if (toolTipState?.style.visibility === "visible") {
       toolTipState.style.visibility = "hidden";
     } else {
       toolTipState.style.visibility = "visible";
@@ -55,13 +55,14 @@ export default function BoardDetail(props: IBoardDetailProps) {
   const [deleteBoard] = useMutation(DELETE_BOARD);
 
   //event.target : 태그
-  const onClickDelete = (event: any) => {
+  const onClickDelete = (event: MouseEvent<HTMLButtonElement>) => {
     // console.log(event.target.id)
     try {
-      deleteBoard({
-        variables: { boardId: event.target.id },
-        // , refetchQueries: [{query:FETCH_BOARDS}]
-      });
+      if (event.target instanceof Element)
+        deleteBoard({
+          variables: { boardId: event.target.id },
+          // , refetchQueries: [{query:FETCH_BOARDS}]
+        });
       alert("삭제되었습니다.");
       router.push(`/boards2`);
     } catch (error: any) {
@@ -91,7 +92,6 @@ export default function BoardDetail(props: IBoardDetailProps) {
         onClickList={onClickList}
         onClickUpdate={onClickUpdate}
       />
-      {/* <CommentWrite boardId={props.boardId} /> */}
     </>
   );
 }

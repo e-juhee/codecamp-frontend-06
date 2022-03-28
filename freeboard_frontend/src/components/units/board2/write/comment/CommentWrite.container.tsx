@@ -5,11 +5,12 @@ import {
   UPDATE_BOARD_COMMENT,
 } from "./CommentWrite.queries";
 import { MouseEvent, useState } from "react";
-import { ChangeEvent } from "react"; //ChangeEvent 필요행
+import { ChangeEvent } from "react";
 import { FETCH_BOARD_COMMENTS } from "../../list/comment/Comments.queries";
 import CommentWriteUI from "./CommentWrite.presenter";
+import { ICommentWriteProps } from "./CommentWrite.types";
 
-export default function CommentWrite(props: any) {
+export default function CommentWrite(props: ICommentWriteProps) {
   const router = useRouter();
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -36,9 +37,18 @@ export default function CommentWrite(props: any) {
       ? setIsActive(true)
       : setIsActive(false);
   };
-  const onChangeRating = (score: number) => {
-    setRating(score);
+
+  const onClickStar = (e: MouseEvent<HTMLButtonElement>) => {
+    console.log("onClickStar 실행");
+    if (e.target instanceof Element) {
+      console.log("별점" + e.target.id);
+      setRating(Number(e.target.id));
+      console.log(rating);
+    }
   };
+  // const onChangeRating = (score: number) => {
+  //   setRating(score);
+  // };
 
   /* CREATE_BOARD_COMMENT */
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT); //queries에 작성한 쿼리를 가져와서 createBoard에 저장한다.
@@ -81,21 +91,12 @@ export default function CommentWrite(props: any) {
     }
   };
 
-  const onClickStar = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log("onClickStar 실행");
-    if (e.target instanceof Element) {
-      console.log("별점" + e.target.id);
-      setRating(Number(e.target.id));
-      console.log(rating);
-    }
-  };
-
   /*UPDATE_BOARD_COMMENT*/
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
   const onClickUpdate = async () => {
     try {
-      console.log("boardCommentId" + props?.el?._id);
-      updateBoardComment({
+      console.log("<<boardCommentId>>" + props?.el?._id);
+      await updateBoardComment({
         variables: {
           updateBoardCommentInput: {
             contents: contents,
@@ -112,8 +113,8 @@ export default function CommentWrite(props: any) {
         ],
       });
       props.setIsEdit?.(false);
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
       console.log("에러발생!!");
     }
   };
@@ -132,7 +133,7 @@ export default function CommentWrite(props: any) {
       onClickCreate={onClickCreate}
       isEdit={props.isEdit}
       onClickUpdate={onClickUpdate}
-      data={props.data}
+      data={props.data} // defaultValue로 쓰려고 가져가지만 아직 실패중..
     />
   );
 }

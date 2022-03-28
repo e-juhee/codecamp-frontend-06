@@ -1,11 +1,11 @@
 import * as S from "./Comments.style";
-import { ICommentsUIProps } from "./Comments.types";
+import { ICommentsItemUIProps, ICommentsUIProps } from "./Comments.types";
 import { getDate } from "../../../../../commons/libraries/utils.js";
 import CommentWrite from "../../write/comment/CommentWrite.container";
 import { useState } from "react";
 //default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
 
-export default function CommentsItemUI(props: ICommentsUIProps) {
+export default function CommentsItemUI(props: ICommentsItemUIProps) {
   const [isEdit, setIsEdit] = useState(false);
   const onClickUpdate = () => {
     setIsEdit(true);
@@ -16,7 +16,7 @@ export default function CommentsItemUI(props: ICommentsUIProps) {
         <S.CDetail
           key={props.el._id}
           id={props.el.writer}
-          onClick={props.onClickComment}
+          // onClick={props.onClickComment}
         >
           <S.CLeft>
             <S.CProfileImage></S.CProfileImage>
@@ -47,7 +47,12 @@ export default function CommentsItemUI(props: ICommentsUIProps) {
         </S.CDetail>
       )}
       {isEdit && (
-        <CommentWrite isEdit={true} el={props.el} writer={props.el.writer} />
+        <CommentWrite
+          isEdit={true}
+          setIsEdit={setIsEdit}
+          el={props.el}
+          writer={props.el.writer}
+        />
       )}
     </>
   );

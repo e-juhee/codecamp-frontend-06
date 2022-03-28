@@ -2,6 +2,7 @@
 import { IBoardDetailUIProps } from "./BoardDetail.types";
 import { getDate } from "../../../../commons/libraries/utils";
 import * as S from "./BoardDetail.style";
+import ReactPlayer from "react-player";
 
 export default function BoardDetailUI(props: IBoardDetailUIProps) {
   return (
@@ -40,11 +41,16 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
         <S.Image></S.Image>
         <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
         <S.VideoWrapper>
-          <S.Video>
+          {/* <S.Video>
             <S.PlayButton>
               <S.PlayButtonInner></S.PlayButtonInner>
             </S.PlayButton>
-          </S.Video>
+          </S.Video> */}
+          <ReactPlayer
+            url={props.data?.fetchBoard?.youtubeUrl}
+            width="486px"
+            height="240px"
+          />
         </S.VideoWrapper>
 
         <S.LikeWrapper>
