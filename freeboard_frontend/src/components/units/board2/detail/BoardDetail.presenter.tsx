@@ -40,6 +40,7 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
         </S.Title>
         <S.Image></S.Image>
         <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
+        {/* 수정: 조건부 렌더링 추가하기 */}
         <S.VideoWrapper>
           {/* <S.Video>
             <S.PlayButton>

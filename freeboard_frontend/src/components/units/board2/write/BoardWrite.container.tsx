@@ -173,8 +173,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
       alert("수정이 완료되었습니다.");
       /* Detail 화면으로 라우팅*/
       router.push(`/boards2/${router.query.boardId}`); //CREATE에서 쓴 ${result.data.updateBoard._id}를 써도 된다. //boardId는 내가 생성한 [대괄호 폴더명] (참고: UPDATE가 아닌 CREATE 화면에는 경로에 boardId가 없기 때문에 리턴 받는 아이디로 라우팅 해야만 한다!)
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
     }
   };
 

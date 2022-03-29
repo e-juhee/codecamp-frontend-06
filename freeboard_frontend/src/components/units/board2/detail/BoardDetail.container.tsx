@@ -26,13 +26,13 @@ export default function BoardDetail() {
   };
 
   /*LIKE_BOARD*/
-  const [likeBoard] = useMutation(LIKE_BOARD);
+  const [likeBoard] = useMutation(LIKE_BOARD); // 타입 추가하기!
   const onClickLike = async () => {
     try {
       const result = await likeBoard({
         variables: { boardId: router.query.boardId },
       });
-      location.reload();
+      location.reload(); // 대신 refetchQueries 사용하기!!!
     } catch (error: any) {
       alert(error.message);
     }
@@ -45,7 +45,7 @@ export default function BoardDetail() {
       const result = await dislikeBoard({
         variables: { boardId: router.query.boardId },
       });
-      location.reload();
+      location.reload(); // 대신 refetchQueries 사용하기!!!
     } catch (error: any) {
       alert(error.message);
     }

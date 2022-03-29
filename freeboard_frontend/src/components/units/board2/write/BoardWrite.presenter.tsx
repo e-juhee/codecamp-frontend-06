@@ -105,6 +105,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         <InputWrapper>
           <Label>유튜브</Label>
           <Input
+            // e가 없어도 된다... 수정
             onChange={(e) => props.onChangeYoutubeUrl(e)}
             type="text"
             placeholder="링크를 복사해주세요."
