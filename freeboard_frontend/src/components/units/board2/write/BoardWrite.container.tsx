@@ -135,6 +135,14 @@ export default function BoardWrite(props: IBoardWriteProps) {
   /* UPDATE_BOARD */
   const [updateBoard] = useMutation(UPDATE_BOARD);
   const onClickUpdate = async () => {
+    if (!title && !contents) {
+      alert("변경된 내용이 없습니다.");
+      return;
+    }
+    if (!password) {
+      alert("비밀번호를 입력해주세요.");
+      return;
+    }
     //variables : 값이 들어가 있는(사용자가 수정한) state만 넣는 객체 생성 (수정하지 않은 state는 제외하고 수정한 state만 쿼리에 전달)
     const myBoardAddress: IBoardAddress = {
       zipcode,
@@ -166,7 +174,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       /* Detail 화면으로 라우팅*/
       router.push(`/boards2/${router.query.boardId}`); //CREATE에서 쓴 ${result.data.updateBoard._id}를 써도 된다. //boardId는 내가 생성한 [대괄호 폴더명] (참고: UPDATE가 아닌 CREATE 화면에는 경로에 boardId가 없기 때문에 리턴 받는 아이디로 라우팅 해야만 한다!)
     } catch (error: any) {
-      alert(error.message);
+      console.log(error.message);
     }
   };
 
