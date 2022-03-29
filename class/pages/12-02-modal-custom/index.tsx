@@ -19,6 +19,7 @@ export default function ModalCustomPage() {
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+    console.log(password);
   };
 
   return (

@@ -1,7 +1,7 @@
-//컨테이너 컴포넌트
+// 컨테이너 컴포넌트
 import BoardWriteUI from "./BoardWrite.presenter"; // ./: 현위치에서
 import { useMutation } from "@apollo/client";
-import { ChangeEvent, useState } from "react"; //ChangeEvent 필요행
+import { ChangeEvent, useState } from "react"; // ChangeEvent 필요행
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 import { useRouter } from "next/router";
 import { IBoardWriteProps, IMyVariables } from "./BoardWrite.types";
