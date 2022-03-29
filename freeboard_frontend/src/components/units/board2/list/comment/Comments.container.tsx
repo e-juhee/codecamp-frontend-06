@@ -15,12 +15,12 @@ export default function Comments() {
   /*DELETE_BOARD_COMMENT*/
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
   const [password, setPassword] = useState("");
-  const [commentId2, setCommentId2] = useState("");
+  const [commentId, setCommentId] = useState("");
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    setCommentId2(e.target.id);
-    console.log(e.target.id);
+    setCommentId(e.target.id);
+    console.log(e.target.id); //이상해... 이상해 이상해!!
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -31,12 +31,12 @@ export default function Comments() {
   const onClickDelete = () => {
     // commentId = commentId;
     console.log("이벤트 실행: onClickDelete");
-    console.log("commentId: " + commentId2);
+    console.log("commentId: " + commentId);
     console.log("password: " + password);
     try {
       // if (event.target instanceof Element)
       deleteBoardComment({
-        variables: { password: password, boardCommentId: commentId2 },
+        variables: { password: password, boardCommentId: commentId },
         refetchQueries: [
           {
             query: FETCH_BOARD_COMMENTS,
@@ -47,6 +47,7 @@ export default function Comments() {
       Modal.success({
         content: "삭제되었습니다.",
       });
+      onToggleModal();
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
     }
@@ -59,7 +60,7 @@ export default function Comments() {
       onChangePassword={onChangePassword}
       isOpen={isOpen}
       onToggleModal={onToggleModal}
-      commentId={commentId2}
+      commentId={commentId}
     />
   );
 }
