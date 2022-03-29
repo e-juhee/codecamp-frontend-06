@@ -23,6 +23,8 @@ import {
   RadioLabel,
   SubmitButton,
 } from "./BoardWrite.style";
+import DaumPostcode from "react-daum-postcode";
+import { Modal } from "antd";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
@@ -86,15 +88,31 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             <ZipCode
               onChange={(e) => props.onChangeZipcode(e)}
               type="text"
-              placeholder="00000"
+              placeholder={props.data?.fetchBoard?.boardAddress?.zipcode}
               defaultValue={props.data?.fetchBoard?.boardAddress?.zipcode}
+              readOnly
+              value={props.zipcode}
             />
-            <ZipCodeButton>우편번호 검색</ZipCodeButton>
+            <ZipCodeButton onClick={props.onToggleModal}>
+              우편번호 검색
+            </ZipCodeButton>
+            {props.isOpen && (
+              <Modal
+                visible={true}
+                onOk={props.onToggleModal}
+                onCancel={props.onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
+              >
+                <DaumPostcode onComplete={props.handleComplete} />
+              </Modal>
+            )}
           </ZipCodeWrapper>
           <Address
             onChange={(e) => props.onChangeAddress(e)}
             type="text"
             defaultValue={props.data?.fetchBoard?.boardAddress?.address}
+            placeholder={props.data?.fetchBoard?.boardAddress?.address}
+            readOnly
+            value={props.address}
           />
           <Address
             onChange={(e) => props.onChangeAddressDetail(e)}

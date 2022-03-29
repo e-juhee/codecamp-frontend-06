@@ -10,6 +10,7 @@ import {
   IUpdateBoardInput,
   IVariables,
 } from "./BoardWrite.types";
+import { Modal } from "antd";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   /*화면 이동 시 사용되는 라우터 */
@@ -121,7 +122,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
         });
         console.log("<<CREATE_BOARD의 result>>");
         console.log(result); //createBoard의 리턴값 확인
-        alert("게시글이 등록되었습니다.");
+        Modal.success({
+          content: "게시글이 등록되었습니다.",
+        });
         /* Detail 화면으로 라우팅*/
         //BoardWrite.container가 실행되는 경로는 pages/boards/new/index.js이다. router에 그에 맞게 경로를 정해줘야 한다.
         //이름이 일치하는 폴더가 없을 경우 [대괄호 폴더명]으로 이동한다.
@@ -130,6 +133,17 @@ export default function BoardWrite(props: IBoardWriteProps) {
         if (error instanceof Error) alert(error.message);
       }
     }
+  };
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onToggleModal = () => {
+    setIsOpen((prev) => !prev); // false > true
+  };
+
+  const handleComplete = (data: any) => {
+    setAddress(data.address);
+    setZipcode(data.zonecode);
+    onToggleModal();
   };
 
   /* UPDATE_BOARD */
@@ -201,6 +215,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onClickCreate={onClickCreate}
       onClickUpdate={onClickUpdate}
       data={props.data} //edit/index.js 수정하기 페이지에서 보내준 fetchBoard 결과
+      handleComplete={handleComplete}
+      onToggleModal={onToggleModal}
+      isOpen={isOpen}
+      address={address}
+      zipcode={zipcode}
     />
   );
 }

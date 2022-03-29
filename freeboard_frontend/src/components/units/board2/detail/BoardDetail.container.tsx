@@ -1,3 +1,4 @@
+import { Modal } from "antd";
 import BoardDetailUI from "./BoardDetail.presenter"; // ./: 현위치에서
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
@@ -32,9 +33,9 @@ export default function BoardDetail() {
       const result = await likeBoard({
         variables: { boardId: router.query.boardId },
       });
-      location.reload(); // 대신 refetchQueries 사용하기!!!
-    } catch (error: any) {
-      alert(error.message);
+      location.reload(); // 대신 useState() 사용하기!!!
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
     }
   };
 
@@ -45,9 +46,9 @@ export default function BoardDetail() {
       const result = await dislikeBoard({
         variables: { boardId: router.query.boardId },
       });
-      location.reload(); // 대신 refetchQueries 사용하기!!!
-    } catch (error: any) {
-      alert(error.message);
+      location.reload(); // 대신 refetchQueries 사용하기!!! 대신 useState() 사용하기!!!
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
     }
   };
 
@@ -63,13 +64,18 @@ export default function BoardDetail() {
           variables: { boardId: event.target.id },
           // , refetchQueries: [{query:FETCH_BOARDS}]
         });
-      alert("삭제되었습니다.");
+      deleteSuccess();
       router.push(`/boards2`);
-    } catch (error: any) {
-      alert(error.message);
-      console.log("에러발생!!");
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
     }
   };
+
+  function deleteSuccess() {
+    Modal.success({
+      content: "삭제되었습니다.",
+    });
+  }
 
   /*Routing to Boards */
   // const router = useRouter()

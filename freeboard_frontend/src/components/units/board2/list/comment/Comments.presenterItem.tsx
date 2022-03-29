@@ -3,6 +3,8 @@ import { ICommentsItemUIProps, ICommentsUIProps } from "./Comments.types";
 import { getDate } from "../../../../../commons/libraries/utils.js";
 import CommentWrite from "../../write/comment/CommentWrite.container";
 import { useState } from "react";
+import { Modal } from "antd";
+
 //default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
 
 export default function CommentsItemUI(props: ICommentsItemUIProps) {
@@ -41,9 +43,21 @@ export default function CommentsItemUI(props: ICommentsItemUIProps) {
             <S.CUpdate id={props.el._id} onClick={onClickUpdate}></S.CUpdate>
             <S.CDelete
               id={props.el._id}
-              onClick={props.onClickDelete}
+              onClick={props.onToggleModal}
             ></S.CDelete>
           </S.CRight>
+          <Modal
+            visible={props.isOpen}
+            onOk={props.onClickDelete}
+            onCancel={props.onToggleModal}
+          >
+            비밀번호를 입력하세요.
+            <input
+              type="password"
+              id={props.el._id}
+              onChange={props.onChangePassword}
+            />
+          </Modal>
         </S.CDetail>
       )}
       {isEdit && (

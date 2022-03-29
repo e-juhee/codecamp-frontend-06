@@ -44,6 +44,13 @@ export interface IBoardWriteUIProps {
   onClickUpdate: () => void; //매개변수가 없으면 안에 안 넣어도 됨
 
   data: any;
+
+  handleComplete: (data: any) => void;
+  onToggleModal: () => void;
+  isOpen: boolean;
+
+  address: string;
+  zipcode: string;
 }
 
 export interface ICreateButtonProps {
