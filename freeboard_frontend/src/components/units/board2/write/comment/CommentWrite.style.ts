@@ -37,6 +37,7 @@ export const CInputShort = styled.input`
   width: 180px;
   height: 100%;
   padding: 14px;
+  font-family: -apple-system;
 `;
 export const CStarWrapper = styled.div`
   display: flex;

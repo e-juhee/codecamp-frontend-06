@@ -1,27 +1,22 @@
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
+import { IQuery } from "../../../../commons/types/generated/types";
 
 /* BoardWrite.container */
 export interface IBoardWriteProps {
   isEdit: boolean;
   data?: any;
 }
-export interface IVariables {
-  boardId: string;
-  password: string;
-  updateBoardInput?: IUpdateBoardInput;
-}
+
 export interface IUpdateBoardInput {
   title?: string;
   contents?: string;
   youtubeUrl?: string;
-  boardAddress?: IBoardAddress;
+  boardAddress?: {
+    zipcode?: string;
+    address?: string;
+    addressDetail?: string;
+  };
 }
-export interface IBoardAddress {
-  zipcode?: string;
-  address?: string;
-  addressDetail?: string;
-}
-
 /* BoardWrite.presenter */
 export interface IBoardWriteUIProps {
   //container에서 props에 담아서 presenter로 보낸 애들
@@ -37,20 +32,23 @@ export interface IBoardWriteUIProps {
   onChangeTitle: (e: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeYoutubeUrl: (e: ChangeEvent<HTMLInputElement>) => void;
-  onChangeZipcode: (e: ChangeEvent<HTMLInputElement>) => void;
-  onChangeAddress: (e: ChangeEvent<HTMLInputElement>) => void;
+  // onChangeZipcode: (e: ChangeEvent<HTMLInputElement>) => void;
+  // onChangeAddress: (e: ChangeEvent<HTMLInputElement>) => void;
   onChangeAddressDetail: (e: ChangeEvent<HTMLInputElement>) => void;
   onClickCreate: () => void; //void: 리턴값이 일정하지 않을 때
   onClickUpdate: () => void; //매개변수가 없으면 안에 안 넣어도 됨
 
-  data: any;
+  data?: Pick<IQuery, "fetchBoard">;
 
-  handleComplete: (data: any) => void;
-  onToggleModal: () => void;
+  // handleComplete: (data: any) => void;
+  // onToggleModal: () => void;
   isOpen: boolean;
 
   address: string;
   zipcode: string;
+  addressDetail: string;
+  onToggleModal: () => void;
+  onCompleteAddressSearch: (data: any) => void;
 }
 
 export interface ICreateButtonProps {

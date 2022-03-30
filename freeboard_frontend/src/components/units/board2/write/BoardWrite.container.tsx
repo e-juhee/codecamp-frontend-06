@@ -4,16 +4,10 @@ import { useRouter } from "next/router";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 import { useState } from "react";
 import { ChangeEvent } from "react"; //ChangeEvent 필요행
-import {
-  IBoardAddress,
-  IBoardWriteProps,
-  IUpdateBoardInput,
-  IVariables,
-} from "./BoardWrite.types";
-import { Modal } from "antd";
+import { IBoardWriteProps, IUpdateBoardInput } from "./BoardWrite.types";
+import { successModal } from "../../../../commons/libraries/utils";
 
 export default function BoardWrite(props: IBoardWriteProps) {
-  /*화면 이동 시 사용되는 라우터 */
   const router = useRouter();
   /* 인풋창 state */
   const [writer, setWriter] = useState("");
@@ -74,11 +68,17 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const onChangeYoutubeUrl = (e: ChangeEvent<HTMLInputElement>) => {
     setYoutubeUrl(e.target.value);
   };
-  const onChangeZipcode = (e: ChangeEvent<HTMLInputElement>) => {
-    setZipcode(e.target.value);
+  // const onToggleModal = () => {
+  //   setIsOpen((prev) => !prev); // false > true
+  // };
+  const [isOpen, setIsOpen] = useState(false);
+  const onToggleModal = () => {
+    setIsOpen((prev) => !prev);
   };
-  const onChangeAddress = (e: ChangeEvent<HTMLInputElement>) => {
-    setAddress(e.target.value);
+  const onCompleteAddressSearch = (data: any) => {
+    setAddress(data.address);
+    setZipcode(data.zonecode);
+    setIsOpen(false);
   };
   const onChangeAddressDetail = (e: ChangeEvent<HTMLInputElement>) => {
     setAddressDetail(e.target.value);
@@ -88,43 +88,42 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [createBoard] = useMutation(CREATE_BOARD); //queries에 작성한 쿼리를 가져와서 createBoard에 저장한다.
   const onClickCreate = async () => {
     //async를 붙여야 await를 붙일 수 있다.
-    if (writer === "") {
+    if (!writer) {
       setWriterError("작성자를 입력해주세요.");
     }
-    if (password === "") {
+    if (!password) {
       setPasswordError("비밀번호를 입력해주세요.");
     }
-    if (title === "") {
+    if (!title) {
       setTitleError("제목을 입력해주세요.");
     }
-    if (contents === "") {
+    if (!contents) {
       setContentsError("내용을 입력해주세요.");
     }
-    if (writer !== "" && password !== "" && title !== "" && contents !== "") {
+    if (writer && password && title && contents) {
       try {
         //에러처리: create 실패 시 catch절을 수행한다.
         const result = await createBoard({
           //createBoard를 실행하고 리턴값을 result에 받아온다. //input창을 만들고 onChange & state 이용하면 입력값을 받을 수 있다
           variables: {
             createBoardInput: {
-              writer: writer,
-              password: password,
-              title: title,
-              contents: contents,
-              youtubeUrl: youtubeUrl,
+              writer,
+              password,
+              title,
+              contents,
+              youtubeUrl,
               boardAddress: {
-                zipcode: zipcode,
-                address: address,
-                addressDetail: addressDetail,
+                zipcode,
+                address,
+                addressDetail,
               },
             },
           },
         });
         console.log("<<CREATE_BOARD의 result>>");
         console.log(result); //createBoard의 리턴값 확인
-        Modal.success({
-          content: "게시글이 등록되었습니다.",
-        });
+        successModal("게시글이 등록되었습니다.");
+
         /* Detail 화면으로 라우팅*/
         //BoardWrite.container가 실행되는 경로는 pages/boards/new/index.js이다. router에 그에 맞게 경로를 정해줘야 한다.
         //이름이 일치하는 폴더가 없을 경우 [대괄호 폴더명]으로 이동한다.
@@ -134,22 +133,18 @@ export default function BoardWrite(props: IBoardWriteProps) {
       }
     }
   };
-  const [isOpen, setIsOpen] = useState(false);
-
-  const onToggleModal = () => {
-    setIsOpen((prev) => !prev); // false > true
-  };
-
-  const handleComplete = (data: any) => {
-    setAddress(data.address);
-    setZipcode(data.zonecode);
-    onToggleModal();
-  };
 
   /* UPDATE_BOARD */
   const [updateBoard] = useMutation(UPDATE_BOARD);
   const onClickUpdate = async () => {
-    if (!title && !contents) {
+    if (
+      !title &&
+      !contents &&
+      !youtubeUrl &&
+      !address &&
+      !addressDetail &&
+      !zipcode
+    ) {
       // 모든 인풋창 값 추가하기
       alert("변경된 내용이 없습니다.");
       return;
@@ -159,33 +154,27 @@ export default function BoardWrite(props: IBoardWriteProps) {
       return;
     }
     //variables : 값이 들어가 있는(사용자가 수정한) state만 넣는 객체 생성 (수정하지 않은 state는 제외하고 수정한 state만 쿼리에 전달)
-    const myBoardAddress: IBoardAddress = {
-      zipcode,
-      address,
-      addressDetail,
-    };
-
     const myUpdateBoardInput: IUpdateBoardInput = {};
-
-    const myVariables: IVariables = {
-      //boardId와 password는 꼭 필요하니까 먼저 넣어둠
-      boardId: String(router.query.boardId),
-      password: password, //boardId: router가 가지고 있는 boardId(경로의 아이디)를 입력해준다. (boardId는 사용자가 입력하는 값이 아니라, 리턴값으로 주어지는 값이기 때문)
-      updateBoardInput: myUpdateBoardInput,
-      //   updateBoardInput: { boardAddress: {} },
-    }; //위에꺼 쓰면 에러남 ㅠ,ㅠ
-
     if (title) myUpdateBoardInput.title = title; //입력값이 있는 경우에만 myVariables에 title을 key로 하는 'title의 입력값'을 value로 넣어줘
     if (contents) myUpdateBoardInput.contents = contents;
     if (youtubeUrl) myUpdateBoardInput.youtubeUrl = youtubeUrl;
-    if (zipcode) myBoardAddress.zipcode = zipcode; // <수정> 조건문 변경해야됨
-    if (address) myBoardAddress.address = address;
-    if (addressDetail) myBoardAddress.addressDetail = addressDetail;
+    if (zipcode || address || addressDetail) {
+      myUpdateBoardInput.boardAddress = {};
+      if (zipcode) myUpdateBoardInput.boardAddress.zipcode = zipcode;
+      if (address) myUpdateBoardInput.boardAddress.address = address;
+      if (addressDetail)
+        myUpdateBoardInput.boardAddress.addressDetail = addressDetail;
+    }
+
     try {
       await updateBoard({
-        variables: myVariables, //위에서 만든 (변경이 일어난 state만 들어있는) 객체를 updateBoard에 입력값으로 전달
+        variables: {
+          boardId: String(router.query.boardId),
+          password,
+          updateBoardInput: myUpdateBoardInput,
+        }, //위에서 만든 (변경이 일어난 state만 들어있는) 객체를 updateBoard에 입력값으로 전달
       });
-      alert("수정이 완료되었습니다.");
+      successModal("수정이 완료되었습니다.");
       /* Detail 화면으로 라우팅*/
       router.push(`/boards2/${router.query.boardId}`); //CREATE에서 쓴 ${result.data.updateBoard._id}를 써도 된다. //boardId는 내가 생성한 [대괄호 폴더명] (참고: UPDATE가 아닌 CREATE 화면에는 경로에 boardId가 없기 때문에 리턴 받는 아이디로 라우팅 해야만 한다!)
     } catch (error) {
@@ -210,16 +199,16 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onChangeTitle={onChangeTitle}
       onChangeContents={onChangeContents}
       onChangeYoutubeUrl={onChangeYoutubeUrl}
-      onChangeZipcode={onChangeZipcode}
-      onChangeAddress={onChangeAddress}
+      // onChangeZipcode={onChangeZipcode}
+      onToggleModal={onToggleModal}
       onChangeAddressDetail={onChangeAddressDetail}
       onClickCreate={onClickCreate}
       onClickUpdate={onClickUpdate}
       data={props.data} //edit/index.js 수정하기 페이지에서 보내준 fetchBoard 결과
-      handleComplete={handleComplete}
-      onToggleModal={onToggleModal}
+      onCompleteAddressSearch={onCompleteAddressSearch}
       isOpen={isOpen}
       address={address}
+      addressDetail={addressDetail}
       zipcode={zipcode}
     />
   );

@@ -1,4 +1,3 @@
-import { Modal } from "antd";
 import BoardDetailUI from "./BoardDetail.presenter"; // ./: 현위치에서
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
@@ -9,12 +8,24 @@ import {
   DELETE_BOARD,
 } from "./BoardDetail.queries";
 import { MouseEvent } from "react";
+import {
+  IMutation,
+  IMutationDeleteBoardArgs,
+  IMutationDislikeBoardArgs,
+  IMutationLikeBoardArgs,
+  IQuery,
+  IQueryFetchBoardArgs,
+} from "../../../../commons/types/generated/types";
+import { successModal } from "../../../../commons/libraries/utils";
 
 export default function BoardDetail() {
   const router = useRouter();
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: String(router.query.boardId) }, //폴더명
-  });
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+    FETCH_BOARD,
+    {
+      variables: { boardId: String(router.query.boardId) }, //폴더명
+    }
+  );
 
   /*ToolTip show & hide*/
   const onClickToolTip = () => {
@@ -27,58 +38,59 @@ export default function BoardDetail() {
   };
 
   /*LIKE_BOARD*/
-  const [likeBoard] = useMutation(LIKE_BOARD); // 타입 추가하기!
+  const [likeBoard] = useMutation<
+    Pick<IMutation, "likeBoard">,
+    IMutationLikeBoardArgs
+  >(LIKE_BOARD); // 타입 추가하기!
   const onClickLike = async () => {
     try {
-      const result = await likeBoard({
-        variables: { boardId: router.query.boardId },
+      likeBoard({
+        variables: { boardId: String(router.query.boardId) },
+        refetchQueries: [
+          { query: FETCH_BOARD, variables: { boardId: router.query.boardId } },
+        ],
       });
-      location.reload(); // 대신 useState() 사용하기!!!
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
     }
   };
 
   /*DISLIKE_BOARD*/
-  const [dislikeBoard] = useMutation(DISLIKE_BOARD);
+  const [dislikeBoard] = useMutation<
+    Pick<IMutation, "dislikeBoard">,
+    IMutationDislikeBoardArgs
+  >(DISLIKE_BOARD);
   const onClickDisLike = async () => {
     try {
-      const result = await dislikeBoard({
-        variables: { boardId: router.query.boardId },
+      dislikeBoard({
+        variables: { boardId: String(router.query.boardId) },
+        refetchQueries: [
+          { query: FETCH_BOARD, variables: { boardId: router.query.boardId } },
+        ],
       });
-      location.reload(); // 대신 refetchQueries 사용하기!!! 대신 useState() 사용하기!!!
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
     }
   };
 
   /*DELETE_BOARD*/
-  const [deleteBoard] = useMutation(DELETE_BOARD);
+  const [deleteBoard] = useMutation<
+    Pick<IMutation, "deleteBoard">,
+    IMutationDeleteBoardArgs
+  >(DELETE_BOARD);
 
-  //event.target : 태그
-  const onClickDelete = (event: MouseEvent<HTMLButtonElement>) => {
-    // console.log(event.target.id)
+  const onClickDelete = () => {
     try {
-      if (event.target instanceof Element)
-        deleteBoard({
-          variables: { boardId: event.target.id },
-          // , refetchQueries: [{query:FETCH_BOARDS}]
-        });
-      deleteSuccess();
+      deleteBoard({
+        variables: { boardId: String(router.query.boardId) },
+      });
+      successModal("삭제되었습니다.");
       router.push(`/boards2`);
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
     }
   };
 
-  function deleteSuccess() {
-    Modal.success({
-      content: "삭제되었습니다.",
-    });
-  }
-
-  /*Routing to Boards */
-  // const router = useRouter()
   const onClickList = () => {
     router.push(`/boards2`);
   };

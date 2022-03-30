@@ -18,7 +18,7 @@ export default function BoardsUI(props: IBoardsUIProps) {
               <S.BestLeftWrapper>
                 <S.BestProfile>
                   <S.ProfileImg></S.ProfileImg>
-                  <S.Writer>노원두</S.Writer>
+                  <S.Writer>이주희</S.Writer>
                 </S.BestProfile>
                 <S.BestDate>Date : 2021.02.18</S.BestDate>
               </S.BestLeftWrapper>
@@ -35,7 +35,7 @@ export default function BoardsUI(props: IBoardsUIProps) {
               <S.BestLeftWrapper>
                 <S.BestProfile>
                   <S.ProfileImg></S.ProfileImg>
-                  <S.Writer>노원두</S.Writer>
+                  <S.Writer>이주희</S.Writer>
                 </S.BestProfile>
                 <S.BestDate>Date : 2021.02.18</S.BestDate>
               </S.BestLeftWrapper>
@@ -52,7 +52,7 @@ export default function BoardsUI(props: IBoardsUIProps) {
               <S.BestLeftWrapper>
                 <S.BestProfile>
                   <S.ProfileImg></S.ProfileImg>
-                  <S.Writer>노원두</S.Writer>
+                  <S.Writer>이주희</S.Writer>
                 </S.BestProfile>
                 <S.BestDate>Date : 2021.02.18</S.BestDate>
               </S.BestLeftWrapper>
@@ -69,7 +69,7 @@ export default function BoardsUI(props: IBoardsUIProps) {
               <S.BestLeftWrapper>
                 <S.BestProfile>
                   <S.ProfileImg></S.ProfileImg>
-                  <S.Writer>노원두</S.Writer>
+                  <S.Writer>이주희</S.Writer>
                 </S.BestProfile>
                 <S.BestDate>Date : 2021.02.18</S.BestDate>
               </S.BestLeftWrapper>
@@ -105,7 +105,9 @@ export default function BoardsUI(props: IBoardsUIProps) {
           <tbody>
             {props.data?.fetchBoards.map((el: any, index: any) => (
               <tr key={el._id}>
-                <S.TD style={{ width: "100px" }}>{index + 1}</S.TD>
+                <S.TD style={{ width: "100px" }}>
+                  {props.data?.fetchBoards.length - index}
+                </S.TD>
                 <S.TD
                   id={el._id}
                   onClick={props.onClickBoard}

@@ -27,6 +27,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
   };
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+    console.log(e);
     e.target.value && writer && contents
       ? setIsActive(true)
       : setIsActive(false);

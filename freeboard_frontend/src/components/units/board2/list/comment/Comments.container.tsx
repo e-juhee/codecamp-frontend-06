@@ -4,6 +4,8 @@ import CommentsUI from "./Comments.presenter";
 import { useRouter } from "next/router";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { Modal } from "antd";
+import { successModal } from "../../../../../commons/libraries/utils";
+import { checkPrimeSync } from "crypto";
 
 export default function Comments() {
   /*FETCH_BOARD_COMMENTS*/
@@ -38,9 +40,7 @@ export default function Comments() {
           },
         ],
       });
-      Modal.success({
-        content: "삭제되었습니다.",
-      });
+      successModal("삭제되었습니다.");
       setIsOpen(false);
     } catch (error) {
       if (error instanceof Error) console.log(error.message);

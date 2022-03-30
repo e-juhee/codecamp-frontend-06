@@ -10,20 +10,14 @@ export default function Boards() {
 
   const router = useRouter();
   /*Routing to BoardWrite*/
-  //event.target : 태그
   const onClickWrite = () => {
-    // console.log(event.target.id)
     router.push(`/boards2/new`);
   };
 
   /*Routing to BoardDetail*/
   const onClickBoard = (event: MouseEvent<HTMLDivElement>) => {
-    // console.log("onClickBoard 실행");
-    // console.log(e);
     if (event.target instanceof Element)
       router.push(`/boards2/${event.target.id}`);
-    //event.targetㅣ 태그
-    //event.target.value: 인풋창에 입력한 값
   };
 
   return (

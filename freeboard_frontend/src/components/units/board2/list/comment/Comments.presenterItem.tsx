@@ -1,9 +1,9 @@
 import * as S from "./Comments.style";
 import { ICommentsItemUIProps, ICommentsUIProps } from "./Comments.types";
-import { getDate } from "../../../../../commons/libraries/utils.js";
 import CommentWrite from "../../write/comment/CommentWrite.container";
 import { useState } from "react";
 import { Modal } from "antd";
+import { getDate } from "../../../../../commons/libraries/utils";
 
 //default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
 
@@ -54,7 +54,11 @@ export default function CommentsItemUI(props: ICommentsItemUIProps) {
               title="댓글의 비밀번호를 입력하세요."
             >
               비밀번호
-              <input type="password" onChange={props.onChangePassword} />
+              <input
+                type="password"
+                onChange={props.onChangePassword}
+                style={{ fontFamily: "-apple-system" }}
+              />
             </Modal>
           )}
         </S.CDetail>

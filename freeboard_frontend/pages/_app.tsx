@@ -5,6 +5,7 @@ import { AppProps } from "next/app";
 import Layout from "../src/components/commons/layout";
 import { globalStyles } from "../src/commons/styles/globalStyles";
 import { Global } from "@emotion/react";
+import "antd/dist/antd.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   //Component, pageProps는 Next.js가 처음에 넣어주는 데이터! Docs를 보고 타입(AppProps)을 지정해주면 된다.

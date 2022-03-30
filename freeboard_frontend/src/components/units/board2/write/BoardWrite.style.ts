@@ -46,6 +46,7 @@ export const ShortInput = styled.input`
   padding: 14px;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
+  font-family: -apple-system;
 `;
 export const Error = styled.div`
   padding-left: 5px;

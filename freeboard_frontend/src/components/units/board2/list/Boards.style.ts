@@ -1,9 +1,5 @@
 import styled from "@emotion/styled";
 
-// export const SubmitButton = styled.button`
-//     background-color: ${(props) => props.isActive ? "red" : "none"};
-// `
-
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,7 +8,6 @@ export const Wrapper = styled.div`
   width: 1200px;
   margin: 100px auto;
   padding: 60px 100px 100px 100px;
-  /* border: 1px solid gray; */
 `;
 export const Title = styled.div`
   font-family: "Noto Sans CJK KR";
@@ -166,6 +161,10 @@ export const TD = styled.td`
   font-size: 16px;
   &:first-of-type {
     border-left: none;
+  }
+  :hover {
+    color: blue;
+    font-size: 18px;
   }
 `;
 

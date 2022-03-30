@@ -1,112 +1,88 @@
 import { IBoardWriteUIProps } from "./BoardWrite.types"; //참고: default로 내보낸 경우에는 import 받는 변수에 중괄호가 없어도 된다. 이름을 다르게 써도 받아서 그 다르게 쓴 이름으로 사용할 수 있다. 전체 다 가져오기: * as S
-import {
-  Wrapper,
-  Title,
-  WriterWrapper,
-  InputWrapper,
-  Label,
-  Required,
-  ShortInput,
-  Error,
-  ContentInput,
-  ZipCodeWrapper,
-  Input,
-  ZipCode,
-  ZipCodeButton,
-  Address,
-  ImageWrapper,
-  ImageButton,
-  ImageIcon,
-  ImageLabel,
-  SettingWrapper,
-  Radio,
-  RadioLabel,
-  SubmitButton,
-} from "./BoardWrite.style";
+import * as S from "./BoardWrite.style";
 import DaumPostcode from "react-daum-postcode";
 import { Modal } from "antd";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
     <>
-      <Wrapper>
-        <Title>{props.isEdit ? "게시물 수정" : "게시물 등록"}</Title>
+      {props.isOpen && ( // false일땐 이부분이 안나오고, isOpen이 true로 바뀌면 리렌더 되면서 생긴다.
+        <Modal
+          visible={true}
+          onOk={props.onToggleModal}
+          onCancel={props.onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
+        >
+          <DaumPostcode onComplete={props.onCompleteAddressSearch} />
+        </Modal>
+      )}
+      <S.Wrapper>
+        <S.Title>{props.isEdit ? "게시물 수정" : "게시물 등록"}</S.Title>
 
-        <WriterWrapper>
-          <InputWrapper>
-            <Label>
-              작성자<Required>*</Required>
-            </Label>
-            <ShortInput
-              onChange={(e) => props.onChangeWriter(e)}
+        <S.WriterWrapper>
+          <S.InputWrapper>
+            <S.Label>
+              작성자<S.Required>*</S.Required>
+            </S.Label>
+            <S.ShortInput
+              onChange={props.onChangeWriter}
               type="text"
               placeholder="이름을 적어주세요."
-              defaultValue={props.data?.fetchBoard.writer} //등록하기에서 왔으면 data가 없음
-              readOnly={props.data?.fetchBoard.writer} //클릭 안됨
-              // readOnly={!!props.data?.fetchBoard.writer} //부정연산자
-              // readOnly={Boolean(props.data?.fetchBoard.writer)} //boolean
-              // disabled={true} //readOnly 대신 disabled를 써도 되지만, 회색으로 변함
+              defaultValue={props.data?.fetchBoard?.writer || ""} //등록하기에서 왔으면 data가 없음
+              readOnly={!!props.data?.fetchBoard?.writer} //클릭 안됨
             />
-            <Error>{props.writerError}</Error>
-          </InputWrapper>
-          <InputWrapper>
-            <Label>
-              비밀번호<Required>*</Required>
-            </Label>
-            <ShortInput
-              onChange={(e) => props.onChangePassword(e)}
+            <S.Error>{props.writerError}</S.Error>
+          </S.InputWrapper>
+          <S.InputWrapper>
+            <S.Label>
+              비밀번호<S.Required>*</S.Required>
+            </S.Label>
+            <S.ShortInput
+              onChange={props.onChangePassword}
               type="password"
               placeholder="비밀번호를 입력해주세요."
             />
-            <Error>{props.passwordError}</Error>
-          </InputWrapper>
-        </WriterWrapper>
-        <InputWrapper>
-          <Label>
-            제목<Required>*</Required>
-          </Label>
-          <Input
-            onChange={(e) => props.onChangeTitle(e)}
+            <S.Error>{props.passwordError}</S.Error>
+          </S.InputWrapper>
+        </S.WriterWrapper>
+        <S.InputWrapper>
+          <S.Label>
+            제목<S.Required>*</S.Required>
+          </S.Label>
+          <S.Input
+            onChange={props.onChangeTitle}
             type="text"
             placeholder="제목을 작성해주세요."
             defaultValue={props.data?.fetchBoard?.title}
           />
-          <Error>{props.titleError}</Error>
-          <Label>
-            내용<Required>*</Required>
-          </Label>
-          <ContentInput
-            onChange={(e) => props.onChangeContents(e)}
+          <S.Error>{props.titleError}</S.Error>
+          <S.Label>
+            내용<S.Required>*</S.Required>
+          </S.Label>
+          <S.ContentInput
+            onChange={props.onChangeContents}
             placeholder="내용을 작성해주세요."
             defaultValue={props.data?.fetchBoard?.contents}
           />
-          <Error>{props.contentsError}</Error>
-        </InputWrapper>
-        <InputWrapper>
-          <Label>주소</Label>
-          <ZipCodeWrapper>
-            <ZipCode
-              onChange={(e) => props.onChangeZipcode(e)}
+          <S.Error>{props.contentsError}</S.Error>
+        </S.InputWrapper>
+        <S.InputWrapper>
+          <S.Label>주소</S.Label>
+          <S.ZipCodeWrapper>
+            <S.ZipCode
               type="text"
-              defaultValue={props.data?.fetchBoard?.boardAddress?.zipcode}
+              // defaultValue={props.data?.fetchBoard?.boardAddress?.zipcode}
               readOnly
-              value={props.zipcode}
+              value={
+                props.zipcode ||
+                props.data?.fetchBoard?.boardAddress?.zipcode ||
+                ""
+              }
             />
-            <ZipCodeButton onClick={props.onToggleModal}>
+            <S.ZipCodeButton onClick={props.onToggleModal}>
               우편번호 검색
-            </ZipCodeButton>
-            {props.isOpen && ( // false일땐 이부분이 안나오고, isOpen이 true로 바뀌면 리렌더 되면서 생긴다.
-              <Modal
-                visible={true}
-                onOk={props.onToggleModal}
-                onCancel={props.onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
-              >
-                <DaumPostcode onComplete={props.handleComplete} />
-              </Modal>
-            )}
-          </ZipCodeWrapper>
-          <Address
-            onChange={(e) => props.onChangeAddress(e)} // 필요 없다.
+            </S.ZipCodeButton>
+          </S.ZipCodeWrapper>
+          <S.Address
             type="text"
             // defaultValue={props.data?.fetchBoard?.boardAddress?.address} // 이렇게 하면 value가 덮어씌워서 값이 나오지 않는다. defaultValue는 값이 없을 때 보여주는 것!
             readOnly
@@ -116,61 +92,62 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               ""
             }
           />
-          <Address
-            onChange={(e) => props.onChangeAddressDetail(e)}
+          <S.Address
+            onChange={props.onChangeAddressDetail}
             type="text"
-            defaultValue={props.data?.fetchBoard?.boardAddress?.addressDetail}
+            defaultValue={
+              props.data?.fetchBoard?.boardAddress?.addressDetail || ""
+            }
           />
-        </InputWrapper>
-        <InputWrapper>
-          <Label>유튜브</Label>
-          <Input
-            // e가 없어도 된다... 수정
-            onChange={(e) => props.onChangeYoutubeUrl(e)}
+        </S.InputWrapper>
+        <S.InputWrapper>
+          <S.Label>유튜브</S.Label>
+          <S.Input
+            onChange={props.onChangeYoutubeUrl}
             type="text"
             placeholder="링크를 복사해주세요."
-            defaultValue={props.data?.fetchBoard?.youtubeUrl}
+            defaultValue={props.data?.fetchBoard?.youtubeUrl || ""}
           />
-        </InputWrapper>
-        <InputWrapper>
-          <Label>사진 첨부</Label>
-          <ImageWrapper>
-            <ImageButton>
-              <ImageIcon>+</ImageIcon>
-              <ImageLabel>Upload</ImageLabel>
-            </ImageButton>
-            <ImageButton>
-              <ImageIcon>+</ImageIcon>
-              <ImageLabel>Upload</ImageLabel>
-            </ImageButton>
-            <ImageButton>
-              <ImageIcon>+</ImageIcon>
-              <ImageLabel>Upload</ImageLabel>
-            </ImageButton>
-          </ImageWrapper>
-        </InputWrapper>
+        </S.InputWrapper>
+        <S.InputWrapper>
+          <S.Label>사진 첨부</S.Label>
+          <S.ImageWrapper>
+            <S.ImageButton>
+              <S.ImageIcon>+</S.ImageIcon>
+              <S.ImageLabel>Upload</S.ImageLabel>
+            </S.ImageButton>
+            <S.ImageButton>
+              <S.ImageIcon>+</S.ImageIcon>
+              <S.ImageLabel>Upload</S.ImageLabel>
+            </S.ImageButton>
+            <S.ImageButton>
+              <S.ImageIcon>+</S.ImageIcon>
+              <S.ImageLabel>Upload</S.ImageLabel>
+            </S.ImageButton>
+          </S.ImageWrapper>
+        </S.InputWrapper>
 
-        <SettingWrapper>
-          <Label>메인 설정</Label>
-          <Radio
+        <S.SettingWrapper>
+          <S.Label>메인 설정</S.Label>
+          <S.Radio
             type="radio"
             id="youtube"
             name="radio-button"
             checked
             readOnly
           />
-          <RadioLabel htmlFor="youtube">유튜브</RadioLabel>
-          <Radio type="radio" id="images" name="radio-button" />
-          <RadioLabel htmlFor="images">사진</RadioLabel>
-        </SettingWrapper>
+          <S.RadioLabel htmlFor="youtube">유튜브</S.RadioLabel>
+          <S.Radio type="radio" id="images" name="radio-button" />
+          <S.RadioLabel htmlFor="images">사진</S.RadioLabel>
+        </S.SettingWrapper>
 
-        <SubmitButton
+        <S.SubmitButton
           isActive={props.isActive}
           onClick={props.isEdit ? props.onClickUpdate : props.onClickCreate}
         >
           {props.isEdit ? "수정하기" : "등록하기"}
-        </SubmitButton>
-      </Wrapper>
+        </S.SubmitButton>
+      </S.Wrapper>
     </>
   );
 }
