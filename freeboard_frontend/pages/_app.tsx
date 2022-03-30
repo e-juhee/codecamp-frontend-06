@@ -1,7 +1,10 @@
-import "../styles/globals.css";
+// import "../styles/globals.css";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import "antd/dist/antd.css";
 import { AppProps } from "next/app";
+import Layout from "../src/components/commons/layout";
+import { globalStyles } from "../src/commons/styles/globalStyles";
+import { Global } from "@emotion/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
   //Component, pageProps는 Next.js가 처음에 넣어주는 데이터! Docs를 보고 타입(AppProps)을 지정해주면 된다.
@@ -12,7 +15,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ApolloProvider client={client}>
-      <Component {...pageProps} />
+      <Global styles={globalStyles} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ApolloProvider>
   );
 }
