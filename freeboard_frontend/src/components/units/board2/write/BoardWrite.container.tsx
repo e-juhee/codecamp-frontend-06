@@ -130,7 +130,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
         //이름이 일치하는 폴더가 없을 경우 [대괄호 폴더명]으로 이동한다.
         router.push(`/boards2/${result.data.createBoard._id}`); //리턴값으로 받은 아이디로 이동
       } catch (error) {
-        if (error instanceof Error) alert(error.message);
+        if (error instanceof Error) alert(error.message); // 모달로 바꾸자
       }
     }
   };
@@ -150,6 +150,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [updateBoard] = useMutation(UPDATE_BOARD);
   const onClickUpdate = async () => {
     if (!title && !contents) {
+      // 모든 인풋창 값 추가하기
       alert("변경된 내용이 없습니다.");
       return;
     }
@@ -177,7 +178,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (title) myUpdateBoardInput.title = title; //입력값이 있는 경우에만 myVariables에 title을 key로 하는 'title의 입력값'을 value로 넣어줘
     if (contents) myUpdateBoardInput.contents = contents;
     if (youtubeUrl) myUpdateBoardInput.youtubeUrl = youtubeUrl;
-    if (zipcode) myBoardAddress.zipcode = zipcode;
+    if (zipcode) myBoardAddress.zipcode = zipcode; // <수정> 조건문 변경해야됨
     if (address) myBoardAddress.address = address;
     if (addressDetail) myBoardAddress.addressDetail = addressDetail;
     try {

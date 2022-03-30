@@ -53,12 +53,8 @@ export default function CommentsItemUI(props: ICommentsItemUIProps) {
               onCancel={props.onToggleModal}
               title="댓글의 비밀번호를 입력하세요."
             >
-              비밀번호 :
-              <input
-                type="password"
-                id={props.el._id}
-                onChange={props.onChangePassword}
-              />
+              비밀번호
+              <input type="password" onChange={props.onChangePassword} />
             </Modal>
           )}
         </S.CDetail>

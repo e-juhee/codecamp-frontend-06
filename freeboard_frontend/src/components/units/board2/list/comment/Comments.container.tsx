@@ -19,22 +19,16 @@ export default function Comments() {
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    setCommentId(e.target.id);
-    console.log(e.target.id); //이상해... 이상해 이상해!!
   };
 
   const [isOpen, setIsOpen] = useState(false);
-  const onToggleModal = () => {
+  const onToggleModal = (event: MouseEvent<HTMLImageElement>) => {
     setIsOpen((prev) => !prev);
+    if (event.target instanceof Element) setCommentId(event?.target.id);
   };
 
   const onClickDelete = () => {
-    // commentId = commentId;
-    console.log("이벤트 실행: onClickDelete");
-    console.log("commentId: " + commentId);
-    console.log("password: " + password);
     try {
-      // if (event.target instanceof Element)
       deleteBoardComment({
         variables: { password: password, boardCommentId: commentId },
         refetchQueries: [
@@ -47,7 +41,7 @@ export default function Comments() {
       Modal.success({
         content: "삭제되었습니다.",
       });
-      onToggleModal();
+      setIsOpen(false);
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
     }

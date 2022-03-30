@@ -88,7 +88,6 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             <ZipCode
               onChange={(e) => props.onChangeZipcode(e)}
               type="text"
-              placeholder={props.data?.fetchBoard?.boardAddress?.zipcode}
               defaultValue={props.data?.fetchBoard?.boardAddress?.zipcode}
               readOnly
               value={props.zipcode}
@@ -96,7 +95,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             <ZipCodeButton onClick={props.onToggleModal}>
               우편번호 검색
             </ZipCodeButton>
-            {props.isOpen && (
+            {props.isOpen && ( // false일땐 이부분이 안나오고, isOpen이 true로 바뀌면 리렌더 되면서 생긴다.
               <Modal
                 visible={true}
                 onOk={props.onToggleModal}
@@ -107,12 +106,15 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             )}
           </ZipCodeWrapper>
           <Address
-            onChange={(e) => props.onChangeAddress(e)}
+            onChange={(e) => props.onChangeAddress(e)} // 필요 없다.
             type="text"
-            defaultValue={props.data?.fetchBoard?.boardAddress?.address}
-            placeholder={props.data?.fetchBoard?.boardAddress?.address}
+            // defaultValue={props.data?.fetchBoard?.boardAddress?.address} // 이렇게 하면 value가 덮어씌워서 값이 나오지 않는다. defaultValue는 값이 없을 때 보여주는 것!
             readOnly
-            value={props.address}
+            value={
+              props.address ||
+              props.data?.fetchBoard.boardAddress?.address || // 선택한 게 없으면 보여준다.
+              ""
+            }
           />
           <Address
             onChange={(e) => props.onChangeAddressDetail(e)}
