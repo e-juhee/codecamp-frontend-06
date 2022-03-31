@@ -5,24 +5,27 @@ import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 import { useState } from "react";
 import { ChangeEvent } from "react"; //ChangeEvent 필요행
 import { IBoardWriteProps, IUpdateBoardInput } from "./BoardWrite.types";
-import { successModal } from "../../../../commons/libraries/utils";
+import {
+  successModal,
+  warningModal,
+} from "../../../../commons/libraries/utils";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
   /* 인풋창 state */
-  const [writer, setWriter] = useState("");
-  const [password, setPassword] = useState("");
-  const [title, setTitle] = useState("");
-  const [contents, setContents] = useState("");
-  const [youtubeUrl, setYoutubeUrl] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  const [address, setAddress] = useState("");
-  const [addressDetail, setAddressDetail] = useState("");
+  const [writer, setWriter] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [contents, setContents] = useState<string>("");
+  const [youtubeUrl, setYoutubeUrl] = useState<string>("");
+  const [zipcode, setZipcode] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [addressDetail, setAddressDetail] = useState<string>("");
   /* 에러 메세지 state */
-  const [writerError, setWriterError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [titleError, setTitleError] = useState("");
-  const [contentsError, setContentsError] = useState("");
+  const [writerError, setWriterError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [titleError, setTitleError] = useState<string>("");
+  const [contentsError, setContentsError] = useState<string>("");
 
   /* true가 들어가면 버튼을 활성화하는 state : presenter로 넘어가서 style로 전달된다. */
   const [isActive, setIsActive] = useState<boolean>(false); //isActive가 true이면 버튼 활성화
@@ -68,9 +71,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const onChangeYoutubeUrl = (e: ChangeEvent<HTMLInputElement>) => {
     setYoutubeUrl(e.target.value);
   };
-  // const onToggleModal = () => {
-  //   setIsOpen((prev) => !prev); // false > true
-  // };
+
   const [isOpen, setIsOpen] = useState(false);
   const onToggleModal = () => {
     setIsOpen((prev) => !prev);
@@ -120,8 +121,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
             },
           },
         });
-        console.log("<<CREATE_BOARD의 result>>");
-        console.log(result); //createBoard의 리턴값 확인
         successModal("게시글이 등록되었습니다.");
 
         /* Detail 화면으로 라우팅*/
@@ -129,7 +128,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
         //이름이 일치하는 폴더가 없을 경우 [대괄호 폴더명]으로 이동한다.
         router.push(`/boards/${result.data.createBoard._id}`); //리턴값으로 받은 아이디로 이동
       } catch (error) {
-        if (error instanceof Error) alert(error.message); // 모달로 바꾸자
+        if (error instanceof Error) warningModal(error.message); // 모달로 바꾸자
       }
     }
   };
@@ -145,12 +144,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
       !addressDetail &&
       !zipcode
     ) {
-      // 모든 인풋창 값 추가하기
-      alert("변경된 내용이 없습니다.");
+      warningModal("변경된 내용이 없습니다.");
       return;
     }
     if (!password) {
-      alert("비밀번호를 입력해주세요.");
+      warningModal("비밀번호를 입력해주세요.");
       return;
     }
     //variables : 값이 들어가 있는(사용자가 수정한) state만 넣는 객체 생성 (수정하지 않은 state는 제외하고 수정한 state만 쿼리에 전달)
@@ -199,7 +197,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onChangeTitle={onChangeTitle}
       onChangeContents={onChangeContents}
       onChangeYoutubeUrl={onChangeYoutubeUrl}
-      // onChangeZipcode={onChangeZipcode}
       onToggleModal={onToggleModal}
       onChangeAddressDetail={onChangeAddressDetail}
       onClickCreate={onClickCreate}

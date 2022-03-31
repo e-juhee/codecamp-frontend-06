@@ -3,35 +3,48 @@ import { DELETE_BOARD_COMMENT, FETCH_BOARD_COMMENTS } from "./Comments.queries";
 import CommentsUI from "./Comments.presenter";
 import { useRouter } from "next/router";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { Modal } from "antd";
-import { successModal } from "../../../../../commons/libraries/utils";
-import { checkPrimeSync } from "crypto";
+import {
+  successModal,
+  warningModal,
+} from "../../../../commons/libraries/utils";
+import {
+  IMutation,
+  IMutationDeleteBoardCommentArgs,
+  IQuery,
+  IQueryFetchBoardCommentsArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function Comments() {
   /*FETCH_BOARD_COMMENTS*/
   const router = useRouter();
-  const { data } = useQuery(FETCH_BOARD_COMMENTS, {
+  const { data } = useQuery<
+    Pick<IQuery, "fetchBoardComments">,
+    IQueryFetchBoardCommentsArgs
+  >(FETCH_BOARD_COMMENTS, {
     variables: { boardId: String(router.query.boardId) },
   });
 
   /*DELETE_BOARD_COMMENT*/
-  const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
-  const [password, setPassword] = useState("");
-  const [commentId, setCommentId] = useState("");
+  const [deleteBoardComment] = useMutation<
+    Pick<IMutation, "deleteBoardComment">,
+    IMutationDeleteBoardCommentArgs
+  >(DELETE_BOARD_COMMENT);
+  const [password, setPassword] = useState<string>("");
+  const [commentId, setCommentId] = useState<string>("");
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const onToggleModal = (event: MouseEvent<HTMLImageElement>) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const onToggleModal = (event: MouseEvent<HTMLElement>) => {
     setIsOpen((prev) => !prev);
     if (event.target instanceof Element) setCommentId(event?.target.id);
   };
 
-  const onClickDelete = () => {
+  const onClickDelete = async () => {
     try {
-      deleteBoardComment({
+      await deleteBoardComment({
         variables: { password: password, boardCommentId: commentId },
         refetchQueries: [
           {
@@ -41,10 +54,10 @@ export default function Comments() {
         ],
       });
       successModal("삭제되었습니다.");
-      setIsOpen(false);
     } catch (error) {
-      if (error instanceof Error) console.log(error.message);
+      if (error instanceof Error) warningModal(error.message);
     }
+    setIsOpen(false);
   };
 
   return (

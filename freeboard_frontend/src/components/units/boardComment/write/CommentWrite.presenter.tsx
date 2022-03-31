@@ -1,6 +1,7 @@
 //default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
 import { ICommentWriteProps, ICommentWriteUIProps } from "./CommentWrite.types";
 import * as S from "./CommentWrite.style";
+import { ChangeEvent } from "react";
 
 export default function CommentWriteUI(props: ICommentWriteUIProps) {
   return (
@@ -15,8 +16,8 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
 
         <S.CInputHeader>
           <S.CInputShort
-            onChange={(e) => props.onChangeWriter(e)} //입력하면 onChange가 작동 -> event.target.value가 state에 들어감 -> props를 통해 변경된 state가 props.writer로 들어옴
-            value={props.writer} // value와 defaultValue의 차이: defaultValue는 변경 가능, value는 변경 불가능
+            onChange={props.onChangeWriter} //입력하면 onChange가 작동 -> event.target.value가 state에 들어감 -> props를 통해 변경된 state가 props.writer로 들어옴
+            // value={props.writer} // value와 defaultValue의 차이: defaultValue는 변경 가능, value는 변경 불가능
             // 제어 컴포넌트 controlled component: state에 값을 미리 넣어 놓으면, 바로 input box 안에 입력된 상태로 나옴
             // 따라서, state를 빈값으로 만들면 input box도 비워진다.
             // 제어 컴포넌트의 단점: 하나 입력할 때마다 props 내려가고 전달하고 ~~ 느리다 / 긴 장문의 글에는 부적합
@@ -27,6 +28,10 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
             type="text"
             readOnly={props.isEdit}
             placeholder="작성자"
+            // value={props.writer}
+            defaultValue={
+              props?.data?.fetchBoardComments[props.index].writer || ""
+            }
           ></S.CInputShort>
           <S.CInputShort
             onChange={props.onChangePassword}
@@ -35,7 +40,6 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
             placeholder="비밀번호"
           ></S.CInputShort>
           <S.CStarWrapper>
-            {/* value={props.rating} */}
             <S.CStar
               id="1"
               isStar={props.rating >= 1}
@@ -66,9 +70,10 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
 
         <S.CInputBody>
           <S.CTextArea
-            onChange={(e) => props.onChangeContents(e)}
-            value={props.contents}
-            defaultValue={props?.data?.fetchBoardComments.contents} //실패 ㅜㅜ
+            onChange={props.onChangeContents}
+            // value={props.contents}
+            defaultValue={props?.data?.fetchBoardComments[props.index].contents}
+            // defaultValue={props?.data?.fetchBoardComments[props.index].contents}
             maxLength={100}
             placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
           ></S.CTextArea>

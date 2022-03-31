@@ -1,25 +1,20 @@
 import * as S from "./Comments.style";
-import { ICommentsItemUIProps, ICommentsUIProps } from "./Comments.types";
-import CommentWrite from "../../write/comment/CommentWrite.container";
+import { ICommentsItemUIProps } from "./Comments.types";
+import CommentWrite from "../write/CommentWrite.container";
 import { useState } from "react";
 import { Modal } from "antd";
-import { getDate } from "../../../../../commons/libraries/utils";
-
-//default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
+import { getDate } from "../../../../commons/libraries/utils";
 
 export default function CommentsItemUI(props: ICommentsItemUIProps) {
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
   const onClickUpdate = () => {
     setIsEdit(true);
   };
+
   return (
     <>
       {!isEdit && (
-        <S.CDetail
-          key={props.el._id}
-          id={props.el.writer}
-          // onClick={props.onClickComment}
-        >
+        <S.CDetail key={props.el._id} id={props.el.writer}>
           <S.CLeft>
             <S.CProfileImage></S.CProfileImage>
           </S.CLeft>
@@ -69,6 +64,8 @@ export default function CommentsItemUI(props: ICommentsItemUIProps) {
           setIsEdit={setIsEdit}
           el={props.el}
           writer={props.el.writer}
+          index={props.index}
+          data={props.data}
         />
       )}
     </>

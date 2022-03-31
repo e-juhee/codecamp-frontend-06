@@ -7,7 +7,6 @@ import {
   DISLIKE_BOARD,
   DELETE_BOARD,
 } from "./BoardDetail.queries";
-import { MouseEvent } from "react";
 import {
   IMutation,
   IMutationDeleteBoardArgs,
@@ -27,7 +26,7 @@ export default function BoardDetail() {
     }
   );
 
-  /*ToolTip show & hide*/
+  /* ToolTip show & hide */
   const onClickToolTip = () => {
     let toolTipState: any = document.getElementById("toolTip");
     if (toolTipState?.style.visibility === "visible") {
@@ -37,7 +36,7 @@ export default function BoardDetail() {
     }
   };
 
-  /*LIKE_BOARD*/
+  /* LIKE_BOARD */
   const [likeBoard] = useMutation<
     Pick<IMutation, "likeBoard">,
     IMutationLikeBoardArgs
@@ -55,7 +54,7 @@ export default function BoardDetail() {
     }
   };
 
-  /*DISLIKE_BOARD*/
+  /* DISLIKE_BOARD */
   const [dislikeBoard] = useMutation<
     Pick<IMutation, "dislikeBoard">,
     IMutationDislikeBoardArgs
@@ -73,7 +72,7 @@ export default function BoardDetail() {
     }
   };
 
-  /*DELETE_BOARD*/
+  /* DELETE_BOARD */
   const [deleteBoard] = useMutation<
     Pick<IMutation, "deleteBoard">,
     IMutationDeleteBoardArgs

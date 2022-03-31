@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getDate } from "../../../../commons/libraries/utils";
-import Pagination from "../pagination/Pagination";
+import Pagination from "../../../commons/pagination/Pagination";
 import * as S from "./Boards.style";
 import { IBoardsUIProps } from "./Boards.types";
 //default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
@@ -62,7 +62,8 @@ export default function BoardsUI(props: IBoardsUIProps) {
                 onClick={props.onClickBoard}
               >
                 <S.TD style={{ width: "100px" }}>
-                  {props.data?.fetchBoards.length - index}
+                  {/* {props.data?.fetchBoards.length - index} */}
+                  {props.current * 10 + index - 9}
                 </S.TD>
                 <S.TD style={{ width: "800px", cursor: "pointer" }}>
                   {el.title}
@@ -76,7 +77,12 @@ export default function BoardsUI(props: IBoardsUIProps) {
 
         <S.Footer>
           <div style={{ width: "80px" }}></div>
-          <Pagination refetch={props.refetch} lastPage={props.lastPage} />
+          <Pagination
+            refetch={props.refetch}
+            lastPage={props.lastPage}
+            current={props.current}
+            setCurrent={props.setCurrent}
+          />
           <S.NewButton>
             <S.NewButtonIcon></S.NewButtonIcon>
             <S.NewButtonText onClick={props.onClickWrite}>

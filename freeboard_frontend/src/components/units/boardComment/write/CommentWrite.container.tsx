@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import {
   CREATE_BOARD_COMMENT,
@@ -6,16 +6,26 @@ import {
 } from "./CommentWrite.queries";
 import { MouseEvent, useState } from "react";
 import { ChangeEvent } from "react";
-import { FETCH_BOARD_COMMENTS } from "../../list/comment/Comments.queries";
+import { FETCH_BOARD_COMMENTS } from "../list/Comments.queries";
 import CommentWriteUI from "./CommentWrite.presenter";
 import { ICommentWriteProps } from "./CommentWrite.types";
+import { warningModal } from "../../../../commons/libraries/utils";
+import {
+  IMutation,
+  IMutationCreateBoardCommentArgs,
+  IMutationUpdateBoardCommentArgs,
+  IQuery,
+  IQueryFetchBoardCommentsArgs,
+  IUpdateBoardCommentInput,
+  IUpdateBoardInput,
+} from "../../../../commons/types/generated/types";
 
 export default function CommentWrite(props: ICommentWriteProps) {
   const router = useRouter();
-  const [writer, setWriter] = useState("");
-  const [password, setPassword] = useState("");
-  const [contents, setContents] = useState("");
-  const [rating, setRating] = useState(5);
+  const [writer, setWriter] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [contents, setContents] = useState<string>(" ");
+  const [rating, setRating] = useState<number>(5);
 
   const [isActive, setIsActive] = useState<boolean>(false); //isActive가 true이면 버튼 활성화
 
@@ -42,24 +52,27 @@ export default function CommentWrite(props: ICommentWriteProps) {
   const onClickStar = (e: MouseEvent<HTMLButtonElement>) => {
     console.log("onClickStar 실행");
     if (e.target instanceof Element) {
-      console.log("별점" + e.target.id);
       setRating(Number(e.target.id));
-      console.log(rating);
     }
   };
-  // const onChangeRating = (score: number) => {
-  //   setRating(score);
-  // };
 
   /* CREATE_BOARD_COMMENT */
-  const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT); //queries에 작성한 쿼리를 가져와서 createBoard에 저장한다.
+  const [createBoardComment] = useMutation<
+    Pick<IMutation, "createBoardComment">,
+    IMutationCreateBoardCommentArgs
+  >(CREATE_BOARD_COMMENT); //queries에 작성한 쿼리를 가져와서 createBoard에 저장한다.
   const onClickCreate = async () => {
     if (!writer) {
-      console.log("작성자를 입력해주세요.");
-    } else if (!password) {
-      console.log("비밀번호를 입력해주세요.");
-    } else if (!contents) {
-      console.log("내용을 입력해주세요.");
+      warningModal("작성자를 입력해주세요.");
+      return;
+    }
+    if (!password) {
+      warningModal("비밀번호를 입력해주세요.");
+      return;
+    }
+    if (!contents) {
+      warningModal("내용을 입력해주세요.");
+      return;
     }
     if (writer && password && contents) {
       try {
@@ -80,46 +93,58 @@ export default function CommentWrite(props: ICommentWriteProps) {
             },
           ],
         });
-        console.log("<<CREATE_BOARD_COMMENT의 result>>");
-        console.log(result);
         setWriter("");
         setContents("");
         setPassword("");
         setRating(5);
       } catch (error) {
-        if (error instanceof Error) alert(error.message);
+        if (error instanceof Error) warningModal(error.message);
       }
     }
   };
 
   /*UPDATE_BOARD_COMMENT*/
-  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
+  const [updateBoardComment] = useMutation<
+    Pick<IMutation, "updateBoardComment">,
+    IMutationUpdateBoardCommentArgs
+  >(UPDATE_BOARD_COMMENT);
   const onClickUpdate = async () => {
-    try {
-      console.log("<<boardCommentId>>" + props?.el?._id);
-      await updateBoardComment({
-        variables: {
-          updateBoardCommentInput: {
-            contents: contents,
-            rating: rating,
+    if (!password) {
+      warningModal("비밀번호를 입력해주세요.");
+      return;
+    }
+    // if (!contents) {
+    //   warningModal("내용을 입력해주세요.");
+    //   return;
+    // }
+
+    const myUpdateBoardCommentInput: IUpdateBoardCommentInput = {};
+    if (contents) {
+      myUpdateBoardCommentInput.contents = contents;
+    }
+    if (rating) myUpdateBoardCommentInput.rating = rating;
+
+    if (password && contents) {
+      try {
+        await updateBoardComment({
+          variables: {
+            updateBoardCommentInput: myUpdateBoardCommentInput,
+            password: password,
+            boardCommentId: props?.el?._id,
           },
-          password: password,
-          boardCommentId: props?.el?._id,
-        },
-        refetchQueries: [
-          {
-            query: FETCH_BOARD_COMMENTS,
-            variables: { boardId: String(router.query.boardId) },
-          },
-        ],
-      });
-      props.setIsEdit?.(false);
-    } catch (error) {
-      if (error instanceof Error) console.log(error.message);
-      console.log("에러발생!!");
+          refetchQueries: [
+            {
+              query: FETCH_BOARD_COMMENTS,
+              variables: { boardId: String(router.query.boardId) },
+            },
+          ],
+        });
+        props.setIsEdit?.(false);
+      } catch (error) {
+        if (error instanceof Error) warningModal(error.message);
+      }
     }
   };
-
   return (
     <CommentWriteUI
       isActive={isActive}
@@ -134,7 +159,8 @@ export default function CommentWrite(props: ICommentWriteProps) {
       onClickCreate={onClickCreate}
       isEdit={props.isEdit}
       onClickUpdate={onClickUpdate}
-      data={props.data} // defaultValue로 쓰려고 가져가지만 아직 실패중..
+      data={props.data} // Comments.container에서 온 fetchBoardComments : 값이 안 온다.
+      index={props.index}
     />
   );
 }

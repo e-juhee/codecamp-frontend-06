@@ -6,7 +6,7 @@ import {
   FETCH_BOARDS_BEST,
   FETCH_BOARDS_COUNT,
 } from "./Boards.queries";
-import { MouseEvent } from "react";
+import { MouseEvent, useState } from "react";
 
 export default function Boards() {
   /* FETCH_BOARDS */
@@ -30,6 +30,7 @@ export default function Boards() {
   /* Pagination에 쓸 데이터 */
   const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
+  const [current, setCurrent] = useState<number>(1);
 
   return (
     <BoardsUI
@@ -39,6 +40,9 @@ export default function Boards() {
       refetch={refetch}
       lastPage={lastPage}
       dataBest={dataBest}
+      // totalBoardsCount={totalBoardsCount}
+      current={current}
+      setCurrent={setCurrent}
     />
   );
 }

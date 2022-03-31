@@ -32,16 +32,11 @@ export interface IBoardWriteUIProps {
   onChangeTitle: (e: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeYoutubeUrl: (e: ChangeEvent<HTMLInputElement>) => void;
-  // onChangeZipcode: (e: ChangeEvent<HTMLInputElement>) => void;
-  // onChangeAddress: (e: ChangeEvent<HTMLInputElement>) => void;
   onChangeAddressDetail: (e: ChangeEvent<HTMLInputElement>) => void;
   onClickCreate: () => void; //void: 리턴값이 일정하지 않을 때
   onClickUpdate: () => void; //매개변수가 없으면 안에 안 넣어도 됨
 
   data?: Pick<IQuery, "fetchBoard">;
-
-  // handleComplete: (data: any) => void;
-  // onToggleModal: () => void;
   isOpen: boolean;
 
   address: string;

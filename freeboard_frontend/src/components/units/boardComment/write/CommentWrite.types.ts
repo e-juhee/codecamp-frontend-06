@@ -1,12 +1,14 @@
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
+import { IQuery } from "../../../../commons/types/generated/types";
 
 /* BoardWrite.container */
 export interface ICommentWriteProps {
-  isEdit?: boolean;
+  isEdit: boolean;
   setIsEdit?: Dispatch<SetStateAction<boolean>>;
   el?: any;
-  data?: any;
+  data?: Pick<IQuery, "fetchBoardComments">;
   writer?: string;
+  index: number;
 }
 export interface ICommentWriteUIProps {
   isActive: boolean;
@@ -20,9 +22,7 @@ export interface ICommentWriteUIProps {
   rating: number;
   onClickCreate: () => void;
   onClickUpdate: () => void;
-  data?: any;
-  isEdit?: boolean;
-  // boardId?: string;
-  // onChangeRating?: (score: number) => void;
-  // id?: string;
+  data?: Pick<IQuery, "fetchBoardComments">;
+  isEdit: boolean;
+  index: number;
 }

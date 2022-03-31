@@ -16,3 +16,8 @@ export const successModal = (content: string) => {
     content: content,
   });
 };
+export const warningModal = (content: string) => {
+  Modal.warning({
+    content: content,
+  });
+};

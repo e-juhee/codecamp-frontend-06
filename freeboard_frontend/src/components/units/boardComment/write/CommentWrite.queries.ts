@@ -17,13 +17,6 @@ export const CREATE_BOARD_COMMENT = gql`
     }
   }
 `;
-//   createBoardCommentInput:{
-//   writer: "주히"
-//     password: "1234"
-//     contents:"댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다"
-//     rating: 3
-// }
-// boardId: "623ea339a8255b00298841eb"
 
 export const UPDATE_BOARD_COMMENT = gql`
   mutation updateBoardComment(
@@ -42,10 +35,3 @@ export const UPDATE_BOARD_COMMENT = gql`
     }
   }
 `;
-
-//   updateBoardCommentInput:{
-//   contents:"수정댓글입니다. 수정댓글입니다. 수정댓글입니다."
-//     rating: 4
-// }
-// password:"1234"
-// boardCommentId: "623ebeb5a8255b0029884224"){
