@@ -168,29 +168,6 @@ export const TD = styled.td`
   }
 `;
 
-export const Pagination = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 128px;
-  height: 24px;
-`;
-export const Next = styled.img`
-  width: 7.41px;
-  height: 12px;
-  cursor: pointer;
-`;
-export const PageNumber = styled.div`
-  font-size: 16px;
-  cursor: pointer;
-`;
-export const CurrentPageNumber = styled.div`
-  font-size: 16px;
-  color: #ffd600;
-  text-decoration: underline;
-  cursor: pointer;
-`;
 export const Footer = styled.div`
   width: 1200px;
   display: flex;

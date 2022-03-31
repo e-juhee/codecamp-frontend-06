@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getDate } from "../../../../commons/libraries/utils";
+import Pagination from "../pagination/Pagination";
 import * as S from "./Boards.style";
 import { IBoardsUIProps } from "./Boards.types";
 //default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
@@ -123,13 +124,8 @@ export default function BoardsUI(props: IBoardsUIProps) {
         </S.Table>
 
         <S.Footer>
-          <div style={{ width: "171px" }}></div>
-          <S.Pagination>
-            <S.Next src={"./boards/list/Gt.png"}></S.Next>
-            <S.PageNumber>1</S.PageNumber>
-            <S.CurrentPageNumber>2</S.CurrentPageNumber>
-            <S.Next src={"./boards/list/Lt.png"}></S.Next>
-          </S.Pagination>
+          <div style={{ width: "80px" }}></div>
+          <Pagination refetch={props.refetch} lastPage={props.lastPage} />
           <S.NewButton>
             <S.NewButtonIcon></S.NewButtonIcon>
             <S.NewButtonText onClick={props.onClickWrite}>
