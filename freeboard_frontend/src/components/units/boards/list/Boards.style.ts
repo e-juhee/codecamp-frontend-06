@@ -27,6 +27,10 @@ export const BestBoard = styled.div`
   height: 257px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
+  cursor: pointer;
+  :hover {
+    background-color: rgba(246, 236, 203, 0.3);
+  }
 `;
 export const BestImage = styled.img`
   border-top-right-radius: 20px;
@@ -154,6 +158,14 @@ export const TH = styled.th`
     border-left: none;
   }
 `;
+export const TRWrapper = styled.tr`
+  background-color: white;
+  cursor: pointer;
+  :hover {
+    color: #00008b;
+    background-color: rgb(240, 248, 255, 0.7);
+  }
+`;
 export const TD = styled.td`
   height: 52px;
   border-bottom: 1px solid #bdbdbd;
@@ -161,10 +173,6 @@ export const TD = styled.td`
   font-size: 16px;
   &:first-of-type {
     border-left: none;
-  }
-  :hover {
-    color: blue;
-    font-size: 18px;
   }
 `;
 
@@ -184,6 +192,9 @@ export const NewButton = styled.div`
   border: 1px solid #f2f2f2;
   border-radius: 10px;
   cursor: pointer;
+  :hover {
+    background-color: rgba(246, 236, 203, 0.3);
+  }
 `;
 export const NewButtonIcon = styled.div`
   width: 18px;

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,6 +19,9 @@ const Menu = styled.div`
     props.isActive ? "GmarketSansTTFMedium" : "GmarketSansTTFLight"};
   line-height: 30px;
   cursor: pointer;
+  :hover {
+    color: #00008b;
+  }
 `;
 
 interface IProps {
@@ -26,18 +29,21 @@ interface IProps {
 }
 
 export default function LayoutNavigation() {
-  const [isActive, setIsActive] = useState<boolean>(false);
   const router = useRouter();
-  const onClickFreeBoard = () => {
-    router.push("/boards2");
+  const onClickLink = (e: MouseEvent<HTMLDivElement>) => {
+    if (e.target instanceof Element) router.push(e.target.id);
   };
   return (
     <Wrapper>
-      <Menu isActive={true} onClick={onClickFreeBoard}>
+      <Menu isActive={true} id={"/boards2"} onClick={onClickLink}>
         자유게시판
       </Menu>
-      <Menu isActive={false}>중고마켓</Menu>
-      <Menu isActive={false}>마이페이지</Menu>
+      <Menu isActive={false} id={"/market"} onClick={onClickLink}>
+        중고마켓
+      </Menu>
+      <Menu isActive={false} id={"/myPage"} onClick={onClickLink}>
+        마이페이지
+      </Menu>
     </Wrapper>
   );
 }

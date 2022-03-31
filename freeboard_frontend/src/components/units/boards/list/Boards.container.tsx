@@ -14,8 +14,6 @@ export default function Boards() {
 
   /* FETCH_BOARDS_BEST */
   const { data: dataBest } = useQuery(FETCH_BOARDS_BEST);
-  console.log(dataBest);
-  console.log("dataBest");
 
   /* Routing to BoardWrite */
   const router = useRouter();
@@ -26,7 +24,7 @@ export default function Boards() {
   /* Routing to BoardDetail */
   const onClickBoard = (event: MouseEvent<HTMLDivElement>) => {
     if (event.target instanceof Element)
-      router.push(`/boards2/${event.target.id}`);
+      router.push(`/boards2/${event.currentTarget.id}`);
   };
 
   /* Pagination에 쓸 데이터 */

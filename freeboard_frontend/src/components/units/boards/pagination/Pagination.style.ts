@@ -25,6 +25,9 @@ export const PageNumber = styled.div`
   font-size: 15px;
   text-align: center;
   /* font-family: "GmarketSansTTFMedium"; */
+  :hover {
+    color: #8b008b;
+  }
 `;
 export const PageNumberWrapper = styled.div`
   display: flex;

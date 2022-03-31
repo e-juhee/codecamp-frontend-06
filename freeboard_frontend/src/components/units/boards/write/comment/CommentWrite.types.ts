@@ -6,7 +6,7 @@ export interface ICommentWriteProps {
   setIsEdit?: Dispatch<SetStateAction<boolean>>;
   el?: any;
   data?: any;
-  writer: string;
+  writer?: string;
 }
 export interface ICommentWriteUIProps {
   isActive: boolean;
