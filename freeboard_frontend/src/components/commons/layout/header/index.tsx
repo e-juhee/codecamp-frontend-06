@@ -39,7 +39,7 @@ const SignUp = styled.button`
 export default function LayoutHeader() {
   const router = useRouter();
   const onClickTitle = () => {
-    router.push("/boards2");
+    router.push("/boards");
   };
   return (
     <Wrapper>

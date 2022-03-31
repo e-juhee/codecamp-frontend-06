@@ -35,7 +35,7 @@ export default function LayoutNavigation() {
   };
   return (
     <Wrapper>
-      <Menu isActive={true} id={"/boards2"} onClick={onClickLink}>
+      <Menu isActive={true} id={"/boards"} onClick={onClickLink}>
         자유게시판
       </Menu>
       <Menu isActive={false} id={"/market"} onClick={onClickLink}>

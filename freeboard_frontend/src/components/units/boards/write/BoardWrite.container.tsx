@@ -127,7 +127,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
         /* Detail 화면으로 라우팅*/
         //BoardWrite.container가 실행되는 경로는 pages/boards/new/index.js이다. router에 그에 맞게 경로를 정해줘야 한다.
         //이름이 일치하는 폴더가 없을 경우 [대괄호 폴더명]으로 이동한다.
-        router.push(`/boards2/${result.data.createBoard._id}`); //리턴값으로 받은 아이디로 이동
+        router.push(`/boards/${result.data.createBoard._id}`); //리턴값으로 받은 아이디로 이동
       } catch (error) {
         if (error instanceof Error) alert(error.message); // 모달로 바꾸자
       }
@@ -176,7 +176,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       });
       successModal("수정이 완료되었습니다.");
       /* Detail 화면으로 라우팅*/
-      router.push(`/boards2/${router.query.boardId}`); //CREATE에서 쓴 ${result.data.updateBoard._id}를 써도 된다. //boardId는 내가 생성한 [대괄호 폴더명] (참고: UPDATE가 아닌 CREATE 화면에는 경로에 boardId가 없기 때문에 리턴 받는 아이디로 라우팅 해야만 한다!)
+      router.push(`/boards/${router.query.boardId}`); //CREATE에서 쓴 ${result.data.updateBoard._id}를 써도 된다. //boardId는 내가 생성한 [대괄호 폴더명] (참고: UPDATE가 아닌 CREATE 화면에는 경로에 boardId가 없기 때문에 리턴 받는 아이디로 라우팅 해야만 한다!)
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
     }

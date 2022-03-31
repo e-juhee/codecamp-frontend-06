@@ -85,18 +85,18 @@ export default function BoardDetail() {
         variables: { boardId: String(router.query.boardId) },
       });
       successModal("삭제되었습니다.");
-      router.push(`/boards2`);
+      router.push(`/boards`);
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
     }
   };
 
   const onClickList = () => {
-    router.push(`/boards2`);
+    router.push(`/boards`);
   };
 
   const onClickUpdate = () => {
-    router.push(`/boards2/${router.query.boardId}/edit`);
+    router.push(`/boards/${router.query.boardId}/edit`);
   };
 
   return (

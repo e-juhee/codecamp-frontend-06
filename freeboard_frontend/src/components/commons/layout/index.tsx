@@ -15,9 +15,9 @@ const Body = styled.div`
 `;
 
 const HIDDEN_BANNER = [
-  "/boards2/[boardId]/edit",
-  "/boards2/[boardId]",
-  "/boards2/new",
+  "/boards/[boardId]/edit",
+  "/boards/[boardId]",
+  "/boards/new",
 ];
 
 interface ILayoutProps {
