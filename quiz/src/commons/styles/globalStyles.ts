@@ -3,8 +3,8 @@ export const globalStyles = css`
   * {
     margin: 0;
     box-sizing: border-box;
-    font-size: 30px;
-    font-family: "myFont";
+    /* font-size: 30px; */
+    /* font-family: "myFont"; */
   }
   // 폰트 만들기
   @font-face {

@@ -31,14 +31,14 @@ export default function Layout(props: ILayoutProps) {
 
   return (
     <>
-      {!isHiddenHeader && <LayoutHeader />}
-      <LayoutBanner />
-      <LayoutNavigation />
-      <BodyWrapper>
-        <LayoutSidebar>사이드바 영역</LayoutSidebar>
-        <Body>{props.children}</Body>
-      </BodyWrapper>
-      <LayoutFooter />
+      {/* {!isHiddenHeader && <LayoutHeader />} */}
+      {/* <LayoutBanner /> */}
+      {/* <LayoutNavigation /> */}
+      {/* <BodyWrapper> */}
+      {/* <LayoutSidebar>사이드바 영역</LayoutSidebar> */}
+      <Body>{props.children}</Body>
+      {/* </BodyWrapper> */}
+      {/* <LayoutFooter /> */}
     </>
   );
 }
