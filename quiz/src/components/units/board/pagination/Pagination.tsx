@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
+import * as S from "./Pagination.style";
 
 export default function Pagination(props: any) {
   const [startPage, setStartPage] = useState(1);
@@ -23,7 +23,7 @@ export default function Pagination(props: any) {
 
     setIsNextActive(true);
     setStartPage((prev) => prev - 10);
-    props.refetch({ page: startPage - 1 });
+    props.refetch({ page: startPage - 1 }); // prev 버튼 눌렀을 때 이전 10개의 페이지 중 가장 마지막이 열리도록 변경
     setCurrent(startPage - 1);
   };
   const onClickNextPage = () => {
@@ -40,49 +40,37 @@ export default function Pagination(props: any) {
     setCurrent(startPage + 10);
   };
 
-  const Wrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 400px;
-    margin-top: 30px;
-  `;
-
-  const PageNumber = styled.div`
-    color: ${(props: ICurrentProps) => (props.isCurrent ? "red" : "black")};
-  `;
-
-  const Button = styled.button`
-    display: ${(props: IActiveProps) => (props.isActive ? "" : "none")};
-  `;
-  interface ICurrentProps {
-    isCurrent: boolean;
-  }
-  interface IActiveProps {
-    isActive: boolean;
-  }
   return (
-    <Wrapper>
-      <Button onClick={onClickPrevPage} isActive={isPrevActive}>
+    <S.Wrapper>
+      <S.Button
+        disabled={!isPrevActive}
+        onClick={onClickPrevPage}
+        isActive={isPrevActive}
+      >
         &lt;
-      </Button>
-      {new Array(10).fill(1).map(
-        (_, index) =>
-          index + startPage <= props.lastPage && (
-            <PageNumber
+      </S.Button>
+      <S.PageNumberWrapper>
+        {new Array(10)
+          .fill(1)
+          .filter((_, index) => index + startPage <= props.lastPage)
+          .map((_, index) => (
+            <S.PageNumber
               onClick={onClickPage}
               id={String(index + startPage)}
               key={index + startPage}
               isCurrent={current === index + startPage}
             >
-              {`  `} {index + startPage}
-            </PageNumber>
-          )
-      )}
-      {`  `}
-      <Button onClick={onClickNextPage} isActive={isNextActive}>
+              {index + startPage}
+            </S.PageNumber>
+          ))}
+      </S.PageNumberWrapper>
+      <S.Button
+        disabled={!isNextActive}
+        onClick={onClickNextPage}
+        isActive={isNextActive}
+      >
         &gt;
-      </Button>
-    </Wrapper>
+      </S.Button>
+    </S.Wrapper>
   );
 }

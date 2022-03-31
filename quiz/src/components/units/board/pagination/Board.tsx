@@ -1,21 +1,18 @@
-import styled from "@emotion/styled";
+import * as S from "./Board.style";
 
-const MyRow = styled.div`
-  display: flex;
-`;
-
-const MyColumn = styled.div`
-  width: 400px;
-`;
 export default function Board(props: any) {
   return (
-    <div>
+    <S.Wrapper>
+      <S.TitleRow>
+        <S.HeaderTitle>제목</S.HeaderTitle>
+        <S.HeaderWriter>작성자</S.HeaderWriter>
+      </S.TitleRow>
       {props.data?.fetchBoards.map((el: any) => (
-        <MyRow key={el._id}>
-          <MyColumn>{el.title}</MyColumn>
-          <MyColumn>{el.writer}</MyColumn>
-        </MyRow>
+        <S.Row key={el._id}>
+          <S.Title>{el.title}</S.Title>
+          <S.Writer>{el.writer}</S.Writer>
+        </S.Row>
       ))}
-    </div>
+    </S.Wrapper>
   );
 }
