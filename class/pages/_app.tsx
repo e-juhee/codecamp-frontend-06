@@ -8,8 +8,8 @@ import { globalStyles } from "../src/commons/styles/globalStyles";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
-    uri: "http://example.codebootcamp.co.kr/graphql", // 백엔드 컴퓨터의 주소를 알려줌
-    cache: new InMemoryCache(), // inmemorycache에 저장한다. 메모리에 저장하면 컴퓨터를 껐다가 키면 날아감
+    uri: "http://backend06.codebootcamp.co.kr/graphql", // 백엔드 컴퓨터의 주소를 알려줌
+    cache: new InMemoryCache(), // inMemoryCache에 저장한다. 메모리에 저장하면 컴퓨터를 껐다가 키면 날아감
   });
 
   return (
