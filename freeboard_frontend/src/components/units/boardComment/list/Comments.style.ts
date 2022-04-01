@@ -15,11 +15,22 @@ export const CStar = styled.div<{ isStar: boolean }>`
       ? "url('/boards/detail/comment/CYellowStar.png')"
       : "url('/boards/detail/comment/CGrayStar.png')"};
 `;
+
+interface ICommentsLengthProps {
+  commentsLength: number;
+}
 export const CListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 1200px;
   margin: 0 auto 100px auto;
+  border-top: ${(props: ICommentsLengthProps) =>
+    props.commentsLength > 0 ? "3px solid lightgray;" : ""};
+  border-bottom: ${(props: ICommentsLengthProps) =>
+    props.commentsLength > 0 ? "3px solid lightgray;" : ""};
+  overflow: auto;
+  height: ${(props: ICommentsLengthProps) =>
+    props.commentsLength > 4 ? "520px" : ""};
 `;
 export const CDetail = styled.div`
   display: flex;

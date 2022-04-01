@@ -29,9 +29,26 @@ export const CInputHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 530px;
+  width: 1200px;
   height: 52px;
   margin-bottom: 20px;
+`;
+export const CInputHeaderLeft = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 530px;
+`;
+
+export const CCancel = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  :hover {
+    color: navy;
+    text-decoration: underline;
+  }
 `;
 export const CInputShort = styled.input`
   width: 180px;
@@ -47,6 +64,7 @@ export const CStarWrapper = styled.div`
   width: 116px;
   height: 100%;
 `;
+
 export const CStar = styled.button<{ isStar: boolean }>`
   width: 20px;
   height: 20px;
@@ -58,6 +76,7 @@ export const CStar = styled.button<{ isStar: boolean }>`
   background-color: white;
   cursor: pointer;
 `;
+
 export const CInputBody = styled.div`
   display: flex;
   flex-direction: column;
@@ -89,14 +108,18 @@ export const CTextCount = styled.div`
   line-height: 24px;
   color: #bdbdbd;
 `;
+interface disabled {
+  isDisabled: boolean;
+}
 export const CCreateButton = styled.button`
   width: 91px;
   height: 100%;
-  background: #000000;
+  background: ${(props: disabled) =>
+    props.isDisabled ? "lightgray" : "black"};
   border: none;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
-  cursor: pointer;
+  cursor: ${(props: disabled) => (props.isDisabled ? "" : "pointer")};
 `;

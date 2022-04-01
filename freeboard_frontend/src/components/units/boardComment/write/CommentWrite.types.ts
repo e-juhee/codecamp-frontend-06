@@ -7,8 +7,9 @@ export interface ICommentWriteProps {
   setIsEdit?: Dispatch<SetStateAction<boolean>>;
   el?: any;
   data?: Pick<IQuery, "fetchBoardComments">;
-  writer?: string;
+  // writer?: string;
   index: number;
+  currentStar: number;
 }
 export interface ICommentWriteUIProps {
   isActive: boolean;
@@ -16,13 +17,14 @@ export interface ICommentWriteUIProps {
   onChangePassword: (e: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onClickStar: (e: MouseEvent<HTMLButtonElement>) => void;
-  writer: string;
-  password: string;
-  contents: string;
+  writer?: string;
+  password?: string;
+  contents?: string;
   rating: number;
   onClickCreate: () => void;
   onClickUpdate: () => void;
   data?: Pick<IQuery, "fetchBoardComments">;
   isEdit: boolean;
   index: number;
+  onClickCancel: () => void;
 }

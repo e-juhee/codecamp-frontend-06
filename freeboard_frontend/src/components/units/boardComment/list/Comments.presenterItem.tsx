@@ -7,8 +7,12 @@ import { getDate } from "../../../../commons/libraries/utils";
 
 export default function CommentsItemUI(props: ICommentsItemUIProps) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  // const [currentStar, setCurrentStar] = useState<number>();
+
   const onClickUpdate = () => {
     setIsEdit(true);
+    // setCurrentStar(props.el.rating);
+    // console.log(currentStar);
   };
 
   return (
@@ -63,9 +67,10 @@ export default function CommentsItemUI(props: ICommentsItemUIProps) {
           isEdit={true}
           setIsEdit={setIsEdit}
           el={props.el}
-          writer={props.el.writer}
+          // writer={props.el.writer}
           index={props.index}
           data={props.data}
+          currentStar={props.el.rating}
         />
       )}
     </>

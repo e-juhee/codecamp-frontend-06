@@ -8,6 +8,8 @@ export interface ICommentsUIProps {
   isOpen: boolean;
   onToggleModal: (event: MouseEvent<HTMLElement>) => void;
   commentId: any;
+  // fetchMore: any;
+  onLoadMore: any;
 }
 export interface ICommentsItemUIProps {
   key: string;
@@ -18,4 +20,6 @@ export interface ICommentsItemUIProps {
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   isOpen: boolean;
   index: number;
+  // fetchMore: any;
+  // onLoadMore: any;
 }

@@ -22,12 +22,12 @@ import {
 
 export default function CommentWrite(props: ICommentWriteProps) {
   const router = useRouter();
-  const [writer, setWriter] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [contents, setContents] = useState<string>(" ");
-  const [rating, setRating] = useState<number>(5);
+  const [writer, setWriter] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [contents, setContents] = useState<string>();
+  const [rating, setRating] = useState<number>(props.currentStar || 5);
 
-  const [isActive, setIsActive] = useState<boolean>(false); //isActive가 true이면 버튼 활성화
+  const [isActive, setIsActive] = useState<boolean>(false); //isActive가 true이면 버튼 활성화 컬러로 변경
 
   const onChangeWriter = (e: ChangeEvent<HTMLInputElement>) => {
     setWriter(e.target.value);
@@ -37,7 +37,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
   };
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    console.log(e);
+    // console.log(e);
     e.target.value && writer && contents
       ? setIsActive(true)
       : setIsActive(false);
@@ -50,7 +50,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
   };
 
   const onClickStar = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log("onClickStar 실행");
+    // console.log("onClickStar 실행");
     if (e.target instanceof Element) {
       setRating(Number(e.target.id));
     }
@@ -76,7 +76,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
     }
     if (writer && password && contents) {
       try {
-        const result = await createBoardComment({
+        await createBoardComment({
           variables: {
             createBoardCommentInput: {
               writer: writer,
@@ -113,37 +113,32 @@ export default function CommentWrite(props: ICommentWriteProps) {
       warningModal("비밀번호를 입력해주세요.");
       return;
     }
-    // if (!contents) {
-    //   warningModal("내용을 입력해주세요.");
-    //   return;
-    // }
-
-    const myUpdateBoardCommentInput: IUpdateBoardCommentInput = {};
-    if (contents) {
-      myUpdateBoardCommentInput.contents = contents;
+    if (!rating) {
+      setRating(props.currentStar);
     }
-    if (rating) myUpdateBoardCommentInput.rating = rating;
 
-    if (password && contents) {
-      try {
-        await updateBoardComment({
-          variables: {
-            updateBoardCommentInput: myUpdateBoardCommentInput,
-            password: password,
-            boardCommentId: props?.el?._id,
+    try {
+      await updateBoardComment({
+        variables: {
+          updateBoardCommentInput: { contents, rating },
+          password: password,
+          boardCommentId: props?.el?._id,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_COMMENTS,
+            variables: { boardId: String(router.query.boardId) },
           },
-          refetchQueries: [
-            {
-              query: FETCH_BOARD_COMMENTS,
-              variables: { boardId: String(router.query.boardId) },
-            },
-          ],
-        });
-        props.setIsEdit?.(false);
-      } catch (error) {
-        if (error instanceof Error) warningModal(error.message);
-      }
+        ],
+      });
+      props.setIsEdit?.(false);
+    } catch (error) {
+      if (error instanceof Error) warningModal(error.message);
     }
+  };
+
+  const onClickCancel = () => {
+    props.setIsEdit?.(false);
   };
   return (
     <CommentWriteUI
@@ -161,6 +156,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
       onClickUpdate={onClickUpdate}
       data={props.data} // Comments.container에서 온 fetchBoardComments : 값이 안 온다.
       index={props.index}
+      onClickCancel={onClickCancel}
     />
   );
 }
