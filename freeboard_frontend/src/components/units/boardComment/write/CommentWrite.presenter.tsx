@@ -29,7 +29,7 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
               type="text"
               readOnly={props.isEdit}
               placeholder="작성자"
-              // value={props.writer}
+              value={props.writer}
               defaultValue={
                 props?.data?.fetchBoardComments[props.index].writer || ""
               }

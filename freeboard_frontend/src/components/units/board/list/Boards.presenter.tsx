@@ -65,9 +65,9 @@ export default function BoardsUI(props: IBoardsUIProps) {
                 onClick={props.onClickBoard}
               >
                 <S.TD style={{ width: "100px" }}>
-                  {/* {props.data?.fetchBoards.length - index} */}
                   {props.current * 10 + index - 9}
                 </S.TD>
+
                 <S.TD style={{ width: "800px", cursor: "pointer" }}>
                   {el.title}
                 </S.TD>
