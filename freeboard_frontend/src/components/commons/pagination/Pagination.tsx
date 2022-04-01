@@ -67,9 +67,9 @@ export default function Pagination(props: IPaginationProps) {
           ))}
       </S.PageNumberWrapper>
       <S.Button
-        disabled={!isNextActive}
+        disabled={!isNextActive || props.lastPage < 11}
         onClick={onClickNextPage}
-        isActive={isNextActive}
+        isActive={isNextActive && props.lastPage >= 11}
       >
         &gt;
       </S.Button>

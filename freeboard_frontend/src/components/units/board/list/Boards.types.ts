@@ -1,4 +1,4 @@
-import { Dispatch, MouseEvent, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 
 export interface IBoardsUIProps {
@@ -10,6 +10,8 @@ export interface IBoardsUIProps {
   dataBest: Pick<IQuery, "fetchBoardsOfTheBest">;
   current: number;
   setCurrent: Dispatch<SetStateAction<number>>;
+  onChangeSearch: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClickSearch: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 export interface IPaginationProps {
   lastPage: number;

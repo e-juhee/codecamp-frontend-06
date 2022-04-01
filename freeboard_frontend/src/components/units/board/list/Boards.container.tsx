@@ -6,11 +6,21 @@ import {
   FETCH_BOARDS_BEST,
   FETCH_BOARDS_COUNT,
 } from "./Boards.queries";
-import { MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 
 export default function Boards() {
   /* FETCH_BOARDS */
+  const [search, setSearch] = useState<String>("");
   const { data, refetch } = useQuery(FETCH_BOARDS);
+
+  const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  const onClickSearch = (event: MouseEvent<HTMLButtonElement>) => {
+    refetch();
+    refetch({ search: search });
+  };
 
   /* FETCH_BOARDS_BEST */
   const { data: dataBest } = useQuery(FETCH_BOARDS_BEST);
@@ -28,7 +38,9 @@ export default function Boards() {
   };
 
   /* Pagination에 쓸 데이터 */
-  const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
+  const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT, {
+    variables: { search },
+  });
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
   const [current, setCurrent] = useState<number>(1);
 
@@ -43,6 +55,8 @@ export default function Boards() {
       // totalBoardsCount={totalBoardsCount}
       current={current}
       setCurrent={setCurrent}
+      onChangeSearch={onChangeSearch}
+      onClickSearch={onClickSearch}
     />
   );
 }

@@ -39,10 +39,13 @@ export default function BoardsUI(props: IBoardsUIProps) {
             <S.SearchInput
               type="text"
               placeholder="제목을 검색해주세요."
+              onChange={props.onChangeSearch}
             ></S.SearchInput>
           </S.SearchTitle>
           <S.SearchDate>YYYY. MM.DD ~ YYYY. MM.DD</S.SearchDate>
-          <S.SearchButton>검색하기</S.SearchButton>
+          <S.SearchButton onClick={props.onClickSearch}>
+            검색하기
+          </S.SearchButton>
         </S.SearchWrapper>
 
         <S.Table>
