@@ -67,10 +67,8 @@ export default function CommentsItemUI(props: ICommentsItemUIProps) {
           isEdit={true}
           setIsEdit={setIsEdit}
           el={props.el}
-          // writer={props.el.writer}
           index={props.index}
           data={props.data}
-          currentStar={props.el.rating}
         />
       )}
     </>

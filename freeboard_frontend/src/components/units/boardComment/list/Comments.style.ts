@@ -7,10 +7,13 @@ export const CStarWrapper = styled.div`
   width: 116px;
   height: 100%;
 `;
+interface ICStarProps {
+  isStar: boolean;
+}
 export const CStar = styled.div<{ isStar: boolean }>`
   width: 20px;
   height: 20px;
-  background-image: ${(props: any) =>
+  background-image: ${(props: ICStarProps) =>
     props.isStar
       ? "url('/boards/detail/comment/CYellowStar.png')"
       : "url('/boards/detail/comment/CGrayStar.png')"};

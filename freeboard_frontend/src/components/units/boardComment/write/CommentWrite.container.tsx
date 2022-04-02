@@ -14,10 +14,6 @@ import {
   IMutation,
   IMutationCreateBoardCommentArgs,
   IMutationUpdateBoardCommentArgs,
-  IQuery,
-  IQueryFetchBoardCommentsArgs,
-  IUpdateBoardCommentInput,
-  IUpdateBoardInput,
 } from "../../../../commons/types/generated/types";
 
 export default function CommentWrite(props: ICommentWriteProps) {
@@ -25,7 +21,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
   const [writer, setWriter] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [contents, setContents] = useState<string>();
-  const [rating, setRating] = useState<number>(props.currentStar || 5);
+  const [rating, setRating] = useState<number>(props?.el?.rating || 5);
 
   const [isActive, setIsActive] = useState<boolean>(false); //isActive가 true이면 버튼 활성화 컬러로 변경
 
@@ -50,7 +46,6 @@ export default function CommentWrite(props: ICommentWriteProps) {
   };
 
   const onClickStar = (e: MouseEvent<HTMLButtonElement>) => {
-    // console.log("onClickStar 실행");
     if (e.target instanceof Element) {
       setRating(Number(e.target.id));
     }
@@ -97,6 +92,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
         setContents("");
         setPassword("");
         setRating(5);
+        setIsActive(false);
       } catch (error) {
         if (error instanceof Error) warningModal(error.message);
       }
@@ -113,10 +109,6 @@ export default function CommentWrite(props: ICommentWriteProps) {
       warningModal("비밀번호를 입력해주세요.");
       return;
     }
-    if (!rating) {
-      setRating(props.currentStar);
-    }
-
     try {
       await updateBoardComment({
         variables: {

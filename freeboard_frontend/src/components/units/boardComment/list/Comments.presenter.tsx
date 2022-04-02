@@ -1,7 +1,6 @@
 import * as S from "./Comments.style";
 import { ICommentsUIProps } from "./Comments.types";
 import CommentsItemUI from "./Comments.presenterItem";
-import { MouseEvent, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
 export default function CommentsUI(props: ICommentsUIProps) {

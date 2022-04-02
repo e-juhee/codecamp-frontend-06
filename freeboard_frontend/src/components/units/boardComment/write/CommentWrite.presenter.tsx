@@ -86,6 +86,7 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
             <S.CCreateButton
               onClick={props.isEdit ? props.onClickUpdate : props.onClickCreate}
               isDisabled={props.isActive ? false : true}
+              isEdit={props.isEdit}
             >
               {props.isEdit ? "수정하기" : "등록하기"}
             </S.CCreateButton>

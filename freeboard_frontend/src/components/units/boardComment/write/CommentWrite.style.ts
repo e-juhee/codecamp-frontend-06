@@ -110,16 +110,18 @@ export const CTextCount = styled.div`
 `;
 interface disabled {
   isDisabled: boolean;
+  isEdit: boolean;
 }
 export const CCreateButton = styled.button`
   width: 91px;
   height: 100%;
   background: ${(props: disabled) =>
-    props.isDisabled ? "lightgray" : "black"};
+    props.isDisabled && !props.isEdit ? "lightgray" : "rgba(227, 22, 128, 1)"};
   border: none;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
-  cursor: ${(props: disabled) => (props.isDisabled ? "" : "pointer")};
+  cursor: ${(props: disabled) =>
+    props.isDisabled && !props.isEdit ? "" : "pointer"};
 `;

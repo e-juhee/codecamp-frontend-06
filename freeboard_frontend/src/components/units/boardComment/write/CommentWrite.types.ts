@@ -9,7 +9,7 @@ export interface ICommentWriteProps {
   data?: Pick<IQuery, "fetchBoardComments">;
   // writer?: string;
   index: number;
-  currentStar: number;
+  // currentStar: number;
 }
 export interface ICommentWriteUIProps {
   isActive: boolean;

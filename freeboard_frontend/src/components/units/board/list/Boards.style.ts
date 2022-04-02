@@ -38,10 +38,11 @@ export const BestImage = styled.img`
 `;
 
 export const BestTitle = styled.div`
-  height: 27px;
+  height: 50px;
   font-weight: 500;
   font-size: 18px;
   padding: 20px;
+  overflow: hidden;
 `;
 export const BestBoardBody = styled.div`
   display: flex;
