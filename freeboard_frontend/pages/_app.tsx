@@ -18,6 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ApolloProvider client={client}>
       <Global styles={globalStyles} />
       <Layout>
+        {/* Component가 Layout 컴포넌트의 props.children  --> layout/index.tsx에서 씀 */}
         <Component {...pageProps} />
       </Layout>
     </ApolloProvider>

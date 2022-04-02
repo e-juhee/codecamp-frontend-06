@@ -10,8 +10,9 @@ import { ChangeEvent, MouseEvent, useState } from "react";
 
 export default function Boards() {
   /* FETCH_BOARDS */
+  const { data, refetch } = useQuery(FETCH_BOARDS); // data는 state와 동일한 역할을 한다. 값이 바뀌면 리렌더된다.
+
   const [search, setSearch] = useState<String>("");
-  const { data, refetch } = useQuery(FETCH_BOARDS);
 
   const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -42,7 +43,7 @@ export default function Boards() {
     variables: { search },
   });
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
-  const [current, setCurrent] = useState<number>(1);
+  const [current, setCurrent] = useState<number>(1); // 게시글 번호와 현재 페이지 표시 style을 줄 때 사용
 
   return (
     <BoardsUI
@@ -52,7 +53,6 @@ export default function Boards() {
       refetch={refetch}
       lastPage={lastPage}
       dataBest={dataBest}
-      // totalBoardsCount={totalBoardsCount}
       current={current}
       setCurrent={setCurrent}
       onChangeSearch={onChangeSearch}

@@ -20,11 +20,9 @@ export const PageNumber = styled.div`
   font-family: ${(props: ICurrentProps) =>
     props.isCurrent ? "GmarketSansTTFMedium" : "NanumSquareL"};
   cursor: pointer;
-  /* padding: 0 5px; */
   width: 37px;
   font-size: 15px;
   text-align: center;
-  /* font-family: "GmarketSansTTFMedium"; */
   :hover {
     color: #8b008b;
   }

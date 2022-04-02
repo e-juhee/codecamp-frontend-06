@@ -64,6 +64,7 @@ export default function BoardsUI(props: IBoardsUIProps) {
                 id={el._id}
                 onClick={props.onClickBoard}
               >
+                {/* 게시글 번호 */}
                 <S.TD style={{ width: "100px" }}>
                   {props.current * 10 + index - 9}
                 </S.TD>
