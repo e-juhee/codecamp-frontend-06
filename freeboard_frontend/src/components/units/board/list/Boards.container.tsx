@@ -7,12 +7,19 @@ import {
   FETCH_BOARDS_COUNT,
 } from "./Boards.queries";
 import { ChangeEvent, MouseEvent, useState } from "react";
+import {
+  IQuery,
+  IQueryFetchBoardsArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function Boards() {
   /* FETCH_BOARDS */
-  const { data, refetch } = useQuery(FETCH_BOARDS); // data는 state와 동일한 역할을 한다. 값이 바뀌면 리렌더된다.
+  const { data, refetch } = useQuery<
+    Pick<IQuery, "fetchBoards">,
+    IQueryFetchBoardsArgs
+  >(FETCH_BOARDS); // data는 state와 동일한 역할을 한다. 값이 바뀌면 리렌더된다.
 
-  const [search, setSearch] = useState<String>("");
+  const [search, setSearch] = useState<string>("");
 
   const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -43,7 +50,7 @@ export default function Boards() {
     variables: { search },
   });
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
-  const [current, setCurrent] = useState<number>(1); // 게시글 번호와 현재 페이지 표시 style을 줄 때 사용
+  const [current, setCurrent] = useState<number>(1); // 게시글 번호(index)와 현재 페이지 표시 style을 줄 때 사용
 
   return (
     <BoardsUI

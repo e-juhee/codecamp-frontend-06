@@ -13,31 +13,12 @@ const FETCH_BOARDS = gql`
 `;
 
 export default function CommentEditPage() {
-  // const [myIndex, setMyIndex] = useState([
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  // ]);
   const { data } = useQuery(FETCH_BOARDS);
-
-  // const onClickEdit = (event: any) => {
-  //   const aaa = myIndex;
-  //   aaa[event.target.id] = true; // 여기서 이미 바뀜
-  //   console.log(aaa);
-  //   // setMyIndex(aaa); // 기존 값과 현재 값이 다를 때만 작동한다.
-  //   setMyIndex([...aaa]); // 기존 값과 현재 값이 다를 때만 작동한다.
-  // };
 
   return (
     <>
       {data?.fetchBoards.map((el: any, index: any) => (
+        // 맵 안의 item을 하나의 컴포넌트로 따로 분리하면, 각각의 state를 생성해서 따로 관리할 수 있다.
         <BoardCommentItem key={el._id} el={el} />
       ))}
     </>

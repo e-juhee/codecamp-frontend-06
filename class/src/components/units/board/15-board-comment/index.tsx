@@ -9,11 +9,7 @@ const MyColumn = styled.div`
   width: 25%;
 `;
 
-interface IProps {
-  el: any;
-}
-
-export default function BoardCommentItem(props: IProps) {
+export default function BoardCommentItem(props: any) {
   const [isEdit, setIsEdit] = useState(false);
 
   const onClickEdit = () => {

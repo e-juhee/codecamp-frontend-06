@@ -62,25 +62,30 @@ export default function Comments() {
 
   /* 무한 스크롤 */
   const onLoadMore = () => {
-    if (!data) return; // 처음에는 데이터는 undefined인데, 무한 스크롤은 존재함. 바로 실행이 되어버리면 이상하니까..
+    if (!data) return; // 데이터가 없으면 실행하지 않는다. (처음에는 데이터가 undefined인데, 무한 스크롤이 실행이 되어버린다.)
 
     fetchMore({
       variables: {
+        // 다음 페이지(불러올 페이지) : 기존에 받아온 data에서  길이를 가져와서 활용한다.
         page: Math.ceil(data.fetchBoardComments.length / 10) + 1,
-      }, // 다음 페이지(불러올 페이지)
+      },
+
+      // useQuery로 받아온 data를 update한다.
       updateQuery: (prev, { fetchMoreResult }) => {
-        // 위에 useQuery(FETCH_BOARDS) 해서 받은 10개를 수정하겠다는 뜻 (이전에 조회한거, 더 조회해서 받은 거)
+        // prev: 기존의 data
+        // {fetchMoreResult} : 추가로 요청해서 받아온 내용
 
+        // 새로 조회해온 값이 없으면 기존 것으로 그냥 업데이트한다.
         if (!fetchMoreResult?.fetchBoardComments)
-          // 새로 조회해온 값이 없으면 기존 것으로 그냥 업데이트해줘
-          return { fetchBoardComments: prev.fetchBoardComments };
+          return { fetchBoardComments: [...prev.fetchBoardComments] };
 
+        // 가져온 내용으로 return (update한다.)
         return {
-          // 그 결과를 업데이트 해줘
+          // 기존의 것과 추가로 받은 것을 합친다.
           fetchBoardComments: [
             ...prev.fetchBoardComments,
             ...fetchMoreResult?.fetchBoardComments,
-          ], // 기존의 것과 추가로 받은 것을 합친다.
+          ],
         };
       },
     });

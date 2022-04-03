@@ -11,7 +11,6 @@ export default function Pagination(props: IPaginationProps) {
     // Query 확인하자! (variables에 page 추가)
     props.refetch({ page: Number(e.target.id) });
     props.setCurrent(Number(e.target.id));
-    console.log("onClickPage");
   };
 
   const onClickPrevPage = () => {
@@ -63,7 +62,7 @@ export default function Pagination(props: IPaginationProps) {
               onClick={onClickPage}
               id={String(index + startPage)}
               key={index + startPage}
-              isCurrent={props.current === index + startPage}
+              isCurrent={props.current === index + startPage} // true이면 styles에서 현재 페이지 표시
             >
               {index + startPage}
             </S.PageNumber>

@@ -43,6 +43,8 @@ export const BestTitle = styled.div`
   font-size: 18px;
   padding: 20px;
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 export const BestBoardBody = styled.div`
   display: flex;
@@ -148,6 +150,7 @@ export const Table = styled.table`
   border-bottom: 1.5px solid black;
   border-collapse: collapse;
   margin-bottom: 40px;
+  table-layout: fixed;
 `;
 export const TH = styled.th`
   height: 52px;
@@ -167,6 +170,7 @@ export const TRWrapper = styled.tr`
     background-color: rgb(240, 248, 255, 0.7);
   }
 `;
+
 export const TD = styled.td`
   height: 52px;
   border-bottom: 1px solid #bdbdbd;
@@ -175,6 +179,9 @@ export const TD = styled.td`
   &:first-of-type {
     border-left: none;
   }
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 export const Footer = styled.div`

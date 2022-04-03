@@ -22,7 +22,7 @@ const MyColumn = styled.div`
 `;
 
 export default function CommentEditPage() {
-  const [myIndex, setMyIndex] = useState(-1);
+  const [myIndex, setMyIndex] = useState(-1); // index에 해당하는 값이 없는 -1을 초기값으로 준다.
   const { data } = useQuery(FETCH_BOARDS);
 
   const onClickEdit = (event: MouseEvent<HTMLButtonElement>) => {
@@ -33,6 +33,7 @@ export default function CommentEditPage() {
     <>
       {data?.fetchBoards.map((el: any, index: any) => (
         <div key={el._id}>
+          {/* 이 방식으로 하면 한번에 하나만 수정하기 화면으로 보여줄 수 있다. 여러개를 수정하기로 보여줄 수 없다. */}
           {index !== myIndex && (
             <MyRow key={el._id}>
               <MyColumn>
@@ -46,6 +47,7 @@ export default function CommentEditPage() {
               </button>
             </MyRow>
           )}
+          {/* 해당하는 index와 일치할 때만 수정하기 화면을 보여준다. */}
           {index === myIndex && <div>수정하기 화면입니다.</div>}
         </div>
       ))}

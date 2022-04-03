@@ -37,17 +37,22 @@ export default function CommentEditPage() {
   const { data } = useQuery(FETCH_BOARDS);
 
   const onClickEdit = (event: any) => {
-    const aaa = myIndex;
-    aaa[event.target.id] = true; // 직접 바꾼 것. 값은 바뀌어 있지만 화면은 새로 그려지지 않음 // 밑에서 setState를 하기 전에 여기서 이미 바뀜 // 여기까지만 하면 화면이 새로 그려지지는 않아서, 값이 바뀌면 화면을 새로 그려주는 state를 사용한다.
-    console.log(aaa);
-    // setMyIndex(aaa); // 기존의 state와 바꿀 값이 다를 때만 작동한다. (렌더링도)
-    setMyIndex([...aaa]); // 새로운 배열이 만들어진다. 기존 값과 현재 값이 다를 때만 작동한다.
+    const aaa = myIndex; // 이렇게 하면 배열의 주소를 공유하게 된다.
+    aaa[event.target.id] = true;
+    // 객체의 주소를 공유하기 때문에 원본의 내용도 함께 바뀐다.
+
+    /* setMyIndex(aaa);
+      // setState는 기존값과 변경된 값을 비교해서 값이 다를 때만 작동하는데, 
+      // 위에서 값을 이미 바꿨기 때문에 여기서는 작동하지 않는다. */
+
+    setMyIndex([...aaa]); // 새로운 배열(새로운 주소)가 만들어져서 화면이 리렌더된다.
   };
 
   return (
     <>
       {data?.fetchBoards.map((el: any, index: any) => (
         <div key={el._id}>
+          {/* myIndex 중에 선택한 index번째의 값 확인 */}
           {!myIndex[index] && (
             <MyRow key={el._id}>
               <MyColumn>

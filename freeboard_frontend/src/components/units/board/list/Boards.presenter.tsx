@@ -51,10 +51,34 @@ export default function BoardsUI(props: IBoardsUIProps) {
         <S.Table>
           <thead>
             <tr>
-              <S.TH>번호</S.TH>
-              <S.TH>제목</S.TH>
-              <S.TH>작성자</S.TH>
-              <S.TH>날짜</S.TH>
+              <S.TH
+                style={{
+                  width: "10%",
+                }}
+              >
+                번호
+              </S.TH>
+              <S.TH
+                style={{
+                  width: "65%",
+                }}
+              >
+                제목
+              </S.TH>
+              <S.TH
+                style={{
+                  width: "12.5%",
+                }}
+              >
+                작성자
+              </S.TH>
+              <S.TH
+                style={{
+                  width: "12.5%",
+                }}
+              >
+                날짜
+              </S.TH>
             </tr>
           </thead>
           <tbody>
@@ -65,13 +89,8 @@ export default function BoardsUI(props: IBoardsUIProps) {
                 onClick={props.onClickBoard}
               >
                 {/* 게시글 번호 */}
-                <S.TD style={{ width: "100px" }}>
-                  {props.current * 10 + index - 9}
-                </S.TD>
-
-                <S.TD style={{ width: "800px", cursor: "pointer" }}>
-                  {el.title}
-                </S.TD>
+                <S.TD>{props.current * 10 + index - 9}</S.TD>
+                <S.TD>{el.title}</S.TD>
                 <S.TD>{el.writer}</S.TD>
                 <S.TD>{getDate(el.createdAt)}</S.TD>
               </S.TRWrapper>
