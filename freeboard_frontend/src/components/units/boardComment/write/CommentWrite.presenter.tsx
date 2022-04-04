@@ -1,7 +1,6 @@
-//default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
-import { ICommentWriteProps, ICommentWriteUIProps } from "./CommentWrite.types";
+// default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
+import { ICommentWriteUIProps } from "./CommentWrite.types";
 import * as S from "./CommentWrite.style";
-import { ChangeEvent } from "react";
 
 export default function CommentWriteUI(props: ICommentWriteUIProps) {
   return (
@@ -17,7 +16,7 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
         <S.CInputHeader>
           <S.CInputHeaderLeft>
             <S.CInputShort
-              onChange={props.onChangeWriter} //입력하면 onChange가 작동 -> event.target.value가 state에 들어감 -> props를 통해 변경된 state가 props.writer로 들어옴
+              onChange={props.onChangeWriter} // 입력하면 onChange가 작동 -> event.target.value가 state에 들어감 -> props를 통해 변경된 state가 props.writer로 들어옴
               // value={props.writer} // value와 defaultValue의 차이: defaultValue는 변경 가능, value는 변경 불가능
               // 제어 컴포넌트 controlled component: state에 값을 미리 넣어 놓으면, 바로 input box 안에 입력된 상태로 나옴
               // 따라서, state를 빈값으로 만들면 input box도 비워진다.
@@ -85,7 +84,7 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
             <S.CTextCount>{String(props.contents).length}/100</S.CTextCount>
             <S.CCreateButton
               onClick={props.isEdit ? props.onClickUpdate : props.onClickCreate}
-              isDisabled={props.isActive ? false : true}
+              isDisabled={!props.isActive}
               isEdit={props.isEdit}
             >
               {props.isEdit ? "수정하기" : "등록하기"}

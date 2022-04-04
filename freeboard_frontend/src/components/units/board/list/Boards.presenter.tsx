@@ -1,9 +1,8 @@
-import Image from "next/image";
 import { getDate } from "../../../../commons/libraries/utils";
 import Pagination from "../../../commons/pagination/Pagination";
 import * as S from "./Boards.style";
 import { IBoardsUIProps } from "./Boards.types";
-//default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
+// default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
 
 export default function BoardsUI(props: IBoardsUIProps) {
   return (

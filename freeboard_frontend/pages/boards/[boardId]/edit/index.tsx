@@ -1,4 +1,4 @@
-//수정하기 페이지
+// 수정하기 페이지
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import {
@@ -39,7 +39,7 @@ export default function BoardEditPage() {
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
     {
-      variables: { boardId: String(router.query.boardId) }, //폴더명
+      variables: { boardId: String(router.query.boardId) }, // 폴더명
     }
   );
 

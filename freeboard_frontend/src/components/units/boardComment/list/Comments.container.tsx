@@ -15,7 +15,7 @@ import {
 } from "../../../../commons/types/generated/types";
 
 export default function Comments() {
-  /*FETCH_BOARD_COMMENTS*/
+  /* FETCH_BOARD_COMMENTS */
   const router = useRouter();
   const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
@@ -24,7 +24,7 @@ export default function Comments() {
     variables: { boardId: String(router.query.boardId) },
   });
 
-  /*DELETE_BOARD_COMMENT*/
+  /* DELETE_BOARD_COMMENT */
   const [deleteBoardComment] = useMutation<
     Pick<IMutation, "deleteBoardComment">,
     IMutationDeleteBoardCommentArgs

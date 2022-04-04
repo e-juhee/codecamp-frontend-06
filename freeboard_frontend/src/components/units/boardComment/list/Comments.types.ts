@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 
 export interface ICommentsUIProps {

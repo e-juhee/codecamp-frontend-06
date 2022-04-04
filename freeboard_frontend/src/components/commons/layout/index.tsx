@@ -1,5 +1,4 @@
 import LayoutBanner from "./banner";
-import LayoutFooter from "./footer";
 import LayoutHeader from "./header";
 import LayoutNavigation from "./navigation";
 import styled from "@emotion/styled";

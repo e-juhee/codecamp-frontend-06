@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { MouseEvent, useState } from "react";
+import { MouseEvent } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,6 +11,10 @@ const Wrapper = styled.div`
   background-color: #bdbbbb;
   padding: 0 500px;
 `;
+
+interface IProps {
+  isActive: boolean;
+}
 const Menu = styled.div`
   height: 30px;
   font-weight: 700;
@@ -23,10 +27,6 @@ const Menu = styled.div`
     color: #00008b;
   }
 `;
-
-interface IProps {
-  isActive: boolean;
-}
 
 export default function LayoutNavigation() {
   const router = useRouter();

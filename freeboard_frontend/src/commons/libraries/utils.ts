@@ -1,6 +1,4 @@
 import { Modal } from "antd";
-import { useRouter } from "next/router";
-import { MouseEvent } from "react";
 
 export const getDate = (date: any) => {
   const newDate = new Date(date);

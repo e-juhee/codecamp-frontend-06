@@ -22,13 +22,13 @@ export default function BoardDetail() {
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
     {
-      variables: { boardId: String(router.query.boardId) }, //폴더명
+      variables: { boardId: String(router.query.boardId) }, // 폴더명
     }
   );
 
   /* ToolTip show & hide */
   const onClickToolTip = () => {
-    let toolTipState: any = document.getElementById("toolTip");
+    const toolTipState: any = document.getElementById("toolTip");
     if (toolTipState?.style.visibility === "visible") {
       toolTipState.style.visibility = "hidden";
     } else {

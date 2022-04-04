@@ -1,4 +1,4 @@
-import { IBoardWriteUIProps } from "./BoardWrite.types"; //참고: default로 내보낸 경우에는 import 받는 변수에 중괄호가 없어도 된다. 이름을 다르게 써도 받아서 그 다르게 쓴 이름으로 사용할 수 있다. 전체 다 가져오기: * as S
+import { IBoardWriteUIProps } from "./BoardWrite.types"; // 참고: default로 내보낸 경우에는 import 받는 변수에 중괄호가 없어도 된다. 이름을 다르게 써도 받아서 그 다르게 쓴 이름으로 사용할 수 있다. 전체 다 가져오기: * as S
 import * as S from "./BoardWrite.style";
 import DaumPostcode from "react-daum-postcode";
 import { Modal } from "antd";
@@ -27,8 +27,8 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               onChange={props.onChangeWriter}
               type="text"
               placeholder="이름을 적어주세요."
-              defaultValue={props.data?.fetchBoard?.writer || ""} //등록하기에서 왔으면 data가 없음
-              readOnly={!!props.data?.fetchBoard?.writer} //클릭 안됨
+              defaultValue={props.data?.fetchBoard?.writer || ""} // 등록하기에서 왔으면 data가 없음
+              readOnly={!!props.data?.fetchBoard?.writer} // 클릭 안됨
             />
             <S.Error>{props.writerError}</S.Error>
           </S.InputWrapper>
