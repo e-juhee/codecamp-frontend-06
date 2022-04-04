@@ -7,9 +7,10 @@ import { useRouter } from "next/router";
 
 const BodyWrapper = styled.div`
   display: flex;
+  width: 100%;
 `;
 const Body = styled.div`
-  width: 1200px;
+  width: 100%;
   margin: 0px auto;
 `;
 
@@ -17,7 +18,9 @@ const HIDDEN_BANNER = [
   "/boards/[boardId]/edit",
   "/boards/[boardId]",
   "/boards/new",
+  "/",
 ];
+const HIDDEN_NAV = ["/"];
 
 interface ILayoutProps {
   children: ReactNode;
@@ -26,12 +29,13 @@ interface ILayoutProps {
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
   const isHiddenBanner = HIDDEN_BANNER.includes(router.pathname);
+  const isHiddenNav = HIDDEN_NAV.includes(router.pathname);
 
   return (
     <>
       <LayoutHeader />
       {!isHiddenBanner && <LayoutBanner />}
-      <LayoutNavigation />
+      {!isHiddenNav && <LayoutNavigation />}
       <BodyWrapper>
         {/* app_tsx에서 Layout 컴포넌트 안에 Component가 있는 구조라서 props.children으로 부를 수 있다. */}
         <Body>{props.children}</Body>

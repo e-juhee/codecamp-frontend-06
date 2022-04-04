@@ -24,24 +24,26 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               작성자<S.Required>*</S.Required>
             </S.Label>
             <S.ShortInput
-              onChange={props.onChangeWriter}
+              id="writer"
+              onChange={props.onChangeInputs}
               type="text"
               placeholder="이름을 적어주세요."
               defaultValue={props.data?.fetchBoard?.writer || ""} // 등록하기에서 왔으면 data가 없음
               readOnly={!!props.data?.fetchBoard?.writer} // 클릭 안됨
             />
-            <S.Error>{props.writerError}</S.Error>
+            <S.Error id="writer">{props.errors.writer}</S.Error>
           </S.InputWrapper>
           <S.InputWrapper>
             <S.Label>
               비밀번호<S.Required>*</S.Required>
             </S.Label>
             <S.ShortInput
-              onChange={props.onChangePassword}
+              id="password"
+              onChange={props.onChangeInputs}
               type="password"
               placeholder="비밀번호를 입력해주세요."
             />
-            <S.Error>{props.passwordError}</S.Error>
+            <S.Error id="password">{props.errors.password}</S.Error>
           </S.InputWrapper>
         </S.WriterWrapper>
         <S.InputWrapper>
@@ -49,21 +51,23 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             제목<S.Required>*</S.Required>
           </S.Label>
           <S.Input
-            onChange={props.onChangeTitle}
+            id="title"
+            onChange={props.onChangeInputs}
             type="text"
             placeholder="제목을 작성해주세요."
             defaultValue={props.data?.fetchBoard?.title}
           />
-          <S.Error>{props.titleError}</S.Error>
+          <S.Error id="title">{props.errors.title}</S.Error>
           <S.Label>
             내용<S.Required>*</S.Required>
           </S.Label>
           <S.ContentInput
-            onChange={props.onChangeContents}
+            id="contents"
+            onChange={props.onChangeInputs}
             placeholder="내용을 작성해주세요."
             defaultValue={props.data?.fetchBoard?.contents}
           />
-          <S.Error>{props.contentsError}</S.Error>
+          <S.Error id="contents">{props.errors.contents}</S.Error>
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Label>주소</S.Label>
@@ -73,7 +77,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               // defaultValue={props.data?.fetchBoard?.boardAddress?.zipcode}
               readOnly
               value={
-                props.zipcode ||
+                props?.boardAddressInputs?.zipcode ||
                 props.data?.fetchBoard?.boardAddress?.zipcode ||
                 ""
               }
@@ -87,12 +91,13 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             // defaultValue={props.data?.fetchBoard?.boardAddress?.address} // 이렇게 하면 value가 덮어씌워서 값이 나오지 않는다. defaultValue는 값이 없을 때 보여주는 것!
             readOnly
             value={
-              props.address ||
+              props?.boardAddressInputs?.address ||
               props.data?.fetchBoard.boardAddress?.address || // 선택한 게 없으면 보여준다.
               ""
             }
           />
           <S.Address
+            id="addressDetail"
             onChange={props.onChangeAddressDetail}
             type="text"
             defaultValue={
@@ -103,7 +108,8 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         <S.InputWrapper>
           <S.Label>유튜브</S.Label>
           <S.Input
-            onChange={props.onChangeYoutubeUrl}
+            id="youtubeUrl"
+            onChange={props.onChangeInputs}
             type="text"
             placeholder="링크를 복사해주세요."
             defaultValue={props.data?.fetchBoard?.youtubeUrl || ""}
