@@ -55,6 +55,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
     Pick<IMutation, "createBoardComment">,
     IMutationCreateBoardCommentArgs
   >(CREATE_BOARD_COMMENT); // queries에 작성한 쿼리를 가져와서 createBoard에 저장한다.
+
   const onClickCreate = async () => {
     if (!writer) {
       warningModal("작성자를 입력해주세요.");
@@ -103,6 +104,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
     Pick<IMutation, "updateBoardComment">,
     IMutationUpdateBoardCommentArgs
   >(UPDATE_BOARD_COMMENT);
+
   const onClickUpdate = async () => {
     if (!password) {
       warningModal("비밀번호를 입력해주세요.");
@@ -113,7 +115,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
         variables: {
           updateBoardCommentInput: { contents, rating },
           password: password,
-          boardCommentId: props?.el?._id,
+          boardCommentId: props.el?._id,
         },
         refetchQueries: [
           {
@@ -122,6 +124,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
           },
         ],
       });
+      // if (props.setIsEdit) // TS 에러 방지: 옵셔널 체이닝을 이용한 아래 방법도 ㄱㅊ
       props.setIsEdit?.(false);
     } catch (error) {
       if (error instanceof Error) warningModal(error.message);

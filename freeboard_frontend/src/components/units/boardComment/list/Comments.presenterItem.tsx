@@ -7,12 +7,11 @@ import { getDate } from "../../../../commons/libraries/utils";
 
 export default function CommentsItemUI(props: ICommentsItemUIProps) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  // const [currentStar, setCurrentStar] = useState<number>();
+
+  /* delete, modal 여기로 옮기기 */
 
   const onClickUpdate = () => {
     setIsEdit(true);
-    // setCurrentStar(props.el.rating);
-    // console.log(currentStar);
   };
 
   return (

@@ -3,7 +3,7 @@ import { IQuery } from "../../../../commons/types/generated/types";
 
 /* BoardWrite.container */
 export interface ICommentWriteProps {
-  isEdit: boolean;
+  isEdit?: any;
   setIsEdit?: Dispatch<SetStateAction<boolean>>;
   el?: any;
   data?: Pick<IQuery, "fetchBoardComments">;
@@ -24,7 +24,7 @@ export interface ICommentWriteUIProps {
   onClickCreate: () => void;
   onClickUpdate: () => void;
   data?: Pick<IQuery, "fetchBoardComments">;
-  isEdit: boolean;
+  isEdit?: any;
   index: any;
   onClickCancel: () => void;
 }

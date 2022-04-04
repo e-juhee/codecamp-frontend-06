@@ -12,7 +12,7 @@ export default function CommentsUI(props: ICommentsUIProps) {
       >
         <InfiniteScroll
           pageStart={0}
-          loadMore={props.onLoadMore}
+          loadMore={props.onLoadMore} // 스크롤 시 작동하는 함수
           hasMore={true}
           useWindow={false}
         >

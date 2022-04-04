@@ -30,7 +30,7 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
               placeholder="작성자"
               value={props.writer}
               defaultValue={
-                props?.data?.fetchBoardComments[props.index].writer || ""
+                props?.data?.fetchBoardComments[props.index].writer || "" // props.el?.writer 로 변경
               }
             ></S.CInputShort>
             <S.CInputShort
