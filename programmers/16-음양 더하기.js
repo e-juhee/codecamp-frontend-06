@@ -1,7 +1,7 @@
 function solution(absolutes, signs) {
   let answer = 0;
   absolutes.map((el, index) => {
-    signs[index] ? (answer += el) : (answer -= el);
+    answer += signs[index] ? el : -el;
   });
   return answer;
 }
@@ -12,4 +12,11 @@ function solution(absolutes, signs) {
     (arr, cur, index) => (signs[index] ? arr + cur : arr - cur),
     0
   );
+}
+ㄴ;
+function solution(absolutes, signs) {
+  const answer = absolutes.reduce((acc, cur, i) => {
+    return acc + (signs[i] ? cur : -cur);
+  }, 0);
+  return answer;
 }
