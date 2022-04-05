@@ -42,14 +42,14 @@ export default function Comments() {
 
         // 새로 조회해온 값이 없으면 기존 것으로 그냥 업데이트한다.
         if (!fetchMoreResult?.fetchBoardComments)
-          return { fetchBoardComments: [...prev.fetchBoardComments] };
+          return { fetchBoardComments: prev.fetchBoardComments };
 
         // 가져온 내용으로 return (update한다.)
         return {
           // 기존의 것과 추가로 받은 것을 합친다.
           fetchBoardComments: [
             ...prev.fetchBoardComments,
-            ...fetchMoreResult?.fetchBoardComments,
+            ...fetchMoreResult.fetchBoardComments,
           ],
         };
       },

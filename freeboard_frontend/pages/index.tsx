@@ -7,9 +7,9 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 700px;
+  height: 50%;
   width: 100%;
-  padding: 350px;
+  padding: 15%;
   margin: 0px auto;
   background-color: #f68eb2;
 `;
@@ -21,7 +21,6 @@ const TitleWrapper = styled.div`
   height: 620px;
   width: 50%;
   padding-bottom: 30px;
-  background-color: #f68eb2;
 `;
 
 const Title = styled.div`
@@ -80,8 +79,11 @@ const Blog = styled.div`
 
 export default function Home() {
   const router = useRouter();
-  const onClickMove = () => {
+  const onClickBoards = () => {
     router.push("/boards");
+  };
+  const onClickCovid = () => {
+    router.push("/boards/covid-seoul");
   };
 
   return (
@@ -94,8 +96,8 @@ export default function Home() {
       <Wrapper>
         <TitleWrapper>
           <Title>G보드</Title>
-          <Button onClick={onClickMove}>FREEBOARD</Button>
-          <Button onClick={onClickMove}>MARKET</Button>
+          <Button onClick={onClickBoards}>FREEBOARD</Button>
+          <Button onClick={onClickCovid}>COVID-19</Button>
         </TitleWrapper>
         <Table>
           <tr>
