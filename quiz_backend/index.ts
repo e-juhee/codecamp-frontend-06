@@ -1,7 +1,5 @@
-console.log("타입스크립트를 실행했어요!");
-
 import { DataSource } from "typeorm";
-import { Board } from "./Board.postgres";
+import { Product } from "./Product";
 
 const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,7 +8,7 @@ const AppDataSource = new DataSource({
   username: "postgres",
   password: "postgres2021",
   database: "postgres",
-  entities: [Board],
+  entities: [Product],
   synchronize: true,
   logging: true,
 });
