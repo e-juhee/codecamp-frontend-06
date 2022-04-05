@@ -2,7 +2,11 @@ import BoardWriteUI from "./BoardWrite.presenter"; // ./: 현위치에서
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
-import { IAddressData, IBoardWriteProps } from "./BoardWrite.types";
+import {
+  IAddressData,
+  IBoardWriteProps,
+  IUpdateBoardInput,
+} from "./BoardWrite.types";
 import {
   successModal,
   warningModal,
@@ -12,7 +16,6 @@ import { ChangeEvent, useState } from "react";
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
   /* 인풋창 state */
-
   const [inputs, setInputs] = useState({
     writer: "",
     password: "",
@@ -27,18 +30,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
   });
 
   /* 에러 메세지 state */
-
   const [errors, setErrors] = useState({
     writer: "",
     password: "",
     title: "",
     contents: "",
   });
-
-  // const [writerError, setWriterError] = useState<string>("");
-  // const [passwordError, setPasswordError] = useState<string>("");
-  // const [titleError, setTitleError] = useState<string>("");
-  // const [contentsError, setContentsError] = useState<string>("");
 
   /* true가 들어가면 버튼을 활성화하는 state : presenter로 넘어가서 style로 전달된다. */
   const [isActive, setIsActive] = useState<boolean>(false); // isActive가 true이면 버튼 활성화
@@ -52,34 +49,38 @@ export default function BoardWrite(props: IBoardWriteProps) {
       ...inputs,
       [e.target.id]: e.target.value,
     }); // 입력값을 스테이트에 넣기
+
     e.target.value &&
-    inputs.writer &&
-    inputs.password &&
-    inputs.title &&
-    inputs.contents
+    Object.values(inputs).filter((el) => el === "").length <= 2
       ? setIsActive(true)
       : setIsActive(false); // 4개의 필수값이 입력되면 isActive = true
-    if (e.target.value !== "") {
+    if (e.target.value) {
       setErrors({ ...errors, [e.target.id]: "" });
     } // 값이 입력되면 에러메세지 제거
+    // if (
+    //   e.target.value !== "" &&
+    //   Object.values(inputs).filter((el) => el === "").length === 2
+    // ) {
+    //   console.log(Object.values(inputs));
+    // } // 값이 입력되면 에러메세지 제거
   };
   const [isOpen, setIsOpen] = useState(false);
   const onToggleModal = () => {
     setIsOpen((prev) => !prev);
   };
   const onCompleteAddressSearch = (data: IAddressData) => {
-    setBoardAddressInputs({
-      ...boardAddressInputs,
+    setBoardAddressInputs((prev) => ({
+      ...prev,
       address: data.address,
       zipcode: data.zonecode,
-    });
+    }));
     setIsOpen(false);
   };
   const onChangeAddressDetail = (e: ChangeEvent<HTMLInputElement>) => {
-    setBoardAddressInputs({
-      ...boardAddressInputs,
+    setBoardAddressInputs((prev) => ({
+      ...prev,
       addressDetail: e.target.value,
-    });
+    }));
   };
 
   /* CREATE_BOARD */
@@ -87,19 +88,16 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const onClickCreate = async () => {
     // async를 붙여야 await를 붙일 수 있다.
     if (!inputs.writer) {
-      setErrors({ ...errors, writer: "작성자를 입력해주세요." });
-      return;
+      setErrors((prev) => ({ ...prev, writer: "작성자를 입력해주세요." }));
     }
     if (!inputs.password) {
-      setErrors({ ...errors, password: "비밀번호를 입력해주세요." });
-      return;
+      setErrors((prev) => ({ ...prev, password: "비밀번호를 입력해주세요." }));
     }
     if (!inputs.title) {
-      setErrors({ ...errors, title: "제목을 입력해주세요." });
-      return;
+      setErrors((prev) => ({ ...prev, title: "제목을 입력해주세요." }));
     }
     if (!inputs.contents) {
-      setErrors({ ...errors, contents: "내용을 입력해주세요." });
+      setErrors((prev) => ({ ...prev, contents: "내용을 입력해주세요." }));
       return;
     }
 
@@ -127,9 +125,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   };
 
-  const [updateInputs, setUpdateInputs] = useState({});
-  const [updateAddressInputs, setUpdateAddressInputs] = useState({});
-
   /* UPDATE_BOARD */
   const [updateBoard] = useMutation(UPDATE_BOARD);
   const onClickUpdate = async () => {
@@ -148,36 +143,26 @@ export default function BoardWrite(props: IBoardWriteProps) {
       warningModal("변경된 내용이 없습니다.");
       return;
     }
-    console.log(updateInputs);
 
     // variables : 값이 들어가 있는(사용자가 수정한) state만 넣는 객체 생성 (수정하지 않은 state는 제외하고 수정한 state만 쿼리에 전달)
 
-    if (inputs.title) setUpdateInputs({ ...updateInputs, title: inputs.title }); // 입력값이 있는 경우에만 myVariables에 title을 key로 하는 'title의 입력값'을 value로 넣어줘
-
-    if (inputs.contents)
-      setUpdateInputs({ ...updateInputs, contents: inputs.contents });
-    if (inputs.youtubeUrl)
-      setUpdateInputs({ ...updateInputs, youtubeUrl: inputs.youtubeUrl });
+    const myUpdateBoardInput: IUpdateBoardInput = {};
+    if (inputs.title) myUpdateBoardInput.title = inputs.title; // 입력값이 있는 경우에만 myVariables에 title을 key로 하는 'title의 입력값'을 value로 넣어줘
+    if (inputs.contents) myUpdateBoardInput.contents = inputs.contents;
+    if (inputs.youtubeUrl) myUpdateBoardInput.youtubeUrl = inputs.youtubeUrl;
     if (
       boardAddressInputs.zipcode ||
       boardAddressInputs.address ||
       boardAddressInputs.addressDetail
     ) {
+      myUpdateBoardInput.boardAddress = {};
       if (boardAddressInputs.zipcode)
-        setUpdateAddressInputs({
-          ...boardAddressInputs,
-          zipcode: boardAddressInputs.zipcode,
-        });
+        myUpdateBoardInput.boardAddress.zipcode = boardAddressInputs.zipcode;
       if (boardAddressInputs.address)
-        setUpdateAddressInputs({
-          ...boardAddressInputs,
-          address: boardAddressInputs.address,
-        });
+        myUpdateBoardInput.boardAddress.address = boardAddressInputs.address;
       if (boardAddressInputs.addressDetail)
-        setUpdateAddressInputs({
-          ...boardAddressInputs,
-          addressDetail: boardAddressInputs.addressDetail,
-        });
+        myUpdateBoardInput.boardAddress.addressDetail =
+          boardAddressInputs.addressDetail;
     }
 
     try {
@@ -186,10 +171,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
           variables: {
             boardId: String(router.query.boardId),
             password: inputs.password,
-            updateBoardInput: {
-              ...updateInputs,
-              boardAddress: { ...updateAddressInputs },
-            },
+            updateBoardInput: myUpdateBoardInput,
           },
         } // 위에서 만든 (변경이 일어난 state만 들어있는) 객체를 updateBoard에 입력값으로 전달
       );

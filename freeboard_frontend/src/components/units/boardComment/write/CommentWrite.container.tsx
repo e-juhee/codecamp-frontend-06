@@ -21,7 +21,7 @@ export default function CommentWrite(props: ICommentWriteProps) {
   const [inputs, setInputs] = useState({
     writer: "",
     password: "",
-    contents: "",
+    contents: props?.el?.contents || "",
   });
   // const [writer, setWriter] = useState<string>();
   // const [password, setPassword] = useState<string>();
@@ -32,10 +32,16 @@ export default function CommentWrite(props: ICommentWriteProps) {
 
   const onChangeInputs = (e: ChangeEvent<HTMLInputElement>) => {
     setInputs({ ...inputs, [e.target.id]: e.target.value });
-    e.target.value && inputs.contents && inputs.password && inputs.writer
+    Object.values(inputs).filter((el) => el === "").length <= 1
       ? setIsActive(true)
       : setIsActive(false);
+
+    // e.target.value && (inputs.contents || inputs.password || inputs.writer)
+    //   ? setIsActive(true)
+    //   : setIsActive(false);
   };
+
+  // useEffect(() => { ref.current = state; }, [state]);
 
   const onClickStar = (e: MouseEvent<HTMLButtonElement>) => {
     if (e.target instanceof Element) {

@@ -26,11 +26,12 @@ export default function CommentWriteUI(props: ICommentWriteUIProps) {
               // 위 같은 상황 아니면 비제어로 한다. 버벅임이 없도록!
               id="writer"
               type="text"
-              readOnly={props.isEdit}
+              readOnly={props?.isEdit}
               placeholder="작성자"
-              value={props.inputs.writer}
+              value={props?.isEdit ? props?.el?.writer : props?.inputs?.writer}
               defaultValue={
-                props?.el?.writer // props.el?.writer 로 변경
+                props.isEdit ? props.el.writer : ""
+                // props?.el?.writer // props.el?.writer 로 변경
               }
             ></S.CInputShort>
             <S.CInputShort
