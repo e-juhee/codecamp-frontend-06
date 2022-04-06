@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class Board {
+@Entity() // Board 클래스를 테이블로 만들어줘!
+export class Board extends BaseEntity {
+  // extends BaseEntity: 단지 클래스가 아니라 추가/삭제하는 기능을 포함한 데이터베이스 테이블이 된다.
   @PrimaryGeneratedColumn("increment")
   number!: number;
 
@@ -13,4 +14,6 @@ export class Board {
 
   @Column({ type: "text" })
   contents!: string;
+
+  // deletedAt: Date // soft-delete 방식
 }

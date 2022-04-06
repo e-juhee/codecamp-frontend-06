@@ -21,7 +21,25 @@ export default function GraphqlMutationPage() {
     writer: "",
     title: "",
     contents: "",
+    // boardAddress: {
+    //   address: "",
+    //   addressDetail: "",
+    //   zipcode: "",
+    // },
   });
+
+  // setInputs(prev=>({
+  //   ...prev,
+  //   [event.target.id]: "철수",
+  // }))
+
+  // setInputs(prev=>({
+  //   ...prev,
+  //   boardAddress: {
+  //     ...prev.boardAddress,
+  //     [event.target.id] : "08234"
+  //   }
+  // }))
 
   const [data, setData] = useState("");
   const [callApi] = useMutation(CREATE_BOARD);
