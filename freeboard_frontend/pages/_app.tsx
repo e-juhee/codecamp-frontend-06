@@ -6,6 +6,24 @@ import { globalStyles } from "../src/commons/styles/globalStyles";
 import { Global } from "@emotion/react";
 import "antd/dist/antd.css";
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDBz6hMvq_xdr0pleEMuheZhsIew5LX_Zw",
+  authDomain: "gboard-624df.firebaseapp.com",
+  projectId: "gboard-624df",
+  storageBucket: "gboard-624df.appspot.com",
+  messagingSenderId: "775421735879",
+  appId: "1:775421735879:web:0e842ff9fc4ebed7d51fe2",
+};
+
+// Initialize Firebase
+export const firebaseApp = initializeApp(firebaseConfig);
+
 function MyApp({ Component, pageProps }: AppProps) {
   // Component, pageProps는 Next.js가 처음에 넣어주는 데이터! Docs를 보고 타입(AppProps)을 지정해주면 된다.
   const client = new ApolloClient({
