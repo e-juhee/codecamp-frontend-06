@@ -122,14 +122,6 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               <S.ImageIcon>+</S.ImageIcon>
               <S.ImageLabel>Upload</S.ImageLabel>
             </S.ImageButton>
-            <S.ImageButton>
-              <S.ImageIcon>+</S.ImageIcon>
-              <S.ImageLabel>Upload</S.ImageLabel>
-            </S.ImageButton>
-            <S.ImageButton>
-              <S.ImageIcon>+</S.ImageIcon>
-              <S.ImageLabel>Upload</S.ImageLabel>
-            </S.ImageButton>
           </S.ImageWrapper>
         </S.InputWrapper>
 
