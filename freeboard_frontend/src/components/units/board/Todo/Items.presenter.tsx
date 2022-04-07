@@ -11,7 +11,6 @@ export default function ItemsUI(props: IProps) {
   return (
     <>
       <div key={props.key}>
-        fffaaaaaaaaaaaaaaa
         {props.el}
         <div>{props.el.contents}</div>
         {/* <div>{props.date}</div> */}

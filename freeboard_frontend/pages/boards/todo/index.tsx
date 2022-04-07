@@ -4,6 +4,7 @@ import {
   getFirestore,
   addDoc,
   getDocs,
+  DocumentData,
 } from "firebase/firestore/lite";
 import { ChangeEvent, SetStateAction, useState } from "react";
 import { firebaseApp } from "../../_app";
@@ -39,13 +40,9 @@ const Create = styled.button`
   cursor: pointer;
 `;
 export default function FirebasePage() {
-  const [contentsList, setContentsList] = useState<SetStateAction<string[]>>(
-    []
-  );
-  const [dateList, setDateList] = useState<SetStateAction<string[]>>([]);
-  const [isCompleteList, setIsCompleteList] = useState<
-    SetStateAction<boolean[]>
-  >([]);
+  const [contentsList, setContentsList] = useState<DocumentData[]>([]);
+  const [dateList, setDateList] = useState<DocumentData[]>([]);
+  const [isCompleteList, setIsCompleteList] = useState<DocumentData[]>([]);
   const [input, setInput] = useState<SetStateAction<string>>();
 
   const onClickCreate = async () => {
