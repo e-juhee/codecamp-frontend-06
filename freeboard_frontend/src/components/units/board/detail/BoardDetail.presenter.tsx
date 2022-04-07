@@ -4,6 +4,7 @@ import * as S from "./BoardDetail.style";
 import ReactPlayer from "react-player";
 
 export default function BoardDetailUI(props: IBoardDetailUIProps) {
+  console.log(props.data);
   return (
     <>
       <S.Wrapper>
@@ -36,11 +37,10 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
         <S.Title>
           {props.data ? props.data.fetchBoard?.title : "loading..."}
         </S.Title>
-        {props.data?.fetchBoard?.images && (
-          <S.Image
-            src={`https://storage.googleapis.com/${props.data?.fetchBoard?.images[0]}`}
-          />
-        )}
+        {props.data?.fetchBoard?.images &&
+          props.data?.fetchBoard?.images.map((el, i) => (
+            <S.Image key={i} src={`https://storage.googleapis.com/${el}`} />
+          ))}
         <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
         {props.data?.fetchBoard?.youtubeUrl && (
           <S.VideoWrapper>

@@ -19,6 +19,7 @@ export interface IUpdateBoardInput {
     address?: string;
     addressDetail?: string;
   };
+  images?: string[];
 }
 /* BoardWrite.presenter */
 export interface IBoardWriteUIProps {
@@ -63,6 +64,9 @@ export interface IBoardWriteUIProps {
 
   imageUrl?: string;
   setImageUrl?: any;
+
+  fileList: any[];
+  setFileList: any;
 }
 
 export interface ICreateButtonProps {

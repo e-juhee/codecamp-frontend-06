@@ -28,7 +28,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
     address: "",
     addressDetail: "",
   });
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState("");
+  const [fileList, setFileList] = useState<any[]>([]);
 
   /* 에러 메세지 state */
   const [errors, setErrors] = useState({
@@ -111,7 +112,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
             createBoardInput: {
               ...inputs,
               boardAddress: { ...boardAddressInputs },
-              images: [imageUrl],
+              images: fileList,
             },
           },
         });
@@ -140,7 +141,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
       !inputs.youtubeUrl &&
       !boardAddressInputs.address &&
       !boardAddressInputs.addressDetail &&
-      !boardAddressInputs.zipcode
+      !boardAddressInputs.zipcode &&
+      fileList.length === 0
     ) {
       warningModal("변경된 내용이 없습니다.");
       return;
@@ -152,6 +154,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (inputs.title) myUpdateBoardInput.title = inputs.title; // 입력값이 있는 경우에만 myVariables에 title을 key로 하는 'title의 입력값'을 value로 넣어줘
     if (inputs.contents) myUpdateBoardInput.contents = inputs.contents;
     if (inputs.youtubeUrl) myUpdateBoardInput.youtubeUrl = inputs.youtubeUrl;
+    if (fileList) {
+      myUpdateBoardInput.images = fileList;
+    }
     if (
       boardAddressInputs.zipcode ||
       boardAddressInputs.address ||
@@ -173,7 +178,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
           variables: {
             boardId: String(router.query.boardId),
             password: inputs.password,
-            updateBoardInput: myUpdateBoardInput,
+            updateBoardInput: { ...myUpdateBoardInput },
           },
         } // 위에서 만든 (변경이 일어난 state만 들어있는) 객체를 updateBoard에 입력값으로 전달
       );
@@ -209,6 +214,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
       errors={errors}
       imageUrl={imageUrl}
       setImageUrl={setImageUrl}
+      fileList={fileList}
+      setFileList={setFileList}
     />
   );
 }

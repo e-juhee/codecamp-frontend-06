@@ -115,7 +115,7 @@ export const Title = styled.div`
 `;
 export const Image = styled.img`
   width: 996px;
-  height: 480px;
+  /* height: 480px; */
   margin-bottom: 40px;
   /* background-image: url("/boards/detail/Image.png"); */
   /* background-size: auto; */

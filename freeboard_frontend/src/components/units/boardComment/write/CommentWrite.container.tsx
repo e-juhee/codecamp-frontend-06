@@ -23,15 +23,13 @@ export default function CommentWrite(props: ICommentWriteProps) {
     password: "",
     contents: props?.el?.contents || "",
   });
-  // const [writer, setWriter] = useState<string>();
-  // const [password, setPassword] = useState<string>();
-  // const [contents, setContents] = useState<string>();
   const [rating, setRating] = useState<number>(props?.el?.rating || 5);
 
   const [isActive, setIsActive] = useState<boolean>(false); // isActive가 true이면 버튼 활성화 컬러로 변경
 
   const onChangeInputs = (e: ChangeEvent<HTMLInputElement>) => {
     setInputs({ ...inputs, [e.target.id]: e.target.value });
+
     Object.values(inputs).filter((el) => el === "").length <= 1
       ? setIsActive(true)
       : setIsActive(false);
@@ -92,10 +90,6 @@ export default function CommentWrite(props: ICommentWriteProps) {
           contents: "",
         });
         setRating(props?.el?.rating || 5);
-        // setWriter("");
-        // setContents("");
-        // setPassword("");
-        // setRating(5);
         setIsActive(false);
       } catch (error) {
         if (error instanceof Error) warningModal(error.message);
@@ -148,10 +142,6 @@ export default function CommentWrite(props: ICommentWriteProps) {
       password={inputs.password}
       contents={inputs.contents}
       rating={rating}
-      // onChangeWriter={onChangeWriter}
-      // onChangePassword={onChangePassword}
-      // onChangeContents={onChangeContents}
-      // onClickStar={onClickStar}
       onClickCreate={onClickCreate}
       isEdit={props.isEdit}
       onClickUpdate={onClickUpdate}
