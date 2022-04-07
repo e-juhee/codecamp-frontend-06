@@ -113,13 +113,13 @@ export const Title = styled.div`
   font-size: 36px;
   line-height: 53px;
 `;
-export const Image = styled.div`
+export const Image = styled.img`
   width: 996px;
   height: 480px;
   margin-bottom: 40px;
-  background-image: url("/boards/detail/Image.png");
-  background-size: auto;
-  background-repeat: no-repeat;
+  /* background-image: url("/boards/detail/Image.png"); */
+  /* background-size: auto; */
+  /* background-repeat: no-repeat; */
 `;
 export const Contents = styled.div`
   font-size: 16px;

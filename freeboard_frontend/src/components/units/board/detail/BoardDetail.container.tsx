@@ -26,6 +26,7 @@ export default function BoardDetail() {
     }
   );
 
+  console.log(data);
   /* ToolTip show & hide */
   const onClickToolTip = () => {
     const toolTipState: any = document.getElementById("toolTip");
@@ -108,6 +109,7 @@ export default function BoardDetail() {
         onClickDelete={onClickDelete}
         onClickList={onClickList}
         onClickUpdate={onClickUpdate}
+        // imageUrl={imageUrl}
       />
     </>
   );

@@ -1,11 +1,11 @@
-import { LikeOutlined } from "@ant-design/icons";
 import { gql, useMutation } from "@apollo/client";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useRef } from "react";
 import {
   IMutation,
   IMutationUploadFileArgs,
 } from "../../commons/types/generated/types";
 import { checkFileValidation } from "../../commons/libraries/utils";
+import * as S from "../units/board/write/BoardWrite.style";
 
 export const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
@@ -16,8 +16,6 @@ export const UPLOAD_FILE = gql`
 `;
 
 export default function UploadImage(props: any) {
-  const [imageUrl, setImageUrl] = useState<string | undefined>("");
-
   const [uploadFile] = useMutation<
     Pick<IMutation, "uploadFile">,
     IMutationUploadFileArgs
@@ -37,7 +35,8 @@ export default function UploadImage(props: any) {
     try {
       const result = await uploadFile({ variables: { file } });
       console.log(result.data?.uploadFile.url);
-      setImageUrl(result.data?.uploadFile.url);
+      props.setImageUrl(result.data?.uploadFile.url);
+      console.log(props.imageUrl);
     } catch (error: any) {
       alert(error.message);
     }
@@ -45,7 +44,11 @@ export default function UploadImage(props: any) {
 
   return (
     <>
-      <LikeOutlined style={{ fontSize: "40px" }} onClick={onClickImage} />
+      {/* <LikeOutlined style={{ fontSize: "40px" }} /> */}
+      <S.ImageButton onClick={onClickImage}>
+        <S.ImageIcon>+</S.ImageIcon>
+        <S.ImageLabel>Upload</S.ImageLabel>
+      </S.ImageButton>
       <input
         style={{ display: "none" }}
         type="file"
@@ -53,7 +56,9 @@ export default function UploadImage(props: any) {
         ref={fileRef}
       />
 
-      {imageUrl && <img src={`https://storage.googleapis.com/${imageUrl}`} />}
+      {props.imageUrl && (
+        <S.Image src={`https://storage.googleapis.com/${props.imageUrl}`} />
+      )}
     </>
   );
 }

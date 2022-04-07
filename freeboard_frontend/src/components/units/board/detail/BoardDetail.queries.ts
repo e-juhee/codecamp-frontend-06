@@ -18,6 +18,7 @@ export const FETCH_BOARD = gql`
       createdAt
       updatedAt
       deletedAt
+      images
     }
   }
 `;

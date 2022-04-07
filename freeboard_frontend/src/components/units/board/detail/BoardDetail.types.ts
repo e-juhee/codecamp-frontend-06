@@ -8,4 +8,5 @@ export interface IBoardDetailUIProps {
   onClickDelete: () => void;
   onClickList: () => void;
   onClickUpdate: () => void;
+  imageUrl?: string;
 }

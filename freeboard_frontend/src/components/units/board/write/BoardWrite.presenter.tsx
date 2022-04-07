@@ -119,13 +119,15 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         <S.InputWrapper>
           <S.Label>사진 첨부</S.Label>
           <S.ImageWrapper>
-            <S.ImageButton>
+            {/* <S.ImageButton>
               <S.ImageIcon>+</S.ImageIcon>
               <S.ImageLabel>Upload</S.ImageLabel>
-            </S.ImageButton>
-            <S.Image></S.Image>
+            </S.ImageButton> */}
+            <UploadImage
+              imageUrl={props.imageUrl}
+              setImageUrl={props.setImageUrl}
+            ></UploadImage>
           </S.ImageWrapper>
-          <UploadImage></UploadImage>
         </S.InputWrapper>
 
         <S.SettingWrapper>
