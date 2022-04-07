@@ -60,6 +60,9 @@ export interface IBoardWriteUIProps {
   };
 
   errors: any;
+
+  imageUrl?: string;
+  setImageUrl?: any;
 }
 
 export interface ICreateButtonProps {

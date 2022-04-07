@@ -28,6 +28,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     address: "",
     addressDetail: "",
   });
+  const [imageUrl, setImageUrl] = useState();
 
   /* 에러 메세지 state */
   const [errors, setErrors] = useState({
@@ -110,6 +111,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
             createBoardInput: {
               ...inputs,
               boardAddress: { ...boardAddressInputs },
+              images: [imageUrl],
             },
           },
         });
@@ -205,6 +207,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
       boardAddressInputs={boardAddressInputs}
       onChangeInputs={onChangeInputs}
       errors={errors}
+      imageUrl={imageUrl}
+      setImageUrl={setImageUrl}
     />
   );
 }

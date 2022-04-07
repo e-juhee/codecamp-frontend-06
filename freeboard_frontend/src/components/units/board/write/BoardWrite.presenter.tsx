@@ -2,6 +2,7 @@ import { IBoardWriteUIProps } from "./BoardWrite.types"; // 참고: default로 �
 import * as S from "./BoardWrite.style";
 import DaumPostcode from "react-daum-postcode";
 import { Modal } from "antd";
+import UploadImage from "../../../commons/UploadImage";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
@@ -122,7 +123,9 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               <S.ImageIcon>+</S.ImageIcon>
               <S.ImageLabel>Upload</S.ImageLabel>
             </S.ImageButton>
+            <S.Image></S.Image>
           </S.ImageWrapper>
+          <UploadImage></UploadImage>
         </S.InputWrapper>
 
         <S.SettingWrapper>

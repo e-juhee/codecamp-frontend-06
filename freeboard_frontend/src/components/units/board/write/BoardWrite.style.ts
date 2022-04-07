@@ -99,8 +99,8 @@ export const Address = styled.input`
 export const ImageWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 282px;
+  justify-content: start;
+  width: 100%;
   padding-bottom: 40px;
 `;
 export const ImageButton = styled.button`
@@ -118,6 +118,13 @@ export const ImageIcon = styled.div`
 export const ImageLabel = styled.div`
   font-family: "Noto Sans CJK KR";
   font-size: 13px;
+`;
+export const Image = styled.img`
+  width: 78px;
+  height: 78px;
+  margin: 0px 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
 `;
 export const SettingWrapper = styled.div`
   width: 100%;
