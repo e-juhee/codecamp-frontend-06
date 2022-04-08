@@ -13,6 +13,11 @@ import "antd/dist/antd.css";
 import { initializeApp } from "firebase/app";
 import { createUploadLink } from "apollo-upload-client";
 
+// Import the functions you need from the SDKs you need
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDBz6hMvq_xdr0pleEMuheZhsIew5LX_Zw",
   authDomain: "gboard-624df.firebaseapp.com",
@@ -21,6 +26,9 @@ const firebaseConfig = {
   messagingSenderId: "775421735879",
   appId: "1:775421735879:web:0e842ff9fc4ebed7d51fe2",
 };
+
+// Initialize Firebase
+// const app = initializeApp(firebaseConfig);
 
 export const firebaseApp = initializeApp(firebaseConfig);
 

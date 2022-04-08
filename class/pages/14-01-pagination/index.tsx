@@ -1,58 +1,50 @@
-import { useQuery, gql } from "@apollo/client";
-import styled from "@emotion/styled";
+// import { useQuery, gql } from "@apollo/client";
+// import styled from "@emotion/styled";
 
-const FETCH_BOARDS = gql`
-  query fetchBoards($page: Int) {
-    fetchBoards(page: $page) {
-      _id
-      writer
-      title
-      contents
-    }
-  }
-`;
+// const FETCH_BOARDS = gql`
+//   query fetchBoards($page: Int) {
+//     fetchBoards(page: $page) {
+//       _id
+//       writer
+//       title
+//       contents
+//     }
+//   }
+// `;
 
-const MyRow = styled.div`
-  display: flex;
-`;
+// // const MyRow = styled.div`
+// //   display: flex;
+// // `;
 
-const MyColumn = styled.div`
-  /* width: 25%; */
-`;
+// // const MyColumn = styled.div`
+// //   /* width: 25%; */
+// // `;
 
-export default function MapBoardPage() {
-  const { data, refetch } = useQuery(FETCH_BOARDS);
+// export default function MapBoardPage() {
+//   // const { data, refetch } = useQuery(FETCH_BOARDS);
 
-  const onClickPage = (e: any) => {
-    refetch({ page: Number(e.target.id) });
-  };
+//   return (
+//     <>
+//       {/* {data?.fetchBoards.map((el: any) => (
+//         <MyRow key={el._id}>
+//           <MyColumn>{el.number}</MyColumn>
+//           <MyColumn>{el.title}</MyColumn>
+//           <MyColumn>{el.writer}</MyColumn>
+//         </MyRow>
+//       ))} */}
 
-  return (
-    <>
-      {data?.fetchBoards.map((el: any) => (
-        <MyRow key={el._id}>
-          <MyColumn>{el.number}</MyColumn>
-          <MyColumn>{el.title}</MyColumn>
-          <MyColumn>{el.writer}</MyColumn>
-        </MyRow>
-      ))}
-      {new Array(10).fill(1).map((_, index) => (
-        <span onClick={onClickPage} id={String(index + 1)} key={index + 1}>
-          {index + 1}
-        </span>
-      ))}
-      {/* {[1, 2, 3].map((el) => (
-        <span onClick={onClickPage} id={String(el)} key={el}>
-          {el}
-        </span>
-      ))} */}
+//       {/* {[1, 2, 3].map((el) => (
+//         <span onClick={onClickPage} id={String(el)} key={el}>
+//           {el}
+//         </span>
+//       ))} */}
 
-      {/* <span onClick={onClickPage} id="2">
-        2
-      </span>
-      <span onClick={onClickPage} id="3">
-        3
-      </span> */}
-    </>
-  );
-}
+//       {/* <span onClick={onClickPage} id="2">
+//         2
+//       </span>
+//       <span onClick={onClickPage} id="3">
+//         3
+//       </span> */}
+//     </>
+//   );
+// }

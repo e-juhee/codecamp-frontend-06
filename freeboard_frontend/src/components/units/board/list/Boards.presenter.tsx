@@ -105,11 +105,9 @@ export default function BoardsUI(props: IBoardsUIProps) {
             current={props.current}
             setCurrent={props.setCurrent}
           />
-          <S.NewButton>
+          <S.NewButton onClick={props.onClickWrite}>
             <S.NewButtonIcon></S.NewButtonIcon>
-            <S.NewButtonText onClick={props.onClickWrite}>
-              게시물 등록하기
-            </S.NewButtonText>
+            <S.NewButtonText>게시물 등록하기</S.NewButtonText>
           </S.NewButton>
         </S.Footer>
       </S.Wrapper>
