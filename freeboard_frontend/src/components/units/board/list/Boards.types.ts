@@ -17,7 +17,8 @@ export interface IBoardsUIProps {
   current: number;
   setCurrent: Dispatch<SetStateAction<number>>;
   onChangeSearch: (e: ChangeEvent<HTMLInputElement>) => void;
-  onClickSearch: (e: MouseEvent<HTMLButtonElement>) => void;
+  // onClickSearch: (e: MouseEvent<HTMLButtonElement>) => void;
+  keyword: string;
 }
 export interface IPaginationProps {
   lastPage: number;

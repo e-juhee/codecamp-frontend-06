@@ -2,6 +2,7 @@ import { getDate } from "../../../../commons/libraries/utils";
 import Pagination from "../../../commons/pagination/Pagination";
 import * as S from "./Boards.style";
 import { IBoardsUIProps } from "./Boards.types";
+import { v4 as uuidv4 } from "uuid";
 // default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
 
 export default function BoardsUI(props: IBoardsUIProps) {
@@ -42,9 +43,7 @@ export default function BoardsUI(props: IBoardsUIProps) {
             ></S.SearchInput>
           </S.SearchTitle>
           <S.SearchDate>YYYY. MM.DD ~ YYYY. MM.DD</S.SearchDate>
-          <S.SearchButton onClick={props.onClickSearch}>
-            검색하기
-          </S.SearchButton>
+          <S.SearchButton>검색하기</S.SearchButton>
         </S.SearchWrapper>
 
         <S.Table>
@@ -89,7 +88,17 @@ export default function BoardsUI(props: IBoardsUIProps) {
               >
                 {/* 게시글 번호 */}
                 <S.TD>{props.current * 10 + index - 9}</S.TD>
-                <S.TD>{el.title}</S.TD>
+                <S.TD>
+                  {" "}
+                  {el.title
+                    .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
+                    .split("#$%")
+                    .map((el: any) => (
+                      <S.Word key={uuidv4()} isMatched={props.keyword === el}>
+                        {el}
+                      </S.Word>
+                    ))}
+                </S.TD>
                 <S.TD>{el.writer}</S.TD>
                 <S.TD>{getDate(el.createdAt)}</S.TD>
               </S.TRWrapper>

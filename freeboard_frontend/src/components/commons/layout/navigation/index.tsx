@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { MouseEvent } from "react";
+import { Fragment, MouseEvent, useState } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -28,22 +28,34 @@ const Menu = styled.div`
   }
 `;
 
+const NAVIGATION_MENUS = [
+  { name: "자유게시판", page: "/boards" },
+  { name: "TODO", page: "/todo" },
+  { name: "COVID19", page: "/covid" },
+];
+
 export default function LayoutNavigation() {
   const router = useRouter();
+  const [isActive, setIsActive] = useState("/boards");
   const onClickLink = (e: MouseEvent<HTMLDivElement>) => {
-    if (e.target instanceof Element) router.push(e.target.id);
+    if (e.target instanceof Element) {
+      router.push(e.target.id);
+      setIsActive(e.target.id);
+    }
   };
   return (
     <Wrapper>
-      <Menu isActive={true} id={"/boards"} onClick={onClickLink}>
-        자유게시판
-      </Menu>
-      <Menu isActive={false} id={"/market"} onClick={onClickLink}>
-        중고마켓
-      </Menu>
-      <Menu isActive={false} id={"/myPage"} onClick={onClickLink}>
-        마이페이지
-      </Menu>
+      {NAVIGATION_MENUS.map((el) => (
+        <Fragment key={el.page}>
+          <Menu
+            isActive={isActive === el.page}
+            id={el.page}
+            onClick={onClickLink}
+          >
+            {el.name}
+          </Menu>
+        </Fragment>
+      ))}
     </Wrapper>
   );
 }

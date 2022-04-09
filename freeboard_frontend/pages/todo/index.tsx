@@ -6,7 +6,7 @@ import {
   DocumentData,
 } from "firebase/firestore/lite";
 import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
-import { firebaseApp } from "../../_app";
+import { firebaseApp } from "../_app";
 import * as S from "./todo.style";
 
 export default function FirebasePage() {

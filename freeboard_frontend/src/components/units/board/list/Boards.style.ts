@@ -46,6 +46,14 @@ export const BestTitle = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
+
+interface IProps {
+  isMatched: boolean;
+}
+export const Word = styled.span`
+  color: ${(props: IProps) => (props.isMatched ? "hotpink" : "black")};
+`;
+
 export const BestBoardBody = styled.div`
   display: flex;
   flex-direction: row;

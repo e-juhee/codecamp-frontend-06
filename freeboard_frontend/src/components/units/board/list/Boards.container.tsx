@@ -11,6 +11,7 @@ import {
   IQuery,
   IQueryFetchBoardsArgs,
 } from "../../../../commons/types/generated/types";
+import _ from "lodash";
 
 export default function Boards() {
   /* FETCH_BOARDS */
@@ -20,15 +21,24 @@ export default function Boards() {
   >(FETCH_BOARDS); // data는 state와 동일한 역할을 한다. 값이 바뀌면 리렌더된다.
 
   const [search, setSearch] = useState<string>("");
+  const [keyword, setKeyword] = useState("");
 
-  const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+  const getDebounce = _.debounce((search) => {
+    // data: event.target.value
+    // 0.2초 동안 재작업이 없으면 실행되는 부분
+    setKeyword(search);
+    setSearch(search);
+    refetch({ search: search, page: 1 }); // 바로 실행되지 않고, 0.2초 동안 재입력이 일어나지 않으면 그 때 리페치가 실행된다.
+  }, 200);
+
+  const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    getDebounce(event.target.value);
   };
 
-  const onClickSearch = (event: MouseEvent<HTMLButtonElement>) => {
-    refetch();
-    refetch({ search: search });
-  };
+  // const onClickSearch = (event: MouseEvent<HTMLButtonElement>) => {
+  //   refetch();
+  //   refetch({ search: search });
+  // };
 
   /* FETCH_BOARDS_BEST */
   const { data: dataBest } = useQuery(FETCH_BOARDS_BEST);
@@ -63,7 +73,8 @@ export default function Boards() {
       current={current}
       setCurrent={setCurrent}
       onChangeSearch={onChangeSearch}
-      onClickSearch={onClickSearch}
+      // onClickSearch={onClickSearch}
+      keyword={keyword}
     />
   );
 }
