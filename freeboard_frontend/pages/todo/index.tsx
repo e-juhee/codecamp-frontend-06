@@ -10,9 +10,6 @@ import { firebaseApp } from "../_app";
 import * as S from "./todo.style";
 
 export default function FirebasePage() {
-  // const [contentsList, setContentsList] = useState<DocumentData[]>([]);
-  // const [dateList, setDateList] = useState<DocumentData[]>([]);
-  // const [isCompleteList, setIsCompleteList] = useState<DocumentData[]>([]);
   const [input, setInput] = useState<SetStateAction<string>>();
   const [dataTasks, setDataTasks] = useState<DocumentData[]>([]);
 

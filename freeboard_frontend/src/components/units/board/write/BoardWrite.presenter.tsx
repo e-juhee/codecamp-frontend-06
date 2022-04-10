@@ -110,7 +110,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           <S.Label>유튜브</S.Label>
           <S.Input
             id="youtubeUrl"
-            onChange={props.onChangeInputs}
+            onChange={props.onChangeYoutubeUrl}
             type="text"
             placeholder="링크를 복사해주세요."
             defaultValue={props.data?.fetchBoard?.youtubeUrl || ""}
@@ -120,8 +120,6 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           <S.Label>사진 첨부</S.Label>
           <S.ImageWrapper>
             <UploadImage
-              imageUrl={props.imageUrl}
-              setImageUrl={props.setImageUrl}
               fileList={props.fileList}
               setFileList={props.setFileList}
               data={props.data}
@@ -144,7 +142,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         </S.SettingWrapper>
 
         <S.SubmitButton
-          isActive={props.isActive}
+          isActive={props.isEdit ? true : props.isActive}
           onClick={props.isEdit ? props.onClickUpdate : props.onClickCreate}
         >
           {props.isEdit ? "수정하기" : "등록하기"}

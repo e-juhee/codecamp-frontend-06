@@ -11,33 +11,29 @@ import {
   successModal,
   warningModal,
 } from "../../../../commons/libraries/utils";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
+const initialInputs = {
+  writer: "",
+  password: "",
+  title: "",
+  contents: "",
+};
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
   /* 인풋창 state */
-  const [inputs, setInputs] = useState({
-    writer: "",
-    password: "",
-    title: "",
-    contents: "",
-    youtubeUrl: "",
-  });
+  const [inputs, setInputs] = useState(initialInputs);
   const [boardAddressInputs, setBoardAddressInputs] = useState({
     zipcode: "",
     address: "",
     addressDetail: "",
   });
-  const [imageUrl, setImageUrl] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
+  // const [imageUrl, setImageUrl] = useState("");
   const [fileList, setFileList] = useState<any[]>([]);
 
   /* 에러 메세지 state */
-  const [errors, setErrors] = useState({
-    writer: "",
-    password: "",
-    title: "",
-    contents: "",
-  });
+  const [errors, setErrors] = useState(initialInputs);
 
   /* true가 들어가면 버튼을 활성화하는 state : presenter로 넘어가서 style로 전달된다. */
   const [isActive, setIsActive] = useState<boolean>(false); // isActive가 true이면 버튼 활성화
@@ -46,25 +42,19 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const onChangeInputs = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    // ts: 리액트의 ChangeEvent import하기 (HTML태그타입Element: 태그 타입 주의하기)
-    setInputs({
+    const newInputs = {
       ...inputs,
       [e.target.id]: e.target.value,
-    }); // 입력값을 스테이트에 넣기
+    };
+    setInputs(newInputs);
 
-    e.target.value &&
-    Object.values(inputs).filter((el) => el === "").length <= 2
+    Object.values(newInputs).every((el) => el)
       ? setIsActive(true)
-      : setIsActive(false); // 4개의 필수값이 입력되면 isActive = true
+      : setIsActive(false);
+
     if (e.target.value) {
       setErrors({ ...errors, [e.target.id]: "" });
-    } // 값이 입력되면 에러메세지 제거
-    // if (
-    //   e.target.value !== "" &&
-    //   Object.values(inputs).filter((el) => el === "").length === 2
-    // ) {
-    //   console.log(Object.values(inputs));
-    // } // 값이 입력되면 에러메세지 제거
+    }
   };
   const [isOpen, setIsOpen] = useState(false);
   const onToggleModal = () => {
@@ -83,6 +73,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
       ...prev,
       addressDetail: e.target.value,
     }));
+  };
+  const onChangeYoutubeUrl = (e: ChangeEvent<HTMLInputElement>) => {
+    setYoutubeUrl(e.target.value);
   };
 
   /* CREATE_BOARD */
@@ -112,6 +105,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
             createBoardInput: {
               ...inputs,
               boardAddress: { ...boardAddressInputs },
+              youtubeUrl,
               images: fileList,
             },
           },
@@ -131,6 +125,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
   /* UPDATE_BOARD */
   const [updateBoard] = useMutation(UPDATE_BOARD);
   const onClickUpdate = async () => {
+    // images(fileList) 수정사항 있는지 검증
+    const currentFileList = JSON.stringify(fileList);
+    const prevFileList = JSON.stringify(props.data.fetchBoard.images);
+    const isChangedFileList = currentFileList !== prevFileList;
+
     if (!inputs.password) {
       warningModal("비밀번호를 입력해주세요.");
       return;
@@ -138,11 +137,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (
       !inputs.title &&
       !inputs.contents &&
-      !inputs.youtubeUrl &&
+      !youtubeUrl &&
       !boardAddressInputs.address &&
       !boardAddressInputs.addressDetail &&
       !boardAddressInputs.zipcode &&
-      fileList.length === 0
+      !isChangedFileList
     ) {
       warningModal("변경된 내용이 없습니다.");
       return;
@@ -153,10 +152,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     const myUpdateBoardInput: IUpdateBoardInput = {};
     if (inputs.title) myUpdateBoardInput.title = inputs.title; // 입력값이 있는 경우에만 myVariables에 title을 key로 하는 'title의 입력값'을 value로 넣어줘
     if (inputs.contents) myUpdateBoardInput.contents = inputs.contents;
-    if (inputs.youtubeUrl) myUpdateBoardInput.youtubeUrl = inputs.youtubeUrl;
-    if (fileList) {
-      myUpdateBoardInput.images = fileList;
-    }
+    if (youtubeUrl) myUpdateBoardInput.youtubeUrl = youtubeUrl;
     if (
       boardAddressInputs.zipcode ||
       boardAddressInputs.address ||
@@ -170,6 +166,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
       if (boardAddressInputs.addressDetail)
         myUpdateBoardInput.boardAddress.addressDetail =
           boardAddressInputs.addressDetail;
+    }
+    if (isChangedFileList) {
+      myUpdateBoardInput.images = fileList;
     }
 
     try {
@@ -190,20 +189,22 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   };
 
+  useEffect(() => {
+    if (props.data?.fetchBoard.images?.length)
+      setFileList([...props.data?.fetchBoard.images]);
+  }, [props.data]);
+
   return (
-    <BoardWriteUI // 자동완성으로 뜰 때 엔터를 쳐서 선택하면 자동으로 Import가 된다.
+    <BoardWriteUI
       /* 자식에게 보낼 데이터 */
       // 아래처럼 함수나 변수를 작성하면, props라는 객체가 생성되어 여기에 작성한 함수나 변수가 value로 들어가고, return의 페이지에 props를 통해 전달되어서 전달 받은 페이지에서 사용할 수 있다.
       // 키는 자유롭게 지정이 가능하나, 가급적 함수/변수명과 통일한다.
       isEdit={props.isEdit}
       isActive={isActive}
       setIsActive={setIsActive}
-      // writerError={writerError}
-      // passwordError={passwordError}
-      // titleError={titleError}
-      // contentsError={contentsError}
       onToggleModal={onToggleModal}
       onChangeAddressDetail={onChangeAddressDetail}
+      onChangeYoutubeUrl={onChangeYoutubeUrl}
       onClickCreate={onClickCreate}
       onClickUpdate={onClickUpdate}
       data={props.data} // edit/index.js 수정하기 페이지에서 보내준 fetchBoard 결과
@@ -212,8 +213,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
       boardAddressInputs={boardAddressInputs}
       onChangeInputs={onChangeInputs}
       errors={errors}
-      imageUrl={imageUrl}
-      setImageUrl={setImageUrl}
       fileList={fileList}
       setFileList={setFileList}
     />

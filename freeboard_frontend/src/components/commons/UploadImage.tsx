@@ -34,7 +34,7 @@ export default function UploadImage(props: any) {
     if (!isValid) return;
     try {
       const result = await uploadFile({ variables: { file } });
-      props.setImageUrl(result.data?.uploadFile.url);
+      // props.setImageUrl(result.data?.uploadFile.url);
       props.setFileList((prev: any) => [...prev, result.data?.uploadFile.url]);
     } catch (error: any) {
       alert(error.message);
@@ -53,9 +53,10 @@ export default function UploadImage(props: any) {
         type="file"
         onChange={onChangeFile}
         ref={fileRef}
+        multiple
       />
 
-      {props.imageUrl &&
+      {props.fileList &&
         props.fileList.map((el: any, i: string) => (
           <UploadImageItem
             key={i}
@@ -63,20 +64,6 @@ export default function UploadImage(props: any) {
             id={i}
             fileList={props.fileList}
             setFileList={props.setFileList}
-            // onClick={onClickUploadedImage}
-            // setDeleteIndex={setDeleteIndex}
-          />
-        ))}
-
-      {props.data?.fetchBoard?.images &&
-        props.data?.fetchBoard?.images.map((el: any, i: string) => (
-          <UploadImageItem
-            key={i}
-            src={`https://storage.googleapis.com/${el}`}
-            id={i}
-            fileList={props.fileList}
-            setFileList={props.setFileList}
-            // onClick={onClickUploadedImage}
           />
         ))}
     </>
