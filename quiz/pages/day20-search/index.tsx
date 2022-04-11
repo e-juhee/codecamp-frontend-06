@@ -21,7 +21,6 @@ const FETCH_BOARDS = gql`
 `;
 
 export default function MapBoardPage() {
-  // const [search, setSearch] = useState("");
   const [keyword, setKeyword] = useState("");
 
   const { data, refetch } = useQuery<
@@ -40,10 +39,6 @@ export default function MapBoardPage() {
     getDebounce(event.target.value);
   };
 
-  // const onClickSearch = () => {
-  //   refetch({ search, page: 1 });
-  // };
-
   const onClickPage = (e: any) => {
     refetch({ page: Number(e.target.id) });
   };
@@ -55,7 +50,6 @@ export default function MapBoardPage() {
           검색어 입력
           <S.Search type="text" onChange={onChangeSearch} />
         </S.SearchWrapper>
-        {/* <button onClick={onClickSearch}>검색하기</button> */}
         {data?.fetchBoards.map(
           (
             el // 인자로 index를 써서 사용할 수 있음: 순서, 필요 없으면 안 써도 됨

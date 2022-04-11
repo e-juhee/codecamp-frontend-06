@@ -60,7 +60,7 @@ export default function GraphqlMutationPage() {
   const onChangeInput = (event) => {
     setInputs({
       ...inputs,
-      [event.target.id]: event.target.value, // event.target.id 형태는 키로 쓸 수 없다. '.'으로 연결되면 객체의 키를 의미하기 때문이다.
+      [event.target.id]: event.target.value, // event.target.id 형태는 키로 쓸 수 없다. '.'으로 연결되면 객체의 키를 의미하기 때문이다. 대괄호로 감싸게 되면 event.target.id를 먼저 변환해줘서 키로 사용할 수 있다.
     });
   };
 

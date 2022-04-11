@@ -20,14 +20,12 @@ export default function ImageUploadPage() {
     Pick<IMutation, "uploadFile">,
     IMutationUploadFileArgs
   >(UPLOAD_FILE);
+
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     console.log(file);
     try {
-      const result = await uploadFile({ variables: { file } }); // url 주소를 받는다.
-      console.log(result.data?.uploadFile.url);
-
-      // result.data?.uploadFile.url &&
+      const result = await uploadFile({ variables: { file } }); // file을 전송하고 결과로 url 주소를 받는다.
       setImageUrl(result.data?.uploadFile.url);
     } catch (error: any) {
       Modal.error({ content: error.message });

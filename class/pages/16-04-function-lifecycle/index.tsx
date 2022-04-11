@@ -20,6 +20,8 @@ export default function CounterPage() {
   //   inputRef.current?.focus();
   // }, []);
 
+  // useEffect는 한번 렌더 되고 나서 실행되기 때문에 이게 제일 먼저 실행된다.
+
   // // 리렌더 될 때 실행된다. (counter가 증가할 때)
   // componentDidUpdate() {
   //   console.log("수정되고 다시 그려짐!");
@@ -27,12 +29,16 @@ export default function CounterPage() {
   /* 2. DidUpdate : 처음에도 한번 실행된다. */
   useEffect(() => {
     console.log("수정되고 다시 그려짐!");
+  });
+
+  useEffect(() => {
+    console.log("수정되고 다시 그려짐!");
   }, [count]);
-  // 대괄호: 의존성 배열, Dependency Array
-  // (이 함수가 실행될 지 안 될지를 의존)
+  // 대괄호: 의존성 배열 (Dependency Array)
+  // (이 함수가 실행될 지 안 될지를 의존하고 있다)
   // 1) 배열이 비어있으면 한번 실행되고 끝난다. = componentDidMount
   // 2) 배열이 아예 없으면 뭐가 바뀌든 실행된다.
-  // 3) 배열에 변수가 들어있으면 해당 변수가 바뀌었을 때 실행된다.
+  // 3) 배열에 변수가 들어있으면 처음에 한번과 해당 변수가 바뀌었을 때 실행된다.
 
   // // 화면에서 사라질 때
   // componentWillUnmount() {
@@ -57,13 +63,14 @@ export default function CounterPage() {
 
   /* 5. useEffect의 잘못된 사용 예 */
   // 1) 추가렌더링
+  // 화면이 렌더되고 나서 useEffect가 실행되는데, 안에서 setState로 인해서 렌더링이 한번 더 일어나게 된다.
   useEffect(() => {
-    setCount(10); // 불필요한 추가 렌더링을 발생시킨다. use~~에서 setState는 자제하자.
+    setCount(10); // 불필요한 추가 렌더링을 발생시킨다. useEffect에서 setState는 자제하자.
   }, []);
 
   // 2) 무한루프
   // useEffect(() => {
-  //   setCount((prev) => prev + 1); // 무한루프에 빠진다! count가 바뀌면 실행되고 실행되면 바뀌고 ...
+  //   setCount((prev) => prev + 1); // 무한루프에 빠진다! count가 바뀌면 useEffect가 실행되고, count가 또 바뀌고, useEffect가 또 실행되고 ...
   // }, [count]);
 
   const onClickCounter = () => {
@@ -77,6 +84,7 @@ export default function CounterPage() {
   };
 
   console.log("나는 언제 실행되게~?"); // useEffect는 한번 렌더 되고 나서 실행되기 때문에 이게 제일 먼저 실행된다.
+  console.log("useEffect보다 이게 먼저 실행됨");
 
   return (
     <div>

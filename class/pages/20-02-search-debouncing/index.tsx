@@ -48,7 +48,7 @@ export default function MapBoardPage() {
     // 0.2초 동안 재작업이 없으면 실행되는 부분
     setKeyword(data);
     refetch({ search: data, page: 1 }); // 바로 실행되지 않고, 0.2초 동안 재입력이 일어나지 않으면 그 때 리페치가 실행된다.
-  }, 200);
+  }, 200); // 0.2초
 
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     getDebounce(event.target.value);

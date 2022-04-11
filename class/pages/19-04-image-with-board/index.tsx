@@ -17,7 +17,6 @@ const CREATE_BOARD = gql`
     }
   }
 `;
-
 const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
     uploadFile(file: $file) {
@@ -27,19 +26,16 @@ const UPLOAD_FILE = gql`
 `;
 
 export default function GraphqlMutationPage() {
-  // input  state
   const [myWriter, setMyWriter] = useState("");
   const [myTitle, setMyTitle] = useState("");
   const [myContents, setMyContents] = useState("");
   const [myPassword, setMyPassword] = useState("");
-
   const fileRef = useRef<HTMLInputElement>(null);
   const [imageUrl, setImageUrl] = useState<string | undefined>("");
   const [uploadFile] = useMutation<
     Pick<IMutation, "uploadFile">,
     IMutationUploadFileArgs
   >(UPLOAD_FILE);
-
   const [data, setData] = useState("");
   const [callApi] = useMutation(CREATE_BOARD);
   console.log(data);
@@ -55,7 +51,6 @@ export default function GraphqlMutationPage() {
         },
       },
     });
-    console.log(result);
     setData(result.data.createBoard.message);
   };
 
@@ -71,27 +66,19 @@ export default function GraphqlMutationPage() {
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setMyPassword(event.target.value);
   };
-
-  const onChangeFile = async (
-    event: import("react").ChangeEvent<HTMLInputElement>
-  ) => {
+  const onClickImage = () => {
+    fileRef.current?.click();
+  };
+  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    console.log(file);
-
     const isValid = checkFileValidation(file);
     if (!isValid) return;
-
     try {
       const result = await uploadFile({ variables: { file } });
-      console.log(result.data?.uploadFile.url);
       setImageUrl(result.data?.uploadFile.url);
     } catch (error: any) {
       alert(error.message);
     }
-  };
-
-  const onClickImage = () => {
-    fileRef.current?.click();
   };
 
   return (
