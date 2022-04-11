@@ -12,6 +12,7 @@ import { Global } from "@emotion/react";
 import "antd/dist/antd.css";
 import { initializeApp } from "firebase/app";
 import { createUploadLink } from "apollo-upload-client";
+import { RecoilRoot } from "recoil";
 
 // Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
@@ -43,13 +44,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <ApolloProvider client={client}>
-      <Global styles={globalStyles} />
-      <Layout>
-        {/* Component가 Layout 컴포넌트의 props.children  --> layout/index.tsx에서 씀 */}
-        <Component {...pageProps} />
-      </Layout>
-    </ApolloProvider>
+    <RecoilRoot>
+      <ApolloProvider client={client}>
+        <Global styles={globalStyles} />
+        <Layout>
+          {/* Component가 Layout 컴포넌트의 props.children  --> layout/index.tsx에서 씀 */}
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloProvider>
+    </RecoilRoot>
   );
 }
 

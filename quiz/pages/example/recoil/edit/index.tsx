@@ -8,7 +8,7 @@ export default function ExampleEditPage() {
 
   useEffect(() => {
     setIsEdit(true);
-  }, []);
+  });
 
   return <WriteComponent />;
 }

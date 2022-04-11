@@ -20,6 +20,7 @@ const HIDDEN_BANNER = [
   "/boards/new",
   "/",
   "/boards/covid-seoul",
+  "/login",
 ];
 const HIDDEN_NAV = ["/"];
 

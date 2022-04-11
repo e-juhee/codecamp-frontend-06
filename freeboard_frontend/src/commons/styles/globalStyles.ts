@@ -32,4 +32,8 @@ export const globalStyles = css`
     font-family: "NanumSquareR";
     src: url(/fonts/NanumSquareR.ttf); // /는 public
   }
+  @font-face {
+    font-family: "NanumSquareB";
+    src: url(/fonts/NanumSquareB.ttf); // /는 public
+  }
 `;
