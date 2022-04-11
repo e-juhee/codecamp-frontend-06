@@ -7,13 +7,23 @@ export default function LoginUI(props: ILoginUIProps) {
       <S.Wrapper>
         <S.Logo>로고자리</S.Logo>
         <S.InputWrapper>
-          <S.Label>이메일 주소</S.Label>
-          <S.Input onChange={props.onChangeEmail}></S.Input>
+          <S.EmailLabel emailValid={props.emailValid}>이메일 주소</S.EmailLabel>
+          <S.Email
+            ref={props.inputRef}
+            onChange={props.onChangeEmail}
+            emailValid={props.emailValid}
+          ></S.Email>
           <S.InputError>{props.emailErrorMessage}</S.InputError>
         </S.InputWrapper>
         <S.InputWrapper>
-          <S.Label>비밀번호</S.Label>
-          <S.Input type="password" onChange={props.onChangePassword}></S.Input>
+          <S.PasswordLabel passwordValid={props.passwordValid}>
+            비밀번호
+          </S.PasswordLabel>
+          <S.Password
+            type="password"
+            onChange={props.onChangePassword}
+            passwordValid={props.passwordValid}
+          ></S.Password>
           <S.InputError>{props.passwordErrorMessage}</S.InputError>
         </S.InputWrapper>
         <S.SaveID onClick={props.onClickSaveID}>
