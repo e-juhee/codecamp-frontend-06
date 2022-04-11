@@ -2,10 +2,11 @@ import { ChangeEvent, RefObject } from "react";
 
 export interface ILoginUIProps {
   inputRef: RefObject<HTMLInputElement>;
-  nameError: string;
-  emailError: string;
-  passwordError: string;
-  checkPasswordError: string;
+  errors: any;
+  // nameError: string;
+  // emailError: string;
+  // passwordError: string;
+  // checkPasswordError: string;
   onChangeName: (e: ChangeEvent<HTMLInputElement>) => void;
   onChangeEmail: (e: ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (e: ChangeEvent<HTMLInputElement>) => void;

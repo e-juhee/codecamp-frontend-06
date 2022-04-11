@@ -1,30 +1,17 @@
 import { ChangeEvent, useState, useRef, useEffect } from "react";
 import LoginUI from "./Join.presenter";
 
-// const initialInputs = {
-//   name: "",
-//   email: "",
-//   password: "",
-//   checkPassword: "",
-// };
+const initialInputs = {
+  name: "",
+  email: "",
+  password: "",
+  checkPassword: "",
+};
 
 export default function Join() {
   const inputRef = useRef<HTMLInputElement>(null);
-  // const [inputs, setInputs] = useState(initialInputs);
-  // const [valid, setValids] = useState( name: "",
-  // email: "",
-  // password: "",
-  // checkPassword: "",);
-  // const [errors, setErrors] = useState(initialInputs);
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [checkPassword, setCheckPassword] = useState("");
-  const [nameError, setNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordErrorMessage] = useState("");
-  const [checkPasswordError, setCheckPasswordError] = useState("");
+  const [inputs, setInputs] = useState(initialInputs);
+  const [errors, setErrors] = useState(initialInputs);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -32,22 +19,34 @@ export default function Join() {
   }, []);
 
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-    const nameValid = /^[가-힣]+$/.test(name);
+    const nameValid = /^[가-힣]+$/.test(e.target.value);
     if (nameValid) {
-      setNameError("");
-      // setNameValid(true);
+      setErrors({ ...errors, name: "" });
     }
-    setName(e.target.value);
-    if (e.target.value && email && password && checkPassword) setIsActive(true);
+    setInputs({ ...inputs, name: e.target.value });
+
+    if (
+      e.target.value &&
+      inputs.email &&
+      inputs.password &&
+      inputs.checkPassword
+    )
+      setIsActive(true);
   };
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    const emailValid = /^\w+@\w+\.\w{2,3}$/.test(email);
+    const emailValid = /^\w+@\w+\.\w{2,3}$/.test(e.target.value);
     if (emailValid) {
-      setEmailError("");
+      setErrors({ ...errors, email: "" });
     }
-    setEmail(e.target.value);
+    setInputs({ ...inputs, email: e.target.value });
     console.log(e.target.value);
-    if (name && e.target.value && password && checkPassword) setIsActive(true);
+    if (
+      inputs.name &&
+      inputs.password &&
+      inputs.checkPassword &&
+      e.target.value
+    )
+      setIsActive(true);
   };
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     const passwordValid =
@@ -55,43 +54,53 @@ export default function Join() {
         e.target.value
       );
     if (passwordValid) {
-      setPasswordErrorMessage("");
+      setErrors({ ...errors, password: "" });
     }
-    setPassword(e.target.value);
-    if (name && e.target.value && email && checkPassword) setIsActive(true);
+    setInputs({ ...inputs, password: e.target.value });
+
+    if (inputs.name && inputs.email && inputs.checkPassword && e.target.value)
+      setIsActive(true);
   };
   const onChangeCheckPassword = (e: ChangeEvent<HTMLInputElement>) => {
-    if (password === e.target.value) {
-      setCheckPasswordError("");
+    if (inputs.password === e.target.value) {
+      setErrors({ ...errors, checkPassword: "" });
     }
-    setCheckPassword(e.target.value);
-    if (name && e.target.value && email && password) setIsActive(true);
+    setInputs({ ...inputs, checkPassword: e.target.value });
+
+    if (inputs.name && inputs.password && inputs.email && e.target.value)
+      setIsActive(true);
   };
 
   const onClickJoin = () => {
-    const nameValid = /^[가-힣]+$/.test(name);
+    const nameValid = /^[가-힣]+$/.test(inputs.name);
     if (!nameValid) {
-      setNameError("이름을 정확히 입력해주세요.");
+      setErrors({ ...errors, name: "이름을 정확히 입력해주세요." });
       return;
     }
-    const emailValid = /^\w+@\w+\.\w{2,3}$/.test(email);
+    const emailValid = /^\w+@\w+\.\w{2,3}$/.test(inputs.email);
     if (!emailValid) {
-      setEmailError("이메일 주소를 정확히 입력해주세요.");
+      setErrors({ ...errors, email: "이메일 주소를 정확히 입력해주세요." });
+
       return;
     }
     const passwordValid =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
-        password
+        inputs.password
       );
     if (!passwordValid) {
-      setPasswordErrorMessage(
-        "영문, 숫자, 특수문자를 조합해서 입력해주세요. (8~16자)"
-      );
+      setErrors({
+        ...errors,
+        password: "영문, 숫자, 특수문자를 조합해서 입력해주세요. (8~16자)",
+      });
+
       return;
     }
 
-    if (password !== checkPassword) {
-      setCheckPasswordError("비밀번호를 다시 확인해주세요.");
+    if (inputs.password !== inputs.checkPassword) {
+      setErrors({
+        ...errors,
+        checkPassword: "비밀번호를 다시 확인해주세요.",
+      });
     }
   };
   return (
@@ -100,10 +109,12 @@ export default function Join() {
       // emailValid={emailValid}
       // passwordValid={passwordValid}
       // checkPasswordValid={checkPasswordValid}
-      nameError={nameError}
-      emailError={emailError}
-      passwordError={passwordError}
-      checkPasswordError={checkPasswordError}
+      // nameError={nameError}
+      // emailError={emailError}
+      // passwordError={passwordError}
+      // checkPasswordError={checkPasswordError}
+      // onChangeInputs={onChangeInputs}
+      errors={errors}
       onChangeName={onChangeName}
       onChangeEmail={onChangeEmail}
       onChangePassword={onChangePassword}
