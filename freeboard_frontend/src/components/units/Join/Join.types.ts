@@ -2,27 +2,23 @@ import { ChangeEvent, RefObject } from "react";
 
 export interface ILoginUIProps {
   inputRef: RefObject<HTMLInputElement>;
-  nameValid: boolean;
-  emailValid: boolean;
-  passwordValid: boolean;
-  checkPasswordValid: boolean;
-  nameErrorMessage: string;
-  emailErrorMessage: string;
-  passwordErrorMessage: string;
-  checkPasswordErrorMessage: string;
+  nameError: string;
+  emailError: string;
+  passwordError: string;
+  checkPasswordError: string;
   onChangeName: (e: ChangeEvent<HTMLInputElement>) => void;
   onChangeEmail: (e: ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (e: ChangeEvent<HTMLInputElement>) => void;
   onChangeCheckPassword: (e: ChangeEvent<HTMLInputElement>) => void;
-  onClickLogin: () => void;
+  onClickJoin: () => void;
   isActive: boolean;
 }
-export interface ILoginButtonProps {
+export interface IJoinButtonProps {
   isActive: boolean;
 }
-export interface ILoginValidProps {
-  nameValid?: boolean;
-  emailValid?: boolean;
-  passwordValid?: boolean;
-  checkPasswordValid?: boolean;
+export interface IJoinValidProps {
+  nameError?: string;
+  emailError?: string;
+  passwordError?: string;
+  checkPasswordError?: string;
 }

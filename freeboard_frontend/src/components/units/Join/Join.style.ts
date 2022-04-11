@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ILoginButtonProps, ILoginValidProps } from "./Join.types";
+import { IJoinButtonProps, IJoinValidProps } from "./Join.types";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -32,8 +32,8 @@ export const InputWrapper = styled.div`
 export const NameLabel = styled.div`
   font-size: 13px;
   font-family: "NanumSquareB";
-  ${(props: ILoginValidProps) =>
-    props.nameValid ? "color: black;" : "color: red;"};
+  ${(props: IJoinValidProps) =>
+    !props.nameError ? "color: black;" : "color: red;"};
 `;
 export const Name = styled.input`
   height: 100%;
@@ -42,21 +42,21 @@ export const Name = styled.input`
   font-family: -apple-system;
   &:focus {
     outline: none;
-    ${(props: ILoginValidProps) =>
-      props.nameValid
+    ${(props: IJoinValidProps) =>
+      !props.nameError
         ? "border-bottom: 2px solid gray;"
         : "border-bottom: 2px solid red;"};
   }
-  ${(props: ILoginValidProps) =>
-    props.nameValid
+  ${(props: IJoinValidProps) =>
+    !props.nameError
       ? "border-bottom: 1px solid #e3e3e3;"
       : "border-bottom: 1px solid red;"};
 `;
 export const EmailLabel = styled.div`
   font-size: 13px;
   font-family: "NanumSquareB";
-  ${(props: ILoginValidProps) =>
-    props.emailValid ? "color: black;" : "color: red;"};
+  ${(props: IJoinValidProps) =>
+    !props.emailError ? "color: black;" : "color: red;"};
 `;
 export const Email = styled.input`
   height: 100%;
@@ -65,27 +65,27 @@ export const Email = styled.input`
   font-family: -apple-system;
   &:focus {
     outline: none;
-    ${(props: ILoginValidProps) =>
-      props.emailValid
+    ${(props: IJoinValidProps) =>
+      !props.emailError
         ? "border-bottom: 2px solid gray;"
         : "border-bottom: 2px solid red;"};
   }
-  ${(props: ILoginValidProps) =>
-    props.emailValid
+  ${(props: IJoinValidProps) =>
+    !props.emailError
       ? "border-bottom: 1px solid #e3e3e3;"
       : "border-bottom: 1px solid red;"};
 `;
 export const PasswordLabel = styled.div`
   font-size: 13px;
   font-family: "NanumSquareB";
-  ${(props: ILoginValidProps) =>
-    props.passwordValid ? "color: black;" : "color: red;"};
+  ${(props: IJoinValidProps) =>
+    !props.passwordError ? "color: black;" : "color: red;"};
 `;
 export const CheckPasswordLabel = styled.div`
   font-size: 13px;
   font-family: "NanumSquareB";
-  ${(props: ILoginValidProps) =>
-    props.checkPasswordValid ? "color: black;" : "color: red;"};
+  ${(props: IJoinValidProps) =>
+    !props.checkPasswordError ? "color: black;" : "color: red;"};
 `;
 
 export const Password = styled.input`
@@ -95,13 +95,13 @@ export const Password = styled.input`
   font-family: -apple-system;
   &:focus {
     outline: none;
-    ${(props: ILoginValidProps) =>
-      props.passwordValid
+    ${(props: IJoinValidProps) =>
+      !props.passwordError
         ? "border-bottom: 2px solid gray;"
         : "border-bottom: 2px solid red;"};
   }
-  ${(props: ILoginValidProps) =>
-    props.passwordValid
+  ${(props: IJoinValidProps) =>
+    !props.passwordError
       ? "border-bottom: 1px solid #e3e3e3;"
       : "border-bottom: 1px solid red;"};
 `;
@@ -112,13 +112,13 @@ export const CheckPassword = styled.input`
   font-family: -apple-system;
   &:focus {
     outline: none;
-    ${(props: ILoginValidProps) =>
-      props.checkPasswordValid
+    ${(props: IJoinValidProps) =>
+      !props.checkPasswordError
         ? "border-bottom: 2px solid gray;"
         : "border-bottom: 2px solid red;"};
   }
-  ${(props: ILoginValidProps) =>
-    props.checkPasswordValid
+  ${(props: IJoinValidProps) =>
+    !props.checkPasswordError
       ? "border-bottom: 1px solid #e3e3e3;"
       : "border-bottom: 1px solid red;"};
 `;
@@ -129,15 +129,15 @@ export const InputError = styled.div`
   color: red;
 `;
 
-export const LoginButton = styled.button`
+export const JoinButton = styled.button`
   width: 100%;
   height: 50px;
   border: none;
   color: white;
   font-family: "NanumSquareB";
-  margin-bottom: 20px;
+  margin-top: 20px;
   border-radius: 10px;
-  ${(props: ILoginButtonProps) =>
+  ${(props: IJoinButtonProps) =>
     props.isActive
       ? "cursor: pointer; background-color:black;"
       : "cursor:default; background-color:#e3e3e3;"};

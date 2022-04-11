@@ -7,52 +7,52 @@ export default function JoinUI(props: ILoginUIProps) {
       <S.Wrapper>
         <S.Title>회원가입</S.Title>
         <S.InputWrapper>
-          <S.NameLabel nameValid={props.nameValid}>이름</S.NameLabel>
+          <S.NameLabel nameError={props.nameError}>이름</S.NameLabel>
           <S.Name
             ref={props.inputRef}
             onChange={props.onChangeName}
-            nameValid={props.nameValid}
+            nameError={props.nameError}
           ></S.Name>
-          <S.InputError>{props.nameErrorMessage}</S.InputError>
+          <S.InputError>{props.nameError}</S.InputError>
         </S.InputWrapper>
         <S.InputWrapper>
-          <S.EmailLabel emailValid={props.emailValid}>이메일 주소</S.EmailLabel>
+          <S.EmailLabel emailError={props.emailError}>이메일 주소</S.EmailLabel>
           <S.Email
             onChange={props.onChangeEmail}
-            emailValid={props.emailValid}
+            emailError={props.emailError}
             placeholder="예) gboard@gboad.com"
           ></S.Email>
-          <S.InputError>{props.emailErrorMessage}</S.InputError>
+          <S.InputError>{props.emailError}</S.InputError>
         </S.InputWrapper>
 
         <S.InputWrapper>
-          <S.PasswordLabel passwordValid={props.passwordValid}>
+          <S.PasswordLabel passwordError={props.passwordError}>
             비밀번호
           </S.PasswordLabel>
           <S.Password
             type="password"
             onChange={props.onChangePassword}
-            passwordValid={props.passwordValid}
+            passwordError={props.passwordError}
             placeholder="영문, 숫자, 특수문자 조합 8-16자"
           ></S.Password>
-          <S.InputError>{props.passwordErrorMessage}</S.InputError>
+          <S.InputError>{props.passwordError}</S.InputError>
         </S.InputWrapper>
         <S.InputWrapper>
-          <S.CheckPasswordLabel checkPasswordValid={props.checkPasswordValid}>
+          <S.CheckPasswordLabel checkPasswordError={props.checkPasswordError}>
             비밀번호 확인
           </S.CheckPasswordLabel>
           <S.CheckPassword
             type="password"
             onChange={props.onChangeCheckPassword}
-            checkPasswordValid={props.checkPasswordValid}
+            checkPasswordError={props.checkPasswordError}
             placeholder="비밀번호를 한 번 더 입력해주세요."
           ></S.CheckPassword>
-          <S.InputError>{props.checkPasswordErrorMessage}</S.InputError>
+          <S.InputError>{props.checkPasswordError}</S.InputError>
         </S.InputWrapper>
 
-        <S.LoginButton onClick={props.onClickLogin} isActive={props.isActive}>
+        <S.JoinButton onClick={props.onClickJoin} isActive={props.isActive}>
           가입하기
-        </S.LoginButton>
+        </S.JoinButton>
       </S.Wrapper>
     </>
   );

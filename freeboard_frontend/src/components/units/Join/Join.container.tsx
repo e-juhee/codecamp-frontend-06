@@ -1,21 +1,30 @@
 import { ChangeEvent, useState, useRef, useEffect } from "react";
 import LoginUI from "./Join.presenter";
 
+// const initialInputs = {
+//   name: "",
+//   email: "",
+//   password: "",
+//   checkPassword: "",
+// };
+
 export default function Join() {
   const inputRef = useRef<HTMLInputElement>(null);
+  // const [inputs, setInputs] = useState(initialInputs);
+  // const [valid, setValids] = useState( name: "",
+  // email: "",
+  // password: "",
+  // checkPassword: "",);
+  // const [errors, setErrors] = useState(initialInputs);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
-  const [nameValid, setNameValid] = useState(true);
-  const [emailValid, setEmailValid] = useState(true);
-  const [passwordValid, setPasswordValid] = useState(true);
-  const [checkPasswordValid, setCheckPasswordValid] = useState(true);
-  const [nameErrorMessage, setNameErrorMessage] = useState("");
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-  const [checkPasswordErrorMessage, setCheckPasswordErrorMessage] =
-    useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordErrorMessage] = useState("");
+  const [checkPasswordError, setCheckPasswordError] = useState("");
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -25,8 +34,8 @@ export default function Join() {
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     const nameValid = /^[가-힣]+$/.test(name);
     if (nameValid) {
-      setNameErrorMessage("");
-      setNameValid(true);
+      setNameError("");
+      // setNameValid(true);
     }
     setName(e.target.value);
     if (e.target.value && email && password && checkPassword) setIsActive(true);
@@ -34,8 +43,7 @@ export default function Join() {
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     const emailValid = /^\w+@\w+\.\w{2,3}$/.test(email);
     if (emailValid) {
-      setEmailErrorMessage("");
-      setEmailValid(true);
+      setEmailError("");
     }
     setEmail(e.target.value);
     console.log(e.target.value);
@@ -48,31 +56,27 @@ export default function Join() {
       );
     if (passwordValid) {
       setPasswordErrorMessage("");
-      setPasswordValid(true);
     }
     setPassword(e.target.value);
     if (name && e.target.value && email && checkPassword) setIsActive(true);
   };
   const onChangeCheckPassword = (e: ChangeEvent<HTMLInputElement>) => {
-    if (password !== e.target.value) {
-      setCheckPasswordErrorMessage("");
-      setCheckPasswordValid(true);
+    if (password === e.target.value) {
+      setCheckPasswordError("");
     }
     setCheckPassword(e.target.value);
     if (name && e.target.value && email && password) setIsActive(true);
   };
 
-  const onClickLogin = () => {
+  const onClickJoin = () => {
     const nameValid = /^[가-힣]+$/.test(name);
     if (!nameValid) {
-      setNameErrorMessage("이름을 정확히 입력해주세요.");
-      setNameValid(false);
+      setNameError("이름을 정확히 입력해주세요.");
       return;
     }
     const emailValid = /^\w+@\w+\.\w{2,3}$/.test(email);
     if (!emailValid) {
-      setEmailErrorMessage("이메일 주소를 정확히 입력해주세요.");
-      setEmailValid(false);
+      setEmailError("이메일 주소를 정확히 입력해주세요.");
       return;
     }
     const passwordValid =
@@ -83,30 +87,28 @@ export default function Join() {
       setPasswordErrorMessage(
         "영문, 숫자, 특수문자를 조합해서 입력해주세요. (8~16자)"
       );
-      setPasswordValid(false);
       return;
     }
 
     if (password !== checkPassword) {
-      setCheckPasswordErrorMessage("비밀번호를 다시 확인해주세요.");
-      setCheckPasswordValid(false);
+      setCheckPasswordError("비밀번호를 다시 확인해주세요.");
     }
   };
   return (
     <LoginUI
-      nameValid={nameValid}
-      emailValid={emailValid}
-      passwordValid={passwordValid}
-      checkPasswordValid={checkPasswordValid}
-      nameErrorMessage={nameErrorMessage}
-      emailErrorMessage={emailErrorMessage}
-      passwordErrorMessage={passwordErrorMessage}
-      checkPasswordErrorMessage={checkPasswordErrorMessage}
+      // nameValid={nameValid}
+      // emailValid={emailValid}
+      // passwordValid={passwordValid}
+      // checkPasswordValid={checkPasswordValid}
+      nameError={nameError}
+      emailError={emailError}
+      passwordError={passwordError}
+      checkPasswordError={checkPasswordError}
       onChangeName={onChangeName}
       onChangeEmail={onChangeEmail}
       onChangePassword={onChangePassword}
       onChangeCheckPassword={onChangeCheckPassword}
-      onClickLogin={onClickLogin}
+      onClickJoin={onClickJoin}
       isActive={isActive}
       inputRef={inputRef}
     />
