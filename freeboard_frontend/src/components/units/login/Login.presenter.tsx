@@ -1,7 +1,20 @@
+import { useRouter } from "next/router";
+import { MouseEvent } from "react";
 import * as S from "./Login.style";
 import { ILoginUIProps } from "./Login.types";
-
+// const MENUS = [
+//   { name: "이메일 가입", page: "/join" },
+//   { name: "이메일 찾기", page: "/join" },
+//   { name: "비밀번호 찾기", page: "/join" },
+// ];
 export default function LoginUI(props: ILoginUIProps) {
+  const router = useRouter();
+
+  const onClickLink = (e: MouseEvent<HTMLDivElement>) => {
+    if (e.target instanceof Element) {
+      router.push(e.target.id);
+    }
+  };
   return (
     <>
       <S.Wrapper>
@@ -34,11 +47,17 @@ export default function LoginUI(props: ILoginUIProps) {
           로그인
         </S.LoginButton>
         <S.SubButtonWrapper>
-          <S.SubButton>이메일 가입</S.SubButton>
+          <S.SubButton id="/join" onClick={onClickLink}>
+            이메일 가입
+          </S.SubButton>
           <div>|</div>
-          <S.SubButton>이메일 찾기</S.SubButton>
+          <S.SubButton id="/join" onClick={onClickLink}>
+            이메일 찾기
+          </S.SubButton>
           <div>|</div>
-          <S.SubButton>비밀번호 찾기</S.SubButton>
+          <S.SubButton id="/join" onClick={onClickLink}>
+            비밀번호 찾기
+          </S.SubButton>
         </S.SubButtonWrapper>
       </S.Wrapper>
     </>

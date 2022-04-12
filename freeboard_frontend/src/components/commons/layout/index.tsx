@@ -37,8 +37,9 @@ export default function Layout(props: ILayoutProps) {
   return (
     <>
       <LayoutHeader />
-      {!isHiddenBanner && <LayoutBanner />}
       {!isHiddenNav && <LayoutNavigation />}
+      {!isHiddenBanner && <LayoutBanner />}
+
       <BodyWrapper>
         {/* app_tsx에서 Layout 컴포넌트 안에 Component가 있는 구조라서 props.children으로 부를 수 있다. */}
         <Body>{props.children}</Body>

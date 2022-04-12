@@ -1,7 +1,13 @@
+import { useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
 import { ChangeEvent, useState, useRef, useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { accessTokenState } from "../../../commons/store";
 import LoginUI from "./Login.presenter";
+import { LOGIN_USER } from "./Login.queries";
 
 export default function Login() {
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +17,9 @@ export default function Login() {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [loginUser] = useMutation(LOGIN_USER);
+  const [, setAccessToken] = useRecoilState(accessTokenState);
+
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -42,18 +51,27 @@ export default function Login() {
   const onClickSaveID = () => {
     setIsChecked((prev) => !prev);
   };
-  const onClickLogin = () => {
+  const onClickLogin = async () => {
     if (!emailTest(email)) {
       setEmailErrorMessage("이메일 주소를 정확히 입력해주세요.");
       setEmailValid(false);
+      return;
     }
     if (!passwordTest(password)) {
       setPasswordErrorMessage(
         "영문, 숫자, 특수문자를 조합해서 입력해주세요. (8~16자)"
       );
       setPasswordValid(false);
+      return;
     }
+    const result = await loginUser({
+      variables: { email, password },
+    });
+    const accessToken = result.data.loginUser.accessToken;
+    setAccessToken(accessToken);
+    router.push("/boards");
   };
+
   return (
     <LoginUI
       isChecked={isChecked}

@@ -4,48 +4,91 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
 const Wrapper = styled.div`
-  height: 400px;
+  /* z-index: -1; */
+  /* position: relative; */
+  margin-top: 99px;
+  height: 470px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  /* padding: 0 100px; */
 `;
-const Image = styled.img`
-  height: 400px;
-  width: 800px;
-  object-fit: fill;
+const Item = styled.div`
+  height: 470px;
+  width: 100%;
+  background-color: lightgray;
 `;
+const MySlider = styled(Slider)`
+  width: 100%;
+`;
+function SampleNextArrow(props: any) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", right: "3%" }}
+      onClick={onClick}
+    />
+  );
+}
 
-export default function BannerUI() {
+function SamplePrevArrow(props: any) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{
+        ...style,
+        display: "block",
+        left: "3%",
+        zIndex: "1",
+      }}
+      onClick={onClick}
+    />
+  );
+}
+
+export default function CustomArrows() {
   const settings = {
-    // dots: true,
+    dots: true,
     infinite: true,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    speed: 5000,
-    autoplaySpeed: 0,
-    cssEase: "linear",
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    appendDots: (dots: any) => (
+      <div
+        style={{
+          bottom: "15px",
+          color: "white",
+        }}
+      >
+        <ul style={{ margin: "0px" }}> {dots} </ul>
+      </div>
+    ),
   };
   return (
     <Wrapper>
-      {/* ...settings: 위의 객체 내용이 들어옴 */}
-      <Slider {...settings}>
+      <MySlider {...settings}>
         <div>
-          <Image src="/boards/banner/banner1.jpg" alt="london"></Image>
+          <Item></Item>
         </div>
         <div>
-          <Image src="/boards/banner/banner2.jpg" alt="london"></Image>
+          <Item></Item>
         </div>
         <div>
-          <Image src="/boards/banner/banner3.jpg" alt="london"></Image>
+          <Item></Item>
         </div>
         <div>
-          <Image src="/boards/banner/banner1.jpg" alt="london"></Image>
+          <Item></Item>
         </div>
         <div>
-          <Image src="/boards/banner/banner2.jpg" alt="london"></Image>
+          <Item></Item>
         </div>
         <div>
-          <Image src="/boards/banner/banner3.jpg" alt="london"></Image>
+          <Item></Item>
         </div>
-      </Slider>
+      </MySlider>
     </Wrapper>
   );
 }

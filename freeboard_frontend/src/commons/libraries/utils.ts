@@ -1,5 +1,27 @@
 import { Modal } from "antd";
+import { useRouter } from "next/router";
 
+/* 가입하기 버튼 모달 */
+export function countDown() {
+  const router = useRouter();
+
+  let secondsToGo = 3;
+  const modal = Modal.success({
+    title: "회원가입을 축하합니다!",
+    content: `${secondsToGo}초 뒤에 메인으로 이동합니다.`,
+  });
+  const timer = setInterval(() => {
+    secondsToGo -= 1;
+    modal.update({
+      content: `${secondsToGo}초 뒤에 메인으로 이동합니다.`,
+    });
+  }, 1000);
+  setTimeout(() => {
+    clearInterval(timer);
+    modal.destroy();
+    router.push("/boards");
+  }, secondsToGo * 1000);
+}
 export const getDate = (date: any) => {
   const newDate = new Date(date);
   const yyyy = newDate.getFullYear();

@@ -104,11 +104,13 @@ export const SubButtonWrapper = styled.div`
   width: 100%;
   color: lightgray;
 `;
-export const SubButton = styled.button`
+export const SubButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   width: 30%;
   height: 30px;
-  border: none;
-  background-color: transparent;
   color: black;
   font-size: 13.5px;
   cursor: pointer;
