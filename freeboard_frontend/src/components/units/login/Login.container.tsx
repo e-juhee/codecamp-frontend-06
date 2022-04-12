@@ -11,14 +11,19 @@ export default function Login() {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [isActive, setIsActive] = useState(false);
-
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
-
+  const emailTest = (email: string) => {
+    return /^\w+@\w+\.\w{2,3}$/.test(email);
+  };
+  const passwordTest = (password: string) => {
+    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
+      password
+    );
+  };
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    const emailValid = /^\w+@\w+\.\w{2,3}$/.test(email);
-    if (emailValid) {
+    if (emailTest(e.target.value)) {
       setEmailErrorMessage("");
       setEmailValid(true);
     }
@@ -27,11 +32,7 @@ export default function Login() {
     if (e.target.value && password) setIsActive(true);
   };
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    const passwordValid =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
-        e.target.value
-      );
-    if (passwordValid) {
+    if (passwordTest(e.target.value)) {
       setPasswordErrorMessage("");
       setPasswordValid(true);
     }
@@ -42,16 +43,11 @@ export default function Login() {
     setIsChecked((prev) => !prev);
   };
   const onClickLogin = () => {
-    const emailValid = /^\w+@\w+\.\w{2,3}$/.test(email);
-    if (!emailValid) {
+    if (!emailTest(email)) {
       setEmailErrorMessage("이메일 주소를 정확히 입력해주세요.");
       setEmailValid(false);
     }
-    const passwordValid =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
-        password
-      );
-    if (!passwordValid) {
+    if (!passwordTest(password)) {
       setPasswordErrorMessage(
         "영문, 숫자, 특수문자를 조합해서 입력해주세요. (8~16자)"
       );

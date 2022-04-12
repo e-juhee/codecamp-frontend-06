@@ -24,7 +24,6 @@ export default function Join() {
       setErrors({ ...errors, name: "" });
     }
     setInputs({ ...inputs, name: e.target.value });
-
     if (
       e.target.value &&
       inputs.email &&
@@ -80,7 +79,6 @@ export default function Join() {
     const emailValid = /^\w+@\w+\.\w{2,3}$/.test(inputs.email);
     if (!emailValid) {
       setErrors({ ...errors, email: "이메일 주소를 정확히 입력해주세요." });
-
       return;
     }
     const passwordValid =
@@ -92,10 +90,8 @@ export default function Join() {
         ...errors,
         password: "영문, 숫자, 특수문자를 조합해서 입력해주세요. (8~16자)",
       });
-
       return;
     }
-
     if (inputs.password !== inputs.checkPassword) {
       setErrors({
         ...errors,
@@ -105,15 +101,6 @@ export default function Join() {
   };
   return (
     <LoginUI
-      // nameValid={nameValid}
-      // emailValid={emailValid}
-      // passwordValid={passwordValid}
-      // checkPasswordValid={checkPasswordValid}
-      // nameError={nameError}
-      // emailError={emailError}
-      // passwordError={passwordError}
-      // checkPasswordError={checkPasswordError}
-      // onChangeInputs={onChangeInputs}
       errors={errors}
       onChangeName={onChangeName}
       onChangeEmail={onChangeEmail}
