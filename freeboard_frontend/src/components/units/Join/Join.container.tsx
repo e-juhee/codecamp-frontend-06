@@ -87,13 +87,13 @@ export default function Join() {
     const timer = setInterval(() => {
       secondsToGo -= 1;
       modal.update({
-        content: `${secondsToGo}초 뒤에 메인으로 이동합니다.`,
+        content: `${secondsToGo}초 뒤에 로그인 화면으로 이동합니다.`,
       });
     }, 1000);
     setTimeout(() => {
       clearInterval(timer);
       modal.destroy();
-      router.push("/boards");
+      router.push("/login");
     }, secondsToGo * 1000);
   }
 
