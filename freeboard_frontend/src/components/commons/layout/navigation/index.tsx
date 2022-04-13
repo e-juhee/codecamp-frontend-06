@@ -6,7 +6,6 @@ import { Fragment, MouseEvent, useState } from "react";
 const Wrapper = styled.div`
   position: fixed;
   z-index: 2;
-
   top: 35px;
   display: flex;
   flex-direction: row;
