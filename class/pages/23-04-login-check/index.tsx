@@ -25,13 +25,20 @@ export default function LoginPage() {
     setPassword(e.target.value);
   };
   const onClickLogin = async () => {
+    // 1. 로그인하기
     const result = await loginUser({
       variables: { email, password },
     });
     const accessToken = result.data.loginUser.accessToken;
+    console.log(accessToken);
+
+    // 2. 유저 정보 받아오기: 원할 때 원하는 장소에서 요청하기
+
+    // 3. 글로벌 스테이트에 저장하기
     setAccessToken(accessToken);
     localStorage.setItem("accessToken", accessToken);
-    console.log(accessToken);
+
+    // 4. 로그인 성공 페이지로 이동하기
     alert("로그인에 성공하였습니다.");
     router.push("/23-05-login-check-success");
   };
