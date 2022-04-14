@@ -3,9 +3,9 @@ import { ChangeEvent, useRef } from "react";
 import {
   IMutation,
   IMutationUploadFileArgs,
-} from "../../commons/types/generated/types";
-import { checkFileValidation } from "../../commons/libraries/utils";
-import * as S from "../units/board/write/BoardWrite.style";
+} from "../../../../commons/types/generated/types";
+import { checkFileValidation } from "../../../../commons/libraries/utils";
+import * as S from "../../../units/board/write/BoardWrite.style";
 import UploadImageItem from "./UploadImageItem";
 
 export const UPLOAD_FILE = gql`
