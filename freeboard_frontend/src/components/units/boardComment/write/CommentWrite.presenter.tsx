@@ -3,6 +3,7 @@ import { ICommentWriteUIProps } from "./CommentWrite.types";
 import * as S from "./CommentWrite.style";
 
 export default function CommentWriteUI(props: ICommentWriteUIProps) {
+  console.log("props.inputs.contents : " + props.inputs?.contents);
   return (
     <>
       <S.CWrapper>
