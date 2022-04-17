@@ -8,11 +8,26 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
 
       <S.InputWrapper>
         <S.Label>상품 이미지</S.Label>{" "}
-        <S.Input type="file" {...props.register("images")} />
+        <S.ImageUpload htmlFor="fileTag">dd</S.ImageUpload>
+        <S.Input
+          type="file"
+          accept="image/png"
+          multiple
+          {...props.register("images")}
+          id="fileTag"
+          style={{ display: "none" }}
+        />
+        {props?.imageUrl && (
+          <img src={`https://storage.googleapis.com/${props.imageUrl[0]}`} />
+        )}
       </S.InputWrapper>
       <S.InputWrapper>
         <S.Label>상품명</S.Label>{" "}
-        <S.Input type="text" {...props.register("name")} />
+        <S.Input
+          defaultValue="상품명"
+          type="text"
+          {...props.register("name")}
+        />
         <S.Error>{props.errors.name?.message}</S.Error>
       </S.InputWrapper>
       <S.InputWrapper>
@@ -25,7 +40,8 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
         <S.Error>{props.errors.price?.message}</S.Error>
       </S.InputWrapper>
       <S.InputWrapper>
-        <S.Label>설명</S.Label> <S.TextArea {...props.register("contents")} />
+        <S.Label>설명</S.Label>{" "}
+        <S.TextArea defaultValue="설명" {...props.register("contents")} />
         <S.Error>{props.errors.contents?.message}</S.Error>
       </S.InputWrapper>
       <S.InputWrapper>

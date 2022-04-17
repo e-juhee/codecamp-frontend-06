@@ -24,6 +24,13 @@ export const Label = styled.div`
   font-size: 18px;
   width: 168px;
 `;
+
+export const ImageUpload = styled.label`
+  width: 50px;
+  height: 50px;
+  background-color: pink;
+`;
+
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;

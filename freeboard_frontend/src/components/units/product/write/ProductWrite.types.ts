@@ -31,4 +31,5 @@ export interface IProductWriteUIProps {
   isValid: boolean;
   //   handleSubmit: UseFormHandleSubmit<FieldValues>;
   register: UseFormRegister<FieldValues>;
+  imageUrl: any;
 }

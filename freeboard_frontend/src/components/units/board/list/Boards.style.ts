@@ -51,7 +51,7 @@ interface IProps {
   isMatched: boolean;
 }
 export const Word = styled.span`
-  color: ${(props: IProps) => (props.isMatched ? "hotpink" : "black")};
+  color: ${(props: IProps) => (props.isMatched ? "hotpink" : "none")};
 `;
 
 export const BestBoardBody = styled.div`

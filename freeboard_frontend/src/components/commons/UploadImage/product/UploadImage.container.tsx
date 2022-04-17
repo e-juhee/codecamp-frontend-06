@@ -1,1 +1,1 @@
-export {};
+export default function UploadImage(props: any) {}
