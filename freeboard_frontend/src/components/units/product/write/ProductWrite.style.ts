@@ -26,9 +26,14 @@ export const Label = styled.div`
 `;
 
 export const ImageUpload = styled.label`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   width: 50px;
   height: 50px;
-  background-color: pink;
+  background-color: rgb(195, 194, 204);
+  cursor: pointer;
 `;
 
 export const InputWrapper = styled.div`

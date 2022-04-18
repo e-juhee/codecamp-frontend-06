@@ -8,7 +8,7 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
 
       <S.InputWrapper>
         <S.Label>상품 이미지</S.Label>{" "}
-        <S.ImageUpload htmlFor="fileTag">dd</S.ImageUpload>
+        <S.ImageUpload htmlFor="fileTag">+</S.ImageUpload>
         <S.Input
           type="file"
           accept="image/png"
@@ -17,7 +17,7 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
           id="fileTag"
           style={{ display: "none" }}
         />
-        {props?.imageUrl && (
+        {props?.imageUrl[0] && (
           <img src={`https://storage.googleapis.com/${props.imageUrl[0]}`} />
         )}
       </S.InputWrapper>

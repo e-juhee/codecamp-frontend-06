@@ -9,6 +9,7 @@ import {
   IMutation,
   IMutationUploadFileArgs,
 } from "../../../../commons/types/generated/types";
+import { useState } from "react";
 
 const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
@@ -30,7 +31,8 @@ export default function ProductWrite() {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-  const imageUrl: any[] = [];
+  // const imageUrl: any[] = [];
+  const [imageUrl, setImageUrl] = useState<any[]>([]);
   const [uploadFile] = useMutation<
     Pick<IMutation, "uploadFile">,
     IMutationUploadFileArgs
@@ -39,20 +41,19 @@ export default function ProductWrite() {
     console.log(data);
 
     if (data.images) {
-      console.log("데이터이미지");
+      console.log(data.images);
       console.log(data.images[0]);
-      Object.values(data.images).map(async (el: any) => {
-        console.log("이에렐레");
-        console.log(el);
-        const result = await uploadFile({ variables: { file: el } });
-        imageUrl.push(result.data?.uploadFile.url);
-        console.log(imageUrl);
+      const result = await uploadFile({
+        variables: { file: data.images[0] },
       });
+      console.log(result);
+      data.images = result.data?.uploadFile.url;
+      setImageUrl((prev: any) => [...prev, result.data?.uploadFile.url]);
     }
     try {
       const result = await createUseditem({
         variables: {
-          createUseditemInput: { ...data, images: imageUrl },
+          createUseditemInput: { ...data, images: data.images },
         },
       });
       router.push(`/products/${result.data.createUseditem._id}`);

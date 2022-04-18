@@ -16,8 +16,9 @@ import {
   IQueryFetchBoardArgs,
 } from "../../../../commons/types/generated/types";
 import { successModal } from "../../../../commons/libraries/utils";
+import { withAuth } from "../../../commons/hocs/withAuth";
 
-export default function BoardDetail() {
+function BoardDetail() {
   const router = useRouter();
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
@@ -114,3 +115,5 @@ export default function BoardDetail() {
     </>
   );
 }
+
+export default withAuth(BoardDetail);
