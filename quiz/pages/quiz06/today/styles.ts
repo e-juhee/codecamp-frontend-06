@@ -1,6 +1,21 @@
 import styled from "@emotion/styled";
-
+export const TopTitle = styled.div`
+  font-size: 30px;
+  font-weight: 700;
+`;
 export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 1200px;
+  margin: 100px auto;
+`;
+export const Reset = styled.button`
+  width: 150px;
+  height: 40px;
+  font-size: 15px;
+  font-weight: 600;
+`;
+export const BoardWrapper = styled.div`
   width: 500px;
   margin: 100px auto;
 `;
@@ -25,6 +40,7 @@ export const Item = styled.div`
   align-items: center;
   border-bottom: 1px solid lightgray;
   height: 30px;
+  cursor: pointer;
 `;
 export const Title = styled.div`
   width: 300px;
