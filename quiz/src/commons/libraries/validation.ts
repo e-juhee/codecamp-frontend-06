@@ -15,3 +15,13 @@ export const checkFileValidation = (file?: File) => {
   }
   return true;
 };
+
+export const getDate = () => {
+  const now = Date();
+  const newDate = new Date(now);
+  const yyyy = newDate.getFullYear();
+  const m1 = newDate.getMonth() + 1;
+  const mm = m1.toString().padStart(2, "0");
+  const dd = newDate.getDate().toString().padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+};

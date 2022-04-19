@@ -73,3 +73,44 @@ function solution(n, lost, reserve) {
 
   return n - lost.length;
 }
+function solution(n, lost, reserve) {
+  reserve = reserve.sort((a, b) => a - b);
+  lost = lost.sort((a, b) => a - b);
+  const newReserve = [...reserve];
+  newReserve.map((el) => {
+    if (lost.includes(el)) {
+      lost.splice(
+        lost.findIndex((e) => e === el),
+        1
+      );
+      reserve.splice(
+        reserve.findIndex((e) => e === el),
+        1
+      );
+    }
+  });
+  const newReserve2 = [...reserve];
+  newReserve2.map((el) => {
+    if (lost.includes(el - 1)) {
+      lost.splice(
+        lost.findIndex((e) => e === el - 1),
+        1
+      );
+      reserve.splice(
+        reserve.findIndex((e) => e === el - 1),
+        1
+      );
+    } else if (lost.includes(el + 1)) {
+      lost.splice(
+        lost.findIndex((e) => e === el + 1),
+        1
+      );
+      reserve.splice(
+        reserve.findIndex((e) => e === el + 1),
+        1
+      );
+    }
+  });
+  return n - lost.length;
+}
+solution(7, [2, 3, 4], [1, 2, 3, 6]); // 6

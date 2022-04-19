@@ -34,25 +34,17 @@ const CREATE_BOARD = gql`
 export default function ApolloCacheStatePage() {
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [createBoard] = useMutation(CREATE_BOARD);
-  const { data } = useQuery(FETCH_BOARDS);
+  const { data, refetch } = useQuery(FETCH_BOARDS);
   const { register, handleSubmit, setFocus } = useForm();
 
   const onClickDelete = (boardId: string) => async () => {
     await deleteBoard({
       variables: { boardId },
-      update(cache, { data }) {
-        const deletedId = data.deleteBoard;
-        cache.modify({
-          fields: {
-            fetchBoards: (prev, { readField }) => {
-              const filteredPrev = prev.filter(
-                (el: any) => readField("_id", el) !== deletedId
-              );
-              return [...filteredPrev];
-            },
-          },
-        });
-      },
+      refetchQueries: [
+        {
+          query: FETCH_BOARDS,
+        },
+      ],
     });
   };
 
@@ -61,15 +53,11 @@ export default function ApolloCacheStatePage() {
       variables: {
         createBoardInput: { ...data },
       },
-      update(cache, { data }) {
-        cache.modify({
-          fields: {
-            fetchBoards: (prev) => {
-              return [data.createBoard, ...prev];
-            },
-          },
-        });
-      },
+      refetchQueries: [
+        {
+          query: FETCH_BOARDS,
+        },
+      ],
     });
   };
 

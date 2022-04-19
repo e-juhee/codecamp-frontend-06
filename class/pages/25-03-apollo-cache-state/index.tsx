@@ -30,7 +30,6 @@ const CREATE_BOARD = gql`
 
 export default function ApolloCacheStatePage() {
   const [deleteBoard] = useMutation(DELETE_BOARD);
-  console.log(useMutation(DELETE_BOARD));
   const [createBoard] = useMutation(CREATE_BOARD);
   const { data } = useQuery(FETCH_BOARDS);
 
