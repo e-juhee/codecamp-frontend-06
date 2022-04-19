@@ -1,78 +1,3 @@
-// 5, 12 실패
-function solution(n, lost, reserve) {
-  const initialReserve = reserve.length;
-  lost = lost.sort((a, b) => a - b);
-  reserve = reserve.sort((a, b) => a - b);
-  for (let i = 0; i < lost.length; i++) {
-    if (reserve.includes(lost[i])) {
-      reserve = reserve.filter((el) => el !== lost[i]);
-    } else if (reserve.includes(lost[i] - 1)) {
-      reserve = reserve.filter((el) => el !== lost[i] - 1);
-    } else if (reserve.includes(lost[i] + 1)) {
-      reserve = reserve.filter((el) => el !== lost[i] + 1);
-    }
-  }
-  console.log(reserve);
-  return n - lost.length + initialReserve - reserve.length;
-}
-
-solution(5, [1, 2, 4], [2, 3, 4, 5]);
-
-function solution(n, lost, reserve) {
-  const initialReserve = reserve.length;
-  lost = lost.sort((a, b) => a - b);
-  reserve = reserve.sort((a, b) => a - b);
-
-  for (let i = 0; i < reserve.length; i++) {
-    if (lost.includes(reserve[i])) {
-      reserve = reserve.filter((el) => el !== reserve[i]);
-    } else if (lost.includes(reserve[i] - 1)) {
-      console.log("여기");
-      reserve = reserve.filter((el) => el !== reserve[i]);
-      console.log(reserve);
-    } else if (lost.includes(reserve[i] + 1)) {
-      reserve = reserve.filter((el) => el !== reserve[i]);
-    }
-  }
-
-  return n - lost.length + initialReserve - reserve.length;
-}
-
-// solution(5, [1, 2, 4], [2, 3, 4, 5]);
-// solution(	5, [2, 4], [1, 3, 5]); // 5
-solution(5, [2, 4], [3]); // 4
-
-function solution(n, lost, reserve) {
-  const initialReserve = reserve.length;
-  const initialLost = lost.length;
-
-  lost = lost.sort((a, b) => a - b);
-  reserve = reserve.sort((a, b) => a - b);
-
-  for (let i = 0; i < reserve.length; i++) {
-    lost.map((el) => {
-      if (el === reserve[i]) {
-        lost = lost.filter((el) => el !== reserve[i]);
-        reserve = reserve.filter((el) => el !== reserve[i]);
-      }
-    });
-  }
-
-  for (let i = 0; i < reserve.length; i++) {
-    if (lost.includes(reserve[i])) {
-      lost = lost.filter((el) => el !== reserve[i]);
-      reserve = reserve.filter((el) => el !== reserve[i]);
-    } else if (lost.includes(reserve[i] - 1)) {
-      lost = lost.filter((el) => el !== reserve[i]);
-      reserve = reserve.filter((el) => el !== reserve[i]);
-    } else if (lost.includes(reserve[i] + 1)) {
-      lost = lost.filter((el) => el !== reserve[i]);
-      reserve = reserve.filter((el) => el !== reserve[i]);
-    }
-  }
-
-  return n - lost.length;
-}
 function solution(n, lost, reserve) {
   reserve = reserve.sort((a, b) => a - b);
   lost = lost.sort((a, b) => a - b);
@@ -113,4 +38,57 @@ function solution(n, lost, reserve) {
   });
   return n - lost.length;
 }
-solution(7, [2, 3, 4], [1, 2, 3, 6]); // 6
+
+function solution(n, lost, reserve) {
+  const losted = [...lost];
+  lost = lost
+    .filter((student) => !reserve.includes(student))
+    .sort((a, b) => a - b);
+  reserve = reserve
+    .filter((student) => !losted.includes(student))
+    .sort((a, b) => a - b);
+
+  let answer = n - lost.length;
+  for (let i = 0; i < lost.length; i++) {
+    // 내 앞 번호의 학생이 여벌 체육복을 가지고 있는지를 검사
+    if (reserve.includes(lost[i] - 1)) {
+      reserve.splice(reserve.indexOf(lost[i] - 1), 1);
+      answer++;
+      // 내 뒤 번호의 학생이 여벌 체육복을 가지고 있는지를 검사
+    } else if (reserve.includes(lost[i] + 1)) {
+      reserve.splice(reserve.indexOf(lost[i] + 1), 1);
+      answer++;
+    }
+  }
+  return answer;
+}
+
+function solution(n, lost, reserve) {
+  const losted = [...lost];
+  lost = lost
+    .filter((student) => !reserve.includes(student))
+    .sort((a, b) => a - b);
+  reserve = reserve
+    .filter((student) => !losted.includes(student))
+    .sort((a, b) => a - b);
+
+  let answer = n - lost.length;
+
+  return lost.reduce((acc, cur) => {
+    // 앞에 있는 학생이 여벌 체육복을 가지고 있는지
+    const prev = reserve.indexOf(cur - 1);
+    // 뒤에 있는 학생이 여벌 체육복을 가지고 있는지
+    const next = reserve.indexOf(cur + 1);
+
+    if (prev !== -1) {
+      // 앞에 있는 학생이 여벌 체육복을 가지고 있는 경우
+      reserve.splice(prev, 1);
+      acc++;
+    } else if (next !== -1) {
+      // 뒤에 있는 학생이 여벌 체육복을 가지고 있는 경우
+      reserve.splice(next, 1);
+      acc++;
+    }
+    return acc;
+  }, answer);
+}
