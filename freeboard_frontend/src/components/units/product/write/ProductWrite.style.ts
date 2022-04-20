@@ -30,12 +30,19 @@ export const ImageUpload = styled.label`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   background-color: rgb(195, 194, 204);
   cursor: pointer;
 `;
 
+export const Image = styled.img`
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-left: 20px;
+  border: 1px solid lightgray;
+`;
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;

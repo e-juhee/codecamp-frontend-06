@@ -2,6 +2,7 @@ import * as S from "./ProductWrite.style";
 import { IProductWriteUIProps } from "./ProductWrite.types";
 
 export default function ProductWriteUI(props: IProductWriteUIProps) {
+  console.log(props.imageUrl);
   return (
     <S.Wrapper onSubmit={props.onSubmit}>
       <S.Title>상품 등록</S.Title>
@@ -16,10 +17,12 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
           {...props.register("images")}
           id="fileTag"
           style={{ display: "none" }}
+          // onChange={props.onChangeImage}
         />
-        {props?.imageUrl[0] && (
-          <img src={`https://storage.googleapis.com/${props.imageUrl[0]}`} />
-        )}
+        {props?.imageUrl &&
+          props.imageUrl.map((el: any, i: number) => (
+            <S.Image key={i} src={`https://storage.googleapis.com/${el}`} />
+          ))}
       </S.InputWrapper>
       <S.InputWrapper>
         <S.Label>상품명</S.Label>{" "}

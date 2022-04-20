@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent } from "react";
+import { BaseSyntheticEvent, ChangeEvent } from "react";
 import {
   FieldValues,
   //   UseFormHandleSubmit,
@@ -32,4 +32,5 @@ export interface IProductWriteUIProps {
   //   handleSubmit: UseFormHandleSubmit<FieldValues>;
   register: UseFormRegister<FieldValues>;
   imageUrl?: any;
+  onChangeImage: (e: ChangeEvent<HTMLInputElement>) => void;
 }
