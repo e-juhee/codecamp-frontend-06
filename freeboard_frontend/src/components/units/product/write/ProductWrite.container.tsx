@@ -40,21 +40,21 @@ export default function ProductWrite() {
 
   const onChangeImage = async (event: ChangeEvent<HTMLInputElement>) => {
     const file: any = event.target.files?.[0]; // 인덱스 떼서 리스트로 바꾸기
-    const file2: any = event.target.files; // uploadFile API 안됨
-    const fileArr = Object.values(file2);
-    console.log("되는거");
-    console.log(file);
-    fileArr.map(async (el) => {
-      console.log("안되는거");
-      console.log(el);
+    // const file2: any = event.target.files; // uploadFile API 안됨
+    // const fileArr = Object.values(file2);
+    // console.log("되는거");
+    // console.log(file);
+    // fileArr.map(async (el) => {
+    //   console.log("안되는거");
+    //   console.log(el);
 
-      try {
-        const result = await uploadFile({ variables: { el } });
-        setImageUrl((prev: any) => [...prev, result.data?.uploadFile.url]);
-      } catch (error: any) {
-        alert(error.message);
-      }
-    });
+    try {
+      const result = await uploadFile({ variables: { file } });
+      setImageUrl((prev: any) => [...prev, result.data?.uploadFile.url]);
+    } catch (error: any) {
+      alert(error.message);
+    }
+    // });
   };
 
   const onSubmit = handleSubmit(async (data) => {
