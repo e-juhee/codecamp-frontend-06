@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Slider from "react-slick";
 export const Wrapper = styled.div`
   width: 1024px;
   border-top: 1px solid gray;
@@ -9,13 +10,51 @@ export const Header = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export const Image = styled.img`
+export const Item = styled.img`
   width: 428px;
   height: 428px;
+  background-color: lightgray;
+  border: 1px solid lightgray;
   object-fit: cover;
-  margin-bottom: 40px;
-  margin-right: 60px;
 `;
+export const ModalItem = styled.img`
+  width: 100%;
+  height: 100%;
+  background-color: lightgray;
+  border: 1px solid lightgray;
+  object-fit: contain;
+`;
+export const MySlider = styled(Slider)`
+  width: 428px;
+  height: 428px;
+  margin-right: 40px;
+  .slick-prev {
+    left: 3%;
+    z-index: 1;
+  }
+  .slick-prev:before {
+    font-size: 40px;
+    color: lightgray;
+  }
+  .slick-next {
+    right: 7%;
+    z-index: 1;
+  }
+  .slick-next:before {
+    font-size: 40px;
+    color: lightgray;
+  }
+  .slick-dots li.slick-active button::before {
+    color: black;
+  }
+`;
+// export const Image = styled.img`
+//   width: 428px;
+//   height: 428px;
+//   object-fit: cover;
+//   margin-bottom: 40px;
+//   margin-right: 60px;
+// `;
 export const Info = styled.div`
   display: flex;
   flex-direction: column;

@@ -1,43 +1,9 @@
 import * as S from "./ProductDetail.style";
 import { IProductDetailUIProps } from "./ProductDetail.types";
-import styled from "@emotion/styled";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-
-const Wrapper = styled.div`
-  width: 428px;
-  height: 428px;
-  flex-direction: row;
-  align-items: center;
-`;
-const Item = styled.img`
-  width: 428px;
-  height: 428px;
-  background-color: lightgray;
-  object-fit: cover;
-`;
-const MySlider = styled(Slider)`
-  width: 428px;
-  height: 428px;
-  .slick-prev {
-    left: 3%;
-    z-index: 1;
-  }
-  .slick-prev:before {
-    font-size: 40px;
-  }
-  .slick-next {
-    right: 7%;
-    z-index: 1;
-  }
-  .slick-next:before {
-    font-size: 40px;
-  }
-  .slick-dots li.slick-active button::before {
-    color: white;
-  }
-`;
+import { Modal } from "antd";
+import { useState } from "react";
 
 export default function ProductDetailUI(props: IProductDetailUIProps) {
   const settings = {
@@ -48,8 +14,8 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
     appendDots: (dots: any) => (
       <div
         style={{
-          bottom: "20px",
-          color: "white",
+          bottom: "-30px",
+          color: "gray",
           left: "-6%",
         }}
       >
@@ -58,22 +24,56 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
     ),
   };
 
+  const onClickImage = (i: any) => () => {
+    setIsModal((prev) => !prev);
+  };
+
   console.log(props.data);
+
+  const [isModal, setIsModal] = useState(false);
+  const handleOk = () => {
+    setIsModal((prev) => !prev);
+  };
+  const handleCancel = () => {
+    setIsModal((prev) => !prev);
+  };
   return (
     <>
+      <Modal
+        visible={isModal}
+        title="로그인 성공"
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={[]}
+        width={1000}
+      >
+        <S.MySlider {...settings}>
+          {props.data?.fetchUseditem?.images &&
+            props.data?.fetchUseditem?.images.map((el, i) => (
+              <div key={i}>
+                <S.ModalItem
+                  onClick={onClickImage(i)}
+                  style={{ backgroundColor: "#f8f8f8" }}
+                  src={`https://storage.googleapis.com/${el}`}
+                ></S.ModalItem>
+              </div>
+            ))}
+        </S.MySlider>
+      </Modal>
       <S.Wrapper>
         <S.Header>
-          <MySlider {...settings}>
+          <S.MySlider {...settings}>
             {props.data?.fetchUseditem?.images &&
               props.data?.fetchUseditem?.images.map((el, i) => (
                 <div key={i}>
-                  <Item
+                  <S.Item
+                    onClick={onClickImage(i)}
                     style={{ backgroundColor: "#f8f8f8" }}
                     src={`https://storage.googleapis.com/${el}`}
-                  ></Item>
+                  ></S.Item>
                 </div>
               ))}
-          </MySlider>
+          </S.MySlider>
 
           <S.Info>
             <S.Name>{props.data?.fetchUseditem.name}</S.Name>
@@ -92,7 +92,6 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
           ))}
         <div>{props.data?.fetchUseditem.contents}</div>
       </S.Wrapper>
-      <Wrapper></Wrapper>
     </>
   );
 }
