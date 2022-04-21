@@ -18,24 +18,20 @@ const UPLOAD_FILE = gql`
     }
   }
 `;
-
 const schema = yup.object({
   name: yup.string().required("상품명을 입력해주세요."),
   price: yup.number().required("가격을 입력해주세요."),
   contents: yup.string().required("상품 설명을 입력해주세요."),
 });
+
 export default function ProductWrite() {
-  const [, setFileList] = useState();
   const router = useRouter();
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
-  const { register, handleSubmit, formState, trigger } = useForm({
+  const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
 
-  /* watch로 파일 받아서 배열ㄹ에 넣고 프리뷰 ㄱ */
-
-  // const imageUrl: any[] = [];
   const [imageUrl, setImageUrl] = useState<any[]>([]);
   const [uploadFile] = useMutation<
     Pick<IMutation, "uploadFile">,
@@ -43,37 +39,29 @@ export default function ProductWrite() {
   >(UPLOAD_FILE);
 
   const onChangeImage = async (event: ChangeEvent<HTMLInputElement>) => {
-    trigger("images");
-
     const file: any = event.target.files?.[0]; // 인덱스 떼서 리스트로 바꾸기
-    const file2: any = event.target.files; // 인덱스 떼서 리스트로 바꾸기
-    // console.log(file2);
+    const file2: any = event.target.files; // uploadFile API 안됨
     const fileArr = Object.values(file2);
-    console.log(fileArr);
-    try {
-      const result = await uploadFile({ variables: { file } });
-      // console.log(result.data?.uploadFile.url);
-      setImageUrl((prev: any) => [...prev, result.data?.uploadFile.url]);
-      setFileList(file);
-    } catch (error: any) {
-      alert(error.message);
-    }
+    console.log("되는거");
+    console.log(file);
+    fileArr.map(async (el) => {
+      console.log("안되는거");
+      console.log(el);
+
+      try {
+        const result = await uploadFile({ variables: { el } });
+        setImageUrl((prev: any) => [...prev, result.data?.uploadFile.url]);
+      } catch (error: any) {
+        alert(error.message);
+      }
+    });
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    if (data.images[0]) {
-      const result = await uploadFile({
-        variables: { file: data.images[0] },
-      });
-      console.log("이거다");
-      console.log(data.images);
-      data.images = result.data?.uploadFile.url;
-      setImageUrl((prev: any) => [...prev, result.data?.uploadFile.url]);
-    }
     try {
       const result = await createUseditem({
         variables: {
-          createUseditemInput: { ...data, images: data.images },
+          createUseditemInput: { ...data, images: imageUrl },
         },
       });
       router.push(`/products/${result.data.createUseditem._id}`);

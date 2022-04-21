@@ -14,7 +14,6 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
           type="file"
           accept="image/png"
           multiple
-          {...props.register("images")}
           id="fileTag"
           style={{ display: "none" }}
           onChange={props.onChangeImage}

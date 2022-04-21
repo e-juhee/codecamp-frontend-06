@@ -32,5 +32,6 @@ export interface IProductWriteUIProps {
   //   handleSubmit: UseFormHandleSubmit<FieldValues>;
   register: UseFormRegister<FieldValues>;
   imageUrl?: any;
-  onChangeImage: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChangeImage?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClickImageUpload?: () => void;
 }

@@ -34,6 +34,7 @@ export default function UploadImage(props: any) {
     const isValid = checkFileValidation(file);
     if (!isValid) return;
     try {
+      console.log(file);
       const result = await uploadFile({ variables: { file } });
       props.setFileList((prev: any) => [...prev, result.data?.uploadFile.url]);
     } catch (error: any) {
