@@ -1,8 +1,18 @@
 import * as S from "./ProductWrite.style";
 import { IProductWriteUIProps } from "./ProductWrite.types";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
 
 export default function ProductWriteUI(props: IProductWriteUIProps) {
+  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   console.log(props.imageUrl);
+  const onChangeContents = (value: string) => {
+    // event가 들어오는 것이 아니다. html의 속성이 아닌 ReactQuill의 속성이기 때문이다. value가 바로 들어온다.
+    console.log(value);
+    props.setValue("contents", value === "<p><br></p>" ? "" : value); // setValue를 사용하면 register로 등록하지 않고 강제로 값을 넣어줄 수 있다.
+    // onChange가 됐다고 react-hook-form에 알려주는 기능
+    props.trigger("contents");
+  };
   return (
     <S.Wrapper onSubmit={props.onSubmit}>
       <S.Title>상품 등록</S.Title>
@@ -43,7 +53,11 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
       </S.InputWrapper>
       <S.InputWrapper>
         <S.Label>설명</S.Label>{" "}
-        <S.TextArea defaultValue="설명" {...props.register("contents")} />
+        {/* <S.TextArea defaultValue="설명" {...props.register("contents")} /> */}
+        <ReactQuill
+          onChange={onChangeContents}
+          style={{ width: "100%", height: "300px" }}
+        />
         <S.Error>{props.errors.contents?.message}</S.Error>
       </S.InputWrapper>
       <S.InputWrapper>

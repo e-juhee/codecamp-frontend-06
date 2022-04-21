@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { Modal } from "antd";
 import { useState } from "react";
+import Payment from "./payment";
 
 export default function ProductDetailUI(props: IProductDetailUIProps) {
   const settings = {
@@ -25,10 +26,11 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
   };
 
   const onClickImage = (i: any) => () => {
+    // const currentImages = props.data?.fetchUseditem?.images?.slice(i-1);
+    // // 지금 있는 배열 순서를, 지금 인덱스가 첫번째로 가도록 변경
+    // const modalImages = [currentImages, props.data?.fetchUseditem?.images]
     setIsModal((prev) => !prev);
   };
-
-  console.log(props.data);
 
   const [isModal, setIsModal] = useState(false);
   const handleOk = () => {
@@ -47,18 +49,17 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
         footer={[]}
         width={1000}
       >
-        <S.MySlider {...settings}>
+        <S.ModalSlider {...settings}>
           {props.data?.fetchUseditem?.images &&
             props.data?.fetchUseditem?.images.map((el, i) => (
               <div key={i}>
                 <S.ModalItem
-                  onClick={onClickImage(i)}
                   style={{ backgroundColor: "#f8f8f8" }}
                   src={`https://storage.googleapis.com/${el}`}
                 ></S.ModalItem>
               </div>
             ))}
-        </S.MySlider>
+        </S.ModalSlider>
       </Modal>
       <S.Wrapper>
         <S.Header>
@@ -82,7 +83,11 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
             <S.ButtonWrapper>
               <S.Button>버튼을</S.Button>
               <S.Button style={{ backgroundColor: "#ffa425" }}>언젠간</S.Button>
-              <S.Button style={{ backgroundColor: "#f70000" }}>쓰겠지</S.Button>
+
+              <Payment
+                name={props.data?.fetchUseditem.name}
+                price={props.data?.fetchUseditem.price}
+              />
             </S.ButtonWrapper>
           </S.Info>
         </S.Header>

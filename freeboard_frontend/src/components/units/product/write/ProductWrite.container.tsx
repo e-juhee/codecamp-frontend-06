@@ -27,7 +27,7 @@ const schema = yup.object({
 export default function ProductWrite() {
   const router = useRouter();
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState, setValue, trigger } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
@@ -78,6 +78,8 @@ export default function ProductWrite() {
       register={register}
       imageUrl={imageUrl}
       onChangeImage={onChangeImage}
+      setValue={setValue}
+      trigger={trigger}
     />
   );
 }

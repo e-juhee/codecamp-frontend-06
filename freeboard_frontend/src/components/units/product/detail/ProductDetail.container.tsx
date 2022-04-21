@@ -13,7 +13,7 @@ export default function ProductDetail() {
     Pick<IQuery, "fetchUseditem">,
     IQueryFetchUseditemArgs
   >(FETCH_USEDITEM, {
-    variables: { useditemId: String(router.query.useditemId) }, // 폴더명
+    variables: { useditemId: String(router.query.useditemId) },
   });
   console.log(data);
 

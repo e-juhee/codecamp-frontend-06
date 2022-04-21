@@ -16,10 +16,11 @@ export const Item = styled.img`
   background-color: lightgray;
   border: 1px solid lightgray;
   object-fit: cover;
+  cursor: pointer;
 `;
 export const ModalItem = styled.img`
   width: 100%;
-  height: 100%;
+  height: 500px;
   background-color: lightgray;
   border: 1px solid lightgray;
   object-fit: contain;
@@ -48,13 +49,31 @@ export const MySlider = styled(Slider)`
     color: black;
   }
 `;
-// export const Image = styled.img`
-//   width: 428px;
-//   height: 428px;
-//   object-fit: cover;
-//   margin-bottom: 40px;
-//   margin-right: 60px;
-// `;
+export const ModalSlider = styled(Slider)`
+  width: 100%;
+  height: 100%;
+  margin-right: 40px;
+  .slick-prev {
+    left: 3%;
+    z-index: 1;
+  }
+  .slick-prev:before {
+    font-size: 40px;
+    color: lightgray;
+  }
+  .slick-next {
+    right: 5%;
+    z-index: 1;
+  }
+  .slick-next:before {
+    font-size: 40px;
+    color: lightgray;
+  }
+  .slick-dots li.slick-active button::before {
+    color: black;
+  }
+`;
+
 export const Info = styled.div`
   display: flex;
   flex-direction: column;
@@ -62,7 +81,8 @@ export const Info = styled.div`
 `;
 export const Name = styled.div`
   font-size: 30px;
-  font-family: "GmarketSansTTFBold";
+  font-family: "NanumSquareEB";
+
   margin-bottom: 10px;
 `;
 export const Price = styled.div`

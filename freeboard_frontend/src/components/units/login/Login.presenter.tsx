@@ -8,6 +8,9 @@ import { ILoginUIProps } from "./Login.types";
 //   { name: "비밀번호 찾기", page: "/join" },
 // ];
 export default function LoginUI(props: ILoginUIProps) {
+  const deleteAccessToken = () => {
+    localStorage.removeItem("accessToken");
+  };
   const router = useRouter();
 
   const onClickLink = (e: MouseEvent<HTMLDivElement>) => {
@@ -19,12 +22,14 @@ export default function LoginUI(props: ILoginUIProps) {
     <>
       <S.Wrapper>
         <S.Logo>로고자리</S.Logo>
+        <button onClick={deleteAccessToken}>토큰지우기</button>
         <S.InputWrapper>
           <S.EmailLabel emailValid={props.emailValid}>이메일 주소</S.EmailLabel>
           <S.Email
             ref={props.inputRef}
             onChange={props.onChangeEmail}
             emailValid={props.emailValid}
+            defaultValue="aa@a.com"
           ></S.Email>
           <S.InputError>{props.emailErrorMessage}</S.InputError>
         </S.InputWrapper>
@@ -36,6 +41,7 @@ export default function LoginUI(props: ILoginUIProps) {
             type="password"
             onChange={props.onChangePassword}
             passwordValid={props.passwordValid}
+            defaultValue="ab12345!"
           ></S.Password>
           <S.InputError>{props.passwordErrorMessage}</S.InputError>
         </S.InputWrapper>
