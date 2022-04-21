@@ -2,7 +2,9 @@ import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../src/commons/store";
+import { accessTokenState } from "../../../../src/commons/store";
+import { TopTitle } from "../../basket/styles";
+import * as S from "./styles";
 
 const LOGIN_USER = gql`
   mutation loginUser($email: String!, $password: String!) {
@@ -31,22 +33,26 @@ export default function LoginPage() {
     const accessToken = result.data.loginUser.accessToken;
     setAccessToken(accessToken);
     alert("로그인에 성공하였습니다.");
-    router.push("/day22-login-success");
+    router.push("./loading");
   };
 
   return (
-    <div>
-      이메일:{" "}
-      <input type="text" onChange={onChangeEmail} defaultValue="aa@a.com" />
-      <br />
-      비밀번호:{" "}
-      <input
-        type="password"
-        onChange={onChangePassword}
-        defaultValue="ab12345!"
-      />
-      <br />
-      <button onClick={onClickLogin}>로그인</button>
-    </div>
+    <S.Wrapper>
+      <S.TopTitle>로그인</S.TopTitle>
+      <S.InputWrapper>
+        <S.Label>이메일</S.Label>
+        <S.Input type="text" onChange={onChangeEmail} defaultValue="aa@a.com" />
+      </S.InputWrapper>
+      <S.InputWrapper>
+        <S.Label>비밀번호</S.Label>
+        <S.Input
+          type="password"
+          onChange={onChangePassword}
+          defaultValue="ab12345!"
+        />
+      </S.InputWrapper>
+
+      <S.Button onClick={onClickLogin}>로그인</S.Button>
+    </S.Wrapper>
   );
 }

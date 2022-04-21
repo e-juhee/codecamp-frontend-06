@@ -17,7 +17,7 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
           {...props.register("images")}
           id="fileTag"
           style={{ display: "none" }}
-          // onChange={props.onChangeImage}
+          onChange={props.onChangeImage}
         />
         {props?.imageUrl &&
           props.imageUrl.map((el: any, i: number) => (
