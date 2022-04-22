@@ -25,6 +25,14 @@ const schema = yup.object({
 });
 
 export default function ProductWrite() {
+  const onChangeContents = (value: string) => {
+    // event가 들어오는 것이 아니다. html의 속성이 아닌 ReactQuill의 속성이기 때문이다. value가 바로 들어온다.
+    console.log(value);
+    setValue("contents", value === "<p><br></p>" ? "" : value); // setValue를 사용하면 register로 등록하지 않고 강제로 값을 넣어줄 수 있다.
+    // onChange가 됐다고 react-hook-form에 알려주는 기능
+    trigger("contents");
+  };
+
   const router = useRouter();
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const { register, handleSubmit, formState, setValue, trigger } = useForm({
@@ -39,22 +47,21 @@ export default function ProductWrite() {
   >(UPLOAD_FILE);
 
   const onChangeImage = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file: any = event.target.files?.[0]; // 인덱스 떼서 리스트로 바꾸기
-    // const file2: any = event.target.files; // uploadFile API 안됨
-    // const fileArr = Object.values(file2);
-    // console.log("되는거");
-    // console.log(file);
-    // fileArr.map(async (el) => {
-    //   console.log("안되는거");
-    //   console.log(el);
+    const file: any = event.target.files; // 인덱스 떼서 리스트로 바꾸기
+    const fileList = [...file];
+    fileList.map(async (el) => {
+      try {
+        const result = await uploadFile({ variables: { file: el } });
+        setImageUrl((prev: any) => [...prev, result.data?.uploadFile.url]);
+      } catch (error: any) {
+        alert(error.message);
+      }
+    });
+  };
 
-    try {
-      const result = await uploadFile({ variables: { file } });
-      setImageUrl((prev: any) => [...prev, result.data?.uploadFile.url]);
-    } catch (error: any) {
-      alert(error.message);
-    }
-    // });
+  /* 선택한 이미지 삭제 */
+  const onClickImage = (el: any) => () => {
+    setImageUrl([...imageUrl].filter((image) => image !== el));
   };
 
   const onSubmit = handleSubmit(async (data) => {
@@ -80,6 +87,8 @@ export default function ProductWrite() {
       onChangeImage={onChangeImage}
       setValue={setValue}
       trigger={trigger}
+      onChangeContents={onChangeContents}
+      onClickImage={onClickImage}
     />
   );
 }

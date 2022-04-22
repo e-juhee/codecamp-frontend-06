@@ -3,13 +3,16 @@ import { getDate } from "../../../../commons/libraries/utils";
 import * as S from "./Products.style";
 import { IBoardsUIProps } from "./Products.types";
 import { v4 as uuidv4 } from "uuid";
+import LayoutBanner from "../../../commons/layout/banner";
+
 // default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
 
 export default function ProductsUI(props: IBoardsUIProps) {
   return (
     <>
+      <LayoutBanner />
       <S.Wrapper>
-        <S.Title>베스트 게시물</S.Title>
+        <S.Title>인기 상품</S.Title>
 
         <S.BestBoardWrapper>
           {props.dataBest?.fetchUseditemsOfTheBest.map((el: any) => (
@@ -88,7 +91,68 @@ export default function ProductsUI(props: IBoardsUIProps) {
               <S.TRWrapper
                 key={el._id}
                 id={el._id}
-                onClick={props.onClickProduct}
+                onClick={props.onClickProduct(el)}
+              >
+                {/* 게시글 번호 */}
+                <S.TD>{index}</S.TD>
+                <S.TD>
+                  {" "}
+                  {el.name
+                    .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
+                    .split("#$%")
+                    .map((el: any) => (
+                      <S.Word key={uuidv4()} isMatched={props.keyword === el}>
+                        {el}
+                      </S.Word>
+                    ))}
+                </S.TD>
+                <S.TD>{el.price}</S.TD>
+                <S.TD>{getDate(el.createdAt)}</S.TD>
+              </S.TRWrapper>
+            ))}
+          </tbody>
+        </S.Table>
+        <h1>오늘 본 상품</h1>
+
+        <S.Table>
+          <thead>
+            <tr>
+              <S.TH
+                style={{
+                  width: "10%",
+                }}
+              >
+                번호
+              </S.TH>
+              <S.TH
+                style={{
+                  width: "65%",
+                }}
+              >
+                제목
+              </S.TH>
+              <S.TH
+                style={{
+                  width: "12.5%",
+                }}
+              >
+                작성자
+              </S.TH>
+              <S.TH
+                style={{
+                  width: "12.5%",
+                }}
+              >
+                날짜
+              </S.TH>
+            </tr>
+          </thead>
+          <tbody>
+            {props.todayView.map((el: any, index: any) => (
+              <S.TRWrapper
+                key={el._id}
+                id={el._id}
+                onClick={props.onClickProduct(el)}
               >
                 {/* 게시글 번호 */}
                 <S.TD>{index}</S.TD>
@@ -112,15 +176,10 @@ export default function ProductsUI(props: IBoardsUIProps) {
 
         <S.Footer>
           <div style={{ width: "80px" }}></div>
-          {/* <Pagination
-            refetch={props.refetch}
-            lastPage={props.lastPage}
-            current={props.current}
-            setCurrent={props.setCurrent}
-          /> */}
+
           <S.NewButton onClick={props.onClickWrite}>
             <S.NewButtonIcon></S.NewButtonIcon>
-            <S.NewButtonText>게시물 등록하기</S.NewButtonText>
+            <S.NewButtonText>내 상품 판매</S.NewButtonText>
           </S.NewButton>
         </S.Footer>
       </S.Wrapper>

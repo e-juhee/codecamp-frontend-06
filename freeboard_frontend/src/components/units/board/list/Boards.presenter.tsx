@@ -3,11 +3,13 @@ import Pagination from "../../../commons/pagination/Pagination";
 import * as S from "./Boards.style";
 import { IBoardsUIProps } from "./Boards.types";
 import { v4 as uuidv4 } from "uuid";
-// default는 중괄호가 없어도 된다.import 받을 때 이름을 마음대로 바꿔서 받아도 된다.
+import LayoutBanner from "../../../commons/layout/banner";
 
 export default function BoardsUI(props: IBoardsUIProps) {
   return (
     <>
+      <LayoutBanner />
+
       <S.Wrapper>
         <S.Title>베스트 게시물</S.Title>
 

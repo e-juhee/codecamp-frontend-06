@@ -7,4 +7,5 @@ export const Button = styled.button`
   font-family: "NanumSquareEB";
   font-size: 18px;
   background: #f70000;
+  cursor: pointer;
 `;

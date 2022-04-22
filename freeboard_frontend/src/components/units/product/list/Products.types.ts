@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from "@apollo/client";
-import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
@@ -9,7 +9,7 @@ import {
 export interface IBoardsUIProps {
   onClickWrite: () => void;
   data: Pick<IQuery, "fetchUseditems"> | undefined;
-  onClickProduct: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickProduct: any;
   lastPage?: number;
   refetch: (
     variables?: Partial<IQueryFetchUseditemsArgs> | undefined
@@ -20,6 +20,7 @@ export interface IBoardsUIProps {
   onChangeSearch: (e: ChangeEvent<HTMLInputElement>) => void;
   // onClickSearch: (e: MouseEvent<HTMLButtonElement>) => void;
   keyword: string;
+  todayView: any;
 }
 export interface IPaginationProps {
   lastPage: number;

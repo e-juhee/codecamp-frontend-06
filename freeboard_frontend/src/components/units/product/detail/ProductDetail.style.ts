@@ -113,4 +113,5 @@ export const Button = styled.button`
   font-family: "NanumSquareEB";
   font-size: 18px;
   background: rgb(204, 204, 204);
+  cursor: pointer;
 `;

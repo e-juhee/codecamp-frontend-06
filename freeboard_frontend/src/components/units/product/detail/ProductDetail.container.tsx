@@ -1,11 +1,13 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import {
+  IMutation,
+  IMutationDeleteUseditemArgs,
   IQuery,
   IQueryFetchUseditemArgs,
 } from "../../../../commons/types/generated/types";
 import ProductDetailUI from "./ProductDetail.presenter";
-import { FETCH_USEDITEM } from "./ProductDetail.queries";
+import { DELETE_USEDITEM, FETCH_USEDITEM } from "./ProductDetail.queries";
 
 export default function ProductDetail() {
   const router = useRouter();
@@ -17,5 +19,22 @@ export default function ProductDetail() {
   });
   console.log(data);
 
-  return <ProductDetailUI data={data} />;
+  const [deleteUseditem] = useMutation<
+    Pick<IMutation, "deleteUseditem">,
+    IMutationDeleteUseditemArgs
+  >(DELETE_USEDITEM);
+
+  const onClickDelete = () => {
+    try {
+      deleteUseditem({
+        variables: { useditemId: String(router.query.useditemId) },
+      });
+      alert("삭제되었습니다.");
+      router.push(`/products`);
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
+    }
+  };
+
+  return <ProductDetailUI data={data} onClickDelete={onClickDelete} />;
 }

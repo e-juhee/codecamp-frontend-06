@@ -30,7 +30,15 @@ export const getDate = (date: any) => {
   const dd = newDate.getDate().toString().padStart(2, "0");
   return `${yyyy}.${mm}.${dd}`;
 };
-
+export const todayDate = () => {
+  const now = Date();
+  const newDate = new Date(now);
+  const yyyy = newDate.getFullYear();
+  const m1 = newDate.getMonth() + 1;
+  const mm = m1.toString().padStart(2, "0");
+  const dd = newDate.getDate().toString().padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+};
 export const successModal = (content: string) => {
   Modal.success({
     content: content,

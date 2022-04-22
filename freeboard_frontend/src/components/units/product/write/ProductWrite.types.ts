@@ -36,4 +36,6 @@ export interface IProductWriteUIProps {
   onClickImageUpload?: () => void;
   setValue: any;
   trigger: any;
+  onChangeContents: any;
+  onClickImage: any;
 }

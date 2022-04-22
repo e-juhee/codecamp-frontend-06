@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import { Modal } from "antd";
 import { useState } from "react";
 import Payment from "./payment";
+import DOMPurify from "dompurify";
 
 export default function ProductDetailUI(props: IProductDetailUIProps) {
   const settings = {
@@ -43,7 +44,7 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
     <>
       <Modal
         visible={isModal}
-        title="로그인 성공"
+        // title="로그인 성공"
         onOk={handleOk}
         onCancel={handleCancel}
         footer={[]}
@@ -82,7 +83,12 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
             <S.Remarks>{props.data?.fetchUseditem.remarks}</S.Remarks>
             <S.ButtonWrapper>
               <S.Button>버튼을</S.Button>
-              <S.Button style={{ backgroundColor: "#ffa425" }}>언젠간</S.Button>
+              <S.Button
+                onClick={props.onClickDelete}
+                style={{ backgroundColor: "#ffa425" }}
+              >
+                삭제하기
+              </S.Button>
 
               <Payment
                 name={props.data?.fetchUseditem.name}
@@ -95,7 +101,18 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
           props.data?.fetchUseditem?.tags.map((el, i) => (
             <div key={i}>{el}</div>
           ))}
-        <div>{props.data?.fetchUseditem.contents}</div>
+        {/* <div>{props.data?.fetchUseditem.contents}</div> */}
+        {typeof window !== "undefined" ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(
+                props.data?.fetchUseditem.contents || ""
+              ),
+            }}
+          ></div>
+        ) : (
+          <div></div>
+        )}
       </S.Wrapper>
     </>
   );

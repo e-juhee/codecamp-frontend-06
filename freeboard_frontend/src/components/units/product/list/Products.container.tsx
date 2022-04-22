@@ -4,13 +4,15 @@ import {
   FETCH_USEDITEMS,
   FETCH_USEDITEMS_OF_THE_BEST,
 } from "./Products.queries";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import {
+  IBoard,
   IQuery,
   IQueryFetchUseditemsArgs,
 } from "../../../../commons/types/generated/types";
 import _ from "lodash";
 import ProductsUI from "./Products.presenter";
+import { todayDate } from "../../../../commons/libraries/utils";
 
 export default function Products() {
   /* FETCH_BOARDS */
@@ -43,19 +45,34 @@ export default function Products() {
   const onClickWrite = () => {
     router.push(`/products/new`);
   };
-
+  const [todayView, setTodayView] = useState([]);
+  const [isChange, setChange] = useState(false);
   /* Routing to BoardDetail */
-  const onClickProduct = (event: MouseEvent<HTMLDivElement>) => {
-    if (event.target instanceof Element)
-      router.push(`/products/${event.currentTarget.id}`);
-  };
+  const onClickProduct = (el: any) => (event: MouseEvent<HTMLDivElement>) => {
+    const today = JSON.parse(localStorage.getItem("today") || "[]");
+    const temp = today.filter((todayEl: IBoard) => todayEl._id === el._id);
+    if (temp.length) return;
+    const { __typename, ...rest } = el;
+    const withDateEl = { ...rest, date: todayDate() };
+    today.push(withDateEl);
+    localStorage.setItem("today", JSON.stringify(today));
+    setChange((prev) => !prev);
 
-  /* Pagination에 쓸 데이터 */
-  // const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT, {
-  //   variables: { search },
-  // });
-  // const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
-  // const [current, setCurrent] = useState<number>(1); // 게시글 번호(index)와 현재 페이지 표시 style을 줄 때 사용
+    // if (event.target instanceof Element)
+    router.push(`/products/${event.currentTarget.id}`);
+  };
+  interface ITodayBoard {
+    IBoard: IBoard;
+    date: string;
+  }
+  useEffect(() => {
+    const today = JSON.parse(localStorage.getItem("today") || "[]");
+    console.log(today);
+    const temp = today.filter(
+      (todayEl: ITodayBoard) => todayEl.date === todayDate()
+    );
+    setTodayView(temp);
+  }, [isChange]);
 
   return (
     <ProductsUI
@@ -70,6 +87,7 @@ export default function Products() {
       onChangeSearch={onChangeSearch}
       // onClickSearch={onClickSearch}
       keyword={keyword}
+      todayView={todayView}
     />
   );
 }

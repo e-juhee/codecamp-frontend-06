@@ -64,7 +64,7 @@ export default function Payment(props: IPaymentProps) {
         ></script>
       </Head>
       {/* <ProductDetail requestPay={requestPay} /> */}
-      <S.Button onClick={requestPay}>충전하기</S.Button>
+      <S.Button onClick={requestPay}>구매하기</S.Button>
     </>
   );
 }
