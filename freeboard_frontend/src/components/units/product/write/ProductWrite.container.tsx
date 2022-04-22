@@ -25,6 +25,8 @@ const schema = yup.object({
 });
 
 export default function ProductWrite() {
+  const [address, setAddress] = useState({});
+
   const onChangeContents = (value: string) => {
     // event가 들어오는 것이 아니다. html의 속성이 아닌 ReactQuill의 속성이기 때문이다. value가 바로 들어온다.
     console.log(value);
@@ -68,7 +70,11 @@ export default function ProductWrite() {
     try {
       const result = await createUseditem({
         variables: {
-          createUseditemInput: { ...data, images: imageUrl },
+          createUseditemInput: {
+            ...data,
+            images: imageUrl,
+            useditemAddress: address,
+          },
         },
       });
       router.push(`/products/${result.data.createUseditem._id}`);
@@ -76,6 +82,10 @@ export default function ProductWrite() {
       if (e instanceof Error) alert(e.message);
     }
   });
+
+  const onCompleteAddressSearch = (data: any) => {
+    console.log(data);
+  };
 
   return (
     <ProductWriteUI
@@ -89,6 +99,8 @@ export default function ProductWrite() {
       trigger={trigger}
       onChangeContents={onChangeContents}
       onClickImage={onClickImage}
+      onCompleteAddressSearch={onCompleteAddressSearch}
+      setAddress={setAddress}
     />
   );
 }

@@ -38,4 +38,6 @@ export interface IProductWriteUIProps {
   trigger: any;
   onChangeContents: any;
   onClickImage: any;
+  onCompleteAddressSearch: any;
+  setAddress: any;
 }

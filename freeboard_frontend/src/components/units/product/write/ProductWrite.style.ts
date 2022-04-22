@@ -105,6 +105,11 @@ export const TextArea = styled.textarea`
   height: 166px;
   padding: 1rem;
 `;
+
+export const MapWrapper = styled.div`
+  width: 100%;
+  padding: 20px;
+`;
 export const Footer = styled.div`
   display: flex;
   flex-direction: row;
@@ -118,4 +123,12 @@ export const Button = styled.button`
   border: none;
   background-color: black;
   border-radius: 3px;
+`;
+export const AddressWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+export const AddressSearch = styled.button`
+  width: 100px;
+  height: 50px;
 `;

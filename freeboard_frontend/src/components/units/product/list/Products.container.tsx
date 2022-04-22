@@ -51,13 +51,13 @@ export default function Products() {
   const onClickProduct = (el: any) => (event: MouseEvent<HTMLDivElement>) => {
     const today = JSON.parse(localStorage.getItem("today") || "[]");
     const temp = today.filter((todayEl: IBoard) => todayEl._id === el._id);
-    if (temp.length) return;
-    const { __typename, ...rest } = el;
-    const withDateEl = { ...rest, date: todayDate() };
-    today.push(withDateEl);
-    localStorage.setItem("today", JSON.stringify(today));
-    setChange((prev) => !prev);
-
+    if (!temp.length) {
+      const { __typename, ...rest } = el;
+      const withDateEl = { ...rest, date: todayDate() };
+      today.push(withDateEl);
+      localStorage.setItem("today", JSON.stringify(today));
+      setChange((prev) => !prev);
+    }
     // if (event.target instanceof Element)
     router.push(`/products/${event.currentTarget.id}`);
   };

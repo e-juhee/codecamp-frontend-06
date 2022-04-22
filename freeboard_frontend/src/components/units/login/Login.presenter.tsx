@@ -10,6 +10,7 @@ import { ILoginUIProps } from "./Login.types";
 export default function LoginUI(props: ILoginUIProps) {
   const deleteAccessToken = () => {
     localStorage.removeItem("accessToken");
+    router.reload();
   };
   const router = useRouter();
 

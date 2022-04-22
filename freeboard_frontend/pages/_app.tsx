@@ -6,6 +6,7 @@ import "antd/dist/antd.css";
 import { initializeApp } from "firebase/app";
 import { RecoilRoot } from "recoil";
 import ApolloSetting from "../src/components/commons/apollo";
+import Script from "next/script";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDBz6hMvq_xdr0pleEMuheZhsIew5LX_Zw",
@@ -26,6 +27,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ApolloSetting>
         <Global styles={globalStyles} />
         <Layout>
+          <Script
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f8eaab205858289af49e81c538882e4&libraries=services,clusterer&autoload=false"
+            strategy="beforeInteractive"
+          />
           {/* Component가 Layout 컴포넌트의 props.children  --> layout/index.tsx에서 씀 */}
           <Component {...pageProps} />
         </Layout>
