@@ -10,8 +10,6 @@ interface IKakaoMapViewProps {
 }
 export default function KakaoMapView(props: IKakaoMapViewProps) {
   useEffect(() => {
-    console.log(props?.lat, props?.lng);
-
     const script = document.createElement("script"); // <script></script>
     script.src =
       "//dapi.kakao.com/v2/maps/sdk.js?appkey=0f8eaab205858289af49e81c538882e4&autoload=false"; // 카카오맵이 로드되면 실행

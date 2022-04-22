@@ -16,7 +16,7 @@ import { todayDate } from "../../../../commons/libraries/utils";
 
 export default function Products() {
   /* FETCH_BOARDS */
-  const { data, refetch } = useQuery<
+  const { data, refetch, fetchMore } = useQuery<
     Pick<IQuery, "fetchUseditems">,
     IQueryFetchUseditemsArgs
   >(FETCH_USEDITEMS); // data는 state와 동일한 역할을 한다. 값이 바뀌면 리렌더된다.
@@ -39,6 +39,37 @@ export default function Products() {
 
   /* FETCH_BOARDS_BEST */
   const { data: dataBest } = useQuery(FETCH_USEDITEMS_OF_THE_BEST);
+
+  /* 무한 스크롤 */
+  const onLoadMore = () => {
+    if (!data) return; // 데이터가 없으면 실행하지 않는다. (처음에는 데이터가 undefined인데, 무한 스크롤이 실행이 되어버린다.)
+
+    fetchMore({
+      variables: {
+        // 다음 페이지(불러올 페이지) : 기존에 받아온 data에서  길이를 가져와서 활용한다.
+        page: Math.ceil(data.fetchUseditems.length / 10) + 1,
+      },
+
+      // useQuery로 받아온 data를 update한다.
+      updateQuery: (prev, { fetchMoreResult }) => {
+        // prev: 기존의 data
+        // {fetchMoreResult} : 추가로 요청해서 받아온 내용
+
+        // 새로 조회해온 값이 없으면 기존 것으로 그냥 업데이트한다.
+        if (!fetchMoreResult?.fetchUseditems)
+          return { fetchUseditems: prev.fetchUseditems };
+
+        // 가져온 내용으로 return (update한다.)
+        return {
+          // 기존의 것과 추가로 받은 것을 합친다.
+          fetchUseditems: [
+            ...prev.fetchUseditems,
+            ...fetchMoreResult.fetchUseditems,
+          ],
+        };
+      },
+    });
+  };
 
   /* Routing to BoardWrite */
   const router = useRouter();
@@ -88,6 +119,7 @@ export default function Products() {
       // onClickSearch={onClickSearch}
       keyword={keyword}
       todayView={todayView}
+      onLoadMore={onLoadMore}
     />
   );
 }

@@ -21,6 +21,7 @@ export interface IBoardsUIProps {
   // onClickSearch: (e: MouseEvent<HTMLButtonElement>) => void;
   keyword: string;
   todayView: any;
+  onLoadMore: any;
 }
 export interface IPaginationProps {
   lastPage: number;
