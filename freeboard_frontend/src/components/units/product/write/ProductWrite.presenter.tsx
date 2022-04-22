@@ -86,7 +86,11 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Label>연관 태그</S.Label>{" "}
-          <S.Input type="text" {...props.register("tags")} />
+          <S.Input
+            type="text"
+            {...props.register("tags")}
+            placeholder="#태그"
+          />
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Label>거래 장소</S.Label>
@@ -94,24 +98,9 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
             <KakaoMapUI setAddress={props.setAddress}></KakaoMapUI>
           </S.AddressWrapper>
         </S.InputWrapper>
-        {/* <S.AddressSearch>주소 찾기</S.AddressSearch> */}
 
         <S.MapWrapper></S.MapWrapper>
-        <S.InputWrapper>
-          <S.Label>우편번호</S.Label>
-          <S.Input type="text" {...props.register("useditemAddress.zipcode")} />
-        </S.InputWrapper>
-        <S.InputWrapper>
-          <S.Label>주소</S.Label>{" "}
-          <S.Input type="text" {...props.register("useditemAddress.address")} />
-        </S.InputWrapper>
-        <S.InputWrapper>
-          <S.Label>상세 주소</S.Label>
-          <S.Input
-            type="text"
-            {...props.register("useditemAddress.addressDetail")}
-          />
-        </S.InputWrapper>
+
         <S.Footer>
           <S.Button>등록하기</S.Button>
         </S.Footer>

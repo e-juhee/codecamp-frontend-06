@@ -1,3 +1,4 @@
+// 주소 검색 + 카카오맵 마커
 import styled from "@emotion/styled";
 import { ChangeEvent, useEffect, useState } from "react";
 import _ from "lodash";
@@ -83,30 +84,53 @@ export default function KakaoMapUI(props: any) {
         };
         const map = new window.kakao.maps.Map(mapContainer, mapOption); // 지도 생성 및 객체 리턴 : 담아도 되고 안 담아도 된다.
 
+        // function searchAddrFromCoords(coords: any, callback: any) {
+        //   // 좌표로 행정동 주소 정보를 요청합니다
+        //   geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+        // }
+
+        // // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+        // function displayCenterInfo(result: any, status: any) {
+        //   if (status === window.kakao.maps.services.Status.OK) {
+        //     // var infoDiv = document.getElementById("centerAddr");
+
+        //     for (var i = 0; i < result.length; i++) {
+        //       // 행정동의 region_type 값은 'H' 이므로
+        //       if (result[i].region_type === "H") {
+        //         console.log(result[i].address_name);
+        //         setSearchText(result[i].address_name);
+        //         break;
+        //       }
+        //     }
+        //   }
+        // }
         // 주소-좌표 변환 객체를 생성합니다
         const geocoder = new window.kakao.maps.services.Geocoder();
 
-        function searchAddrFromCoords(coords: any, callback: any) {
-          // 좌표로 행정동 주소 정보를 요청합니다
-          geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+        function searchDetailAddrFromCoords(coords: any, callback: any) {
+          // 좌표로 법정동 상세 주소 정보를 요청합니다
+          geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
         }
 
-        // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
-        function displayCenterInfo(result: any, status: any) {
-          if (status === window.kakao.maps.services.Status.OK) {
-            // var infoDiv = document.getElementById("centerAddr");
-
-            for (var i = 0; i < result.length; i++) {
-              // 행정동의 region_type 값은 'H' 이므로
-              if (result[i].region_type === "H") {
-                console.log(result[i].address_name);
-                setSearchText(result[i].address_name);
-                break;
+        /* 상세 주소 구하기 */
+        window.kakao.maps.event.addListener(
+          map,
+          "click",
+          function (mouseEvent: any) {
+            searchDetailAddrFromCoords(
+              mouseEvent.latLng,
+              function (result: any, status: any) {
+                if (status === window.kakao.maps.services.Status.OK) {
+                  setSearchText(
+                    result[0].road_address
+                      ? result[0].road_address.address_name
+                      : result[0].address.address_name
+                  );
+                }
               }
-            }
+            );
           }
-        }
-
+        );
         const imageSrc = "/location.png"; // 마커이미지의 주소입니다
         const imageSize = new window.kakao.maps.Size(64, 69); // 마커이미지의 크기입니다
         const imageOption = { offset: new window.kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
@@ -129,8 +153,8 @@ export default function KakaoMapUI(props: any) {
                   result[0].x
                 );
                 props.setAddress({
-                  lat: result[0].y,
-                  lng: result[0].x,
+                  lat: Number(result[0].y),
+                  lng: Number(result[0].x),
                 });
 
                 // 마커를 생성합니다
@@ -156,7 +180,7 @@ export default function KakaoMapUI(props: any) {
                       lat: latlng.getLat(),
                       lng: latlng.getLng(),
                     });
-                    searchAddrFromCoords(latlng, displayCenterInfo);
+                    // searchDetailAddrFromCoords(latlng, displayCenterInfo);
                   }
                 );
 

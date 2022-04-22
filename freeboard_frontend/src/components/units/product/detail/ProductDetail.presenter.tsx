@@ -6,6 +6,7 @@ import { Modal } from "antd";
 import { useState } from "react";
 import Payment from "./payment";
 import DOMPurify from "dompurify";
+import KakaoMapView from "../../../commons/map/KakaoMapView";
 
 export default function ProductDetailUI(props: IProductDetailUIProps) {
   const settings = {
@@ -113,6 +114,11 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
         ) : (
           <div></div>
         )}
+
+        <KakaoMapView
+          lat={Number(props.data?.fetchUseditem?.useditemAddress?.lat)}
+          lng={Number(props.data?.fetchUseditem?.useditemAddress?.lng)}
+        />
       </S.Wrapper>
     </>
   );

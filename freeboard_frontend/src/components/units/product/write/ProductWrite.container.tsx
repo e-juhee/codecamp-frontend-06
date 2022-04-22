@@ -29,7 +29,6 @@ export default function ProductWrite() {
 
   const onChangeContents = (value: string) => {
     // event가 들어오는 것이 아니다. html의 속성이 아닌 ReactQuill의 속성이기 때문이다. value가 바로 들어온다.
-    console.log(value);
     setValue("contents", value === "<p><br></p>" ? "" : value); // setValue를 사용하면 register로 등록하지 않고 강제로 값을 넣어줄 수 있다.
     // onChange가 됐다고 react-hook-form에 알려주는 기능
     trigger("contents");
@@ -67,6 +66,12 @@ export default function ProductWrite() {
   };
 
   const onSubmit = handleSubmit(async (data) => {
+    if (data.tags) {
+      data.tags = data.tags
+        .replaceAll(" ", "")
+        .split("#")
+        .filter((el: string) => el !== "");
+    }
     try {
       const result = await createUseditem({
         variables: {
