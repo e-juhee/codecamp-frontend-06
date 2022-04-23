@@ -4,10 +4,8 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { Modal } from "antd";
 import { useState } from "react";
-import Payment from "./payment";
 import DOMPurify from "dompurify";
 import KakaoMapView from "../../../commons/map/KakaoMapView";
-
 export default function ProductDetailUI(props: IProductDetailUIProps) {
   const settings = {
     dots: true,
@@ -90,11 +88,12 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
               >
                 삭제하기
               </S.Button>
-
-              <Payment
-                name={props.data?.fetchUseditem.name}
-                price={props.data?.fetchUseditem.price}
-              />
+              <S.Button
+                onClick={props.onClickBuy}
+                style={{ backgroundColor: "#f70000" }}
+              >
+                구매하기
+              </S.Button>
             </S.ButtonWrapper>
           </S.Info>
         </S.Header>

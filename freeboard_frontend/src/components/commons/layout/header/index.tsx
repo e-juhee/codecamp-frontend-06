@@ -30,7 +30,7 @@ const MenuItem = styled.div`
 const MENUS = [
   { name: "고객센터", page: "/login" },
   { name: "관심상품", page: "/login" },
-  { name: "마이페이지", page: "/login" },
+  { name: "마이페이지", page: "/my" },
   { name: "로그인", page: "/login" },
 ];
 export default function LayoutHeader() {

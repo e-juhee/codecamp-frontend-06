@@ -15,14 +15,16 @@ export default function ProductsUI(props: IBoardsUIProps) {
       <S.Wrapper>
         <S.Title>인기 상품</S.Title>
 
-        <S.BestBoardWrapper>
+        <S.BestProductWrapper>
           {props.dataBest?.fetchUseditemsOfTheBest.map((el: any) => (
             <S.BestBoard
               key={uuidv4()}
               id={el._id}
-              onClick={props.onClickProduct}
+              onClick={props.onClickProduct(el)}
             >
-              <S.BestImage src={"./boards/list/Best1.png"}></S.BestImage>
+              <S.BestImage
+                src={`https://storage.googleapis.com/${el.images[0]}`}
+              ></S.BestImage>
               <S.BestTitle>{el.name}</S.BestTitle>
               <S.BestBoardBody>
                 <S.BestLeftWrapper>
@@ -39,14 +41,14 @@ export default function ProductsUI(props: IBoardsUIProps) {
               </S.BestBoardBody>
             </S.BestBoard>
           ))}
-        </S.BestBoardWrapper>
+        </S.BestProductWrapper>
 
         <S.SearchWrapper>
           <S.SearchTitle>
             <S.SearchIcon></S.SearchIcon>
             <S.SearchInput
               type="text"
-              placeholder="제목을 검색해주세요."
+              placeholder="제품을 검색해주세요."
               onChange={props.onChangeSearch}
             ></S.SearchInput>
           </S.SearchTitle>

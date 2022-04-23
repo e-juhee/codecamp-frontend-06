@@ -20,6 +20,7 @@
     "dapi",
     "datas",
     "daum",
+    "dompurify",
     "hocs",
     "hookform",
     "infowindow",
@@ -30,6 +31,7 @@
     "scroller",
     "typeorm",
     "useditem",
+    "useritem",
     "uuidv",
     "zonecode"
   ],

@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 
-export const List = styled.tbody`
-  overflow: hidden;
+export const List = styled.div`
+  overflow: auto;
   height: 500px;
+  width: 100%;
 `;
 export const Wrapper = styled.div`
   display: flex;
@@ -19,7 +20,7 @@ export const Title = styled.div`
   font-weight: 700;
   padding-bottom: 40px;
 `;
-export const BestBoardWrapper = styled.div`
+export const BestProductWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -39,6 +40,7 @@ export const BestBoard = styled.div`
 export const BestImage = styled.img`
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
+  width: 100%;
 `;
 
 export const BestTitle = styled.div`

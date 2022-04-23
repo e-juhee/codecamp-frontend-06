@@ -76,21 +76,28 @@ export default function Products() {
   const onClickWrite = () => {
     router.push(`/products/new`);
   };
+
   const [todayView, setTodayView] = useState([]);
-  const [isChange, setChange] = useState(false);
+  // const [isChange, setChange] = useState(false);
   /* Routing to BoardDetail */
-  const onClickProduct = (el: any) => (event: MouseEvent<HTMLDivElement>) => {
+  const onClickProduct = (now: any) => (event: MouseEvent<HTMLDivElement>) => {
     const today = JSON.parse(localStorage.getItem("today") || "[]");
-    const temp = today.filter((todayEl: IBoard) => todayEl._id === el._id);
+    // temp : 같은 글을 같은 날짜에 누른 경우
+    const temp = today.filter(
+      (todayEl: any) => todayEl._id === now._id && todayEl.date === now.date
+    );
+
+    // 같은 글이 아니거나 같은 날짜가 아닐 경우에만 실행
     if (!temp.length) {
-      const { __typename, ...rest } = el;
+      const { __typename, ...rest } = now;
       const withDateEl = { ...rest, date: todayDate() };
       today.push(withDateEl);
       localStorage.setItem("today", JSON.stringify(today));
-      setChange((prev) => !prev);
+      // setChange((prev) => !prev);
     }
     // if (event.target instanceof Element)
     router.push(`/products/${event.currentTarget.id}`);
+    console.log(event.currentTarget.id);
   };
   interface ITodayBoard {
     IBoard: IBoard;
@@ -98,12 +105,11 @@ export default function Products() {
   }
   useEffect(() => {
     const today = JSON.parse(localStorage.getItem("today") || "[]");
-    console.log(today);
     const temp = today.filter(
       (todayEl: ITodayBoard) => todayEl.date === todayDate()
     );
     setTodayView(temp);
-  }, [isChange]);
+  }, []);
 
   return (
     <ProductsUI

@@ -7,7 +7,11 @@ import {
   IQueryFetchUseditemArgs,
 } from "../../../../commons/types/generated/types";
 import ProductDetailUI from "./ProductDetail.presenter";
-import { DELETE_USEDITEM, FETCH_USEDITEM } from "./ProductDetail.queries";
+import {
+  CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
+  DELETE_USEDITEM,
+  FETCH_USEDITEM,
+} from "./ProductDetail.queries";
 
 export default function ProductDetail() {
   const router = useRouter();
@@ -36,5 +40,26 @@ export default function ProductDetail() {
     }
   };
 
-  return <ProductDetailUI data={data} onClickDelete={onClickDelete} />;
+  const [createPointTransactionOfBuyingAndSelling] = useMutation(
+    CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
+  );
+
+  const onClickBuy = async () => {
+    try {
+      await createPointTransactionOfBuyingAndSelling({
+        variables: { useritemId: String(router.query.useditemId) },
+      });
+      alert("구매가 완료되었습니다.");
+      router.push(`/my`);
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+  return (
+    <ProductDetailUI
+      data={data}
+      onClickDelete={onClickDelete}
+      onClickBuy={onClickBuy}
+    />
+  );
 }
