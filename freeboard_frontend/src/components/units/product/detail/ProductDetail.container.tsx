@@ -55,11 +55,16 @@ export default function ProductDetail() {
       if (error instanceof Error) alert(error.message);
     }
   };
+
+  const onClickUpdate = () => {
+    router.push(`/products/${router.query.useditemId}/edit`);
+  };
   return (
     <ProductDetailUI
       data={data}
       onClickDelete={onClickDelete}
       onClickBuy={onClickBuy}
+      onClickUpdate={onClickUpdate}
     />
   );
 }

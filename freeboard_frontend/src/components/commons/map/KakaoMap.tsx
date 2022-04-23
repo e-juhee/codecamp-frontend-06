@@ -220,12 +220,13 @@ export default function KakaoMapUI(props: any) {
               onChange={onChangeInput}
               placeholder="주소로 검색하세요. 예) 디지털로 200길"
               // value={searchText}
-              defaultValue={searchText}
+              defaultValue={props?.address || searchText}
             />
             <Input
               onChange={onChangeDetail}
               placeholder="상세 주소를 입력해주세요."
               // value={addressDetail}
+              defaultValue={props?.addressDetail}
             />
           </InputWrapper>
           <Button type="button" onClick={onToggleModal}>

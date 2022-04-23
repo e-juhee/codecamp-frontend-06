@@ -5,25 +5,14 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 
-// interface IUsedItemAddress {
-//   zipcode: string;
-//   address: string;
-//   addressDetail?: string;
-//   lat?: number;
-//   lng?: number;
-// }
-
-// export interface IFormValues {
-//   name: string;
-//   remarks?: string;
-//   contents: string;
-//   price: number;
-//   tags?: string[];
-//   useditemAddress?: IUsedItemAddress;
-//   images: string[];
-// }
+export interface IProductWriteProps {
+  isEdit: boolean;
+  data: any;
+}
 
 export interface IProductWriteUIProps {
+  isEdit: boolean;
+  onClickUpdate: any;
   onSubmit: (
     e?: BaseSyntheticEvent<object, any, any> | undefined
   ) => Promise<void>;
@@ -40,4 +29,5 @@ export interface IProductWriteUIProps {
   onClickImage: any;
   onCompleteAddressSearch: any;
   setAddress: any;
+  data: any;
 }

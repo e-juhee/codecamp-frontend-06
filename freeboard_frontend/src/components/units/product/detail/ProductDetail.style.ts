@@ -19,6 +19,12 @@ export const Item = styled.img`
   cursor: pointer;
 `;
 
+export const SliderWrapper = styled.div`
+  width: 428px;
+  height: 428px;
+  margin-right: 40px;
+`;
+
 export const MySlider = styled(Slider)`
   width: 428px;
   height: 428px;

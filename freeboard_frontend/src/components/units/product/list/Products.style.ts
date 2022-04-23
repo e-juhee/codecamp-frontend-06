@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   display: inline-flex;
   flex-flow: row nowrap;
   flex-direction: row;
-  margin: 100px auto;
+  margin: 20px auto;
   width: 100%;
   justify-content: space-evenly;
 `;
@@ -49,6 +49,7 @@ export const TodayItem = styled.div`
 export const TodayImg = styled.img`
   width: 70px;
   height: 70px;
+  object-fit: cover;
 `;
 export const TodayName = styled.div`
   width: 70px;
@@ -108,6 +109,7 @@ export const ItemImg = styled.img`
 
   width: 100%;
   height: 282px;
+  object-fit: cover;
   :hover {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;

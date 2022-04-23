@@ -2,14 +2,16 @@ import ProductWriteUI from "./ProductWrite.presenter";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { gql, useMutation } from "@apollo/client";
-import { CREATE_USED_ITEM } from "./ProductWrite.queries";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { CREATE_USED_ITEM, UPDATE_USEDITEM } from "./ProductWrite.queries";
 import { useRouter } from "next/router";
 import {
   IMutation,
   IMutationUploadFileArgs,
 } from "../../../../commons/types/generated/types";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { IProductWriteProps } from "./ProductWrite.types";
+import { FETCH_USEDITEM } from "../detail/ProductDetail.queries";
 
 const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
@@ -24,8 +26,12 @@ const schema = yup.object({
   contents: yup.string().required("상품 설명을 입력해주세요."),
 });
 
-export default function ProductWrite() {
-  const [address, setAddress] = useState({});
+export default function ProductWrite(props: IProductWriteProps) {
+  const [address, setAddress] = useState({
+    zipcode: "",
+    address: "",
+    addressDetail: "",
+  });
 
   const onChangeContents = (value: string) => {
     // event가 들어오는 것이 아니다. html의 속성이 아닌 ReactQuill의 속성이기 때문이다. value가 바로 들어온다.
@@ -35,7 +41,6 @@ export default function ProductWrite() {
   };
 
   const router = useRouter();
-  const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const { register, handleSubmit, formState, setValue, trigger } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
@@ -60,11 +65,23 @@ export default function ProductWrite() {
     });
   };
 
+  /* 수정화면에 기존 이미지 불러오기 */
+  useEffect(() => {
+    console.log(props.data?.fetchUseditem.images);
+    if (props.data?.fetchUseditem.images?.length)
+      setImageUrl([...props.data?.fetchUseditem.images]);
+  }, [props.data]);
+
   /* 선택한 이미지 삭제 */
   const onClickImage = (el: any) => () => {
     setImageUrl([...imageUrl].filter((image) => image !== el));
   };
 
+  const onCompleteAddressSearch = (data: any) => {
+    console.log(data);
+  };
+
+  const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const onSubmit = handleSubmit(async (data) => {
     if (data.tags) {
       data.tags = data.tags
@@ -88,10 +105,57 @@ export default function ProductWrite() {
     }
   });
 
-  const onCompleteAddressSearch = (data: any) => {
-    console.log(data);
-  };
+  const [updateUseditem] = useMutation(UPDATE_USEDITEM);
+  const { data: defaultData } = useQuery(FETCH_USEDITEM, {
+    variables: { useditemId: String(router.query.useditemId) },
+  });
+  console.log(defaultData);
+  // const defaultAddress = {
+  //   address: defaultData?.fetchUseditem?.useditemAddress?.address,
+  //   addressDetail: defaultData?.fetchUseditem?.useditemAddress?.addressDetail,
+  // };
 
+  // const defaultDatas = {
+  //   name: defaultData?.fetchUseditem?.name,
+  //   price: defaultData?.fetchUseditem?.price,
+  //   contents: defaultData?.fetchUseditem?.contents,
+  //   remarks: defaultData?.fetchUseditem?.remarks,
+  //   tags: defaultData?.fetchUseditem?.tags,
+  //   useditemAddress: { ...defaultAddress },
+  // };
+
+  // const defaultData = data;
+  const onClickUpdate = handleSubmit(async (data) => {
+    if (!data.name) data.name = defaultData?.fetchUseditem?.name;
+    if (!data.price) data.price = defaultData?.fetchUseditem?.price;
+    if (!data.contents) data.contents = defaultData?.fetchUseditem?.contents;
+    if (!data.remarks) data.remarks = defaultData?.fetchUseditem?.remarks;
+    if (!data.tags) data.tags = [...defaultData?.fetchUseditem?.tags];
+    if (!data.useditemAddress)
+      data.useditemAddress = { ...defaultData?.fetchUseditem?.useditemAddress };
+    if (data.tags) {
+      data.tags = data.tags
+        .toString()
+        .replaceAll(" ", "")
+        .split("#")
+        .filter((el: string) => el !== "");
+    }
+    try {
+      await updateUseditem({
+        variables: {
+          updateUseditemInput: {
+            ...data,
+            images: imageUrl,
+            useditemAddress: address,
+          },
+          useditemId: String(router.query.useditemId),
+        },
+      });
+      router.push(`/products/${router.query.useditemId}`);
+    } catch (e) {
+      if (e instanceof Error) alert(e.message);
+    }
+  });
   return (
     <ProductWriteUI
       onSubmit={onSubmit}
@@ -106,6 +170,9 @@ export default function ProductWrite() {
       onClickImage={onClickImage}
       onCompleteAddressSearch={onCompleteAddressSearch}
       setAddress={setAddress}
+      onClickUpdate={onClickUpdate}
+      isEdit={props.isEdit}
+      data={props.data}
     />
   );
 }

@@ -9,8 +9,8 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 export default function ProductWriteUI(props: IProductWriteUIProps) {
   return (
     <>
-      <S.Wrapper onSubmit={props.onSubmit}>
-        <S.Title>상품 등록</S.Title>
+      <S.Wrapper onSubmit={props.isEdit ? props.onClickUpdate : props.onSubmit}>
+        <S.Title>{props.isEdit ? "상품 수정" : "상품 등록"}</S.Title>
 
         <S.InputWrapper>
           <S.Label>상품 이미지</S.Label>{" "}
@@ -27,7 +27,6 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
               <S.CameraIcon src="/products/new/camera.png" />
               <S.ImageUploadLabel>이미지 등록</S.ImageUploadLabel>
             </S.ImageUpload>
-
             {props?.imageUrl &&
               props.imageUrl.map((el: any, i: number) => (
                 <S.Image
@@ -45,7 +44,7 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
           </S.LabelWrapper>
           <S.InputErrorWrapper>
             <S.Input
-              defaultValue="상품명"
+              defaultValue={props?.data?.fetchUseditem.name}
               type="text"
               {...props.register("name")}
             />
@@ -61,7 +60,7 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
             <S.Input
               type="number"
               {...props.register("price")}
-              defaultValue={0}
+              defaultValue={props?.data?.fetchUseditem?.price ?? 0}
             />
             <S.Error>{props.errors.price?.message}</S.Error>
           </S.InputErrorWrapper>
@@ -82,7 +81,11 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Label>한 줄 요약</S.Label>{" "}
-          <S.Input type="text" {...props.register("remarks")} />
+          <S.Input
+            type="text"
+            {...props.register("remarks")}
+            defaultValue={props?.data?.fetchUseditem?.remarks}
+          />
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Label>연관 태그</S.Label>{" "}
@@ -90,19 +93,26 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
             type="text"
             {...props.register("tags")}
             placeholder="#태그"
+            defaultValue={props?.data?.fetchUseditem?.tags.join("#")}
           />
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Label>거래 장소</S.Label>
           <S.AddressWrapper>
-            <KakaoMapUI setAddress={props.setAddress}></KakaoMapUI>
+            <KakaoMapUI
+              setAddress={props?.setAddress}
+              address={props?.data?.fetchUseditem?.useditemAddress?.address}
+              addressDetail={
+                props?.data?.fetchUseditem?.useditemAddress?.addressDetail
+              }
+            ></KakaoMapUI>
           </S.AddressWrapper>
         </S.InputWrapper>
 
         <S.MapWrapper></S.MapWrapper>
 
         <S.Footer>
-          <S.Button>등록하기</S.Button>
+          <S.Button>{props.isEdit ? "수정 완료" : "등록하기"}</S.Button>
         </S.Footer>
       </S.Wrapper>
     </>
