@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
 const Wrapper = styled.div`
-  margin-top: 99px;
+  /* margin-top: 99px; */
   height: 470px;
   width: 100%;
   flex-direction: row;

@@ -49,9 +49,9 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
         footer={[]}
         width={1000}
       >
-        <S.ModalSlider {...settings}>
-          {props.data?.fetchUseditem?.images &&
-            props.data?.fetchUseditem?.images.map((el, i) => (
+        {props.data?.fetchUseditem?.images ? (
+          <S.ModalSlider {...settings}>
+            {props.data?.fetchUseditem?.images.map((el, i) => (
               <div key={i}>
                 <S.ModalItem
                   style={{ backgroundColor: "#f8f8f8" }}
@@ -59,7 +59,10 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
                 ></S.ModalItem>
               </div>
             ))}
-        </S.ModalSlider>
+          </S.ModalSlider>
+        ) : (
+          <S.DefaultImg></S.DefaultImg>
+        )}
       </Modal>
       <S.Wrapper>
         <S.Header>

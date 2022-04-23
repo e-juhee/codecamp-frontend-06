@@ -1,4 +1,4 @@
-import { getDate } from "../../../../commons/libraries/utils";
+import { priceToString } from "../../../../commons/libraries/utils";
 // import Pagination from "../../../commons/pagination/Pagination";
 import * as S from "./Products.style";
 import { IBoardsUIProps } from "./Products.types";
@@ -13,184 +13,121 @@ export default function ProductsUI(props: IBoardsUIProps) {
     <>
       <LayoutBanner />
       <S.Wrapper>
-        <S.Title>인기 상품</S.Title>
+        <S.Body>
+          <S.TitleWrapper>
+            <S.Title>Most Popular</S.Title>
+            <S.SubTitle>인기 상품</S.SubTitle>
+          </S.TitleWrapper>
 
-        <S.BestProductWrapper>
-          {props.dataBest?.fetchUseditemsOfTheBest.map((el: any) => (
-            <S.BestBoard
-              key={uuidv4()}
-              id={el._id}
-              onClick={props.onClickProduct(el)}
-            >
-              <S.BestImage
-                src={`https://storage.googleapis.com/${el.images[0]}`}
-              ></S.BestImage>
-              <S.BestTitle>{el.name}</S.BestTitle>
-              <S.BestBoardBody>
-                <S.BestLeftWrapper>
-                  <S.BestProfile>
-                    <S.ProfileImg></S.ProfileImg>
-                    <S.Writer>{el.remarks}</S.Writer>
-                  </S.BestProfile>
-                  <S.BestDate>Date : {getDate(el.createdAt)}</S.BestDate>
-                </S.BestLeftWrapper>
-                <S.BestRightWrapper>
-                  <S.LikeImg></S.LikeImg>
-                  <S.BestLike>{el.pickedCount}</S.BestLike>
-                </S.BestRightWrapper>
-              </S.BestBoardBody>
-            </S.BestBoard>
-          ))}
-        </S.BestProductWrapper>
-
-        <S.SearchWrapper>
-          <S.SearchTitle>
-            <S.SearchIcon></S.SearchIcon>
-            <S.SearchInput
-              type="text"
-              placeholder="제품을 검색해주세요."
-              onChange={props.onChangeSearch}
-            ></S.SearchInput>
-          </S.SearchTitle>
-          <S.SearchDate>YYYY. MM.DD ~ YYYY. MM.DD</S.SearchDate>
-          <S.SearchButton>검색하기</S.SearchButton>
-        </S.SearchWrapper>
-        <h1>오늘 본 상품</h1>
-
-        <S.Table>
-          <thead>
-            <tr>
-              <S.TH
-                style={{
-                  width: "10%",
-                }}
-              >
-                번호
-              </S.TH>
-              <S.TH
-                style={{
-                  width: "65%",
-                }}
-              >
-                제목
-              </S.TH>
-              <S.TH
-                style={{
-                  width: "12.5%",
-                }}
-              >
-                작성자
-              </S.TH>
-              <S.TH
-                style={{
-                  width: "12.5%",
-                }}
-              >
-                날짜
-              </S.TH>
-            </tr>
-          </thead>
-          <tbody>
-            {props.todayView.map((el: any, index: any) => (
-              <S.TRWrapper
+          <S.BestItemWrapper>
+            {props.dataBest?.fetchUseditemsOfTheBest.map((el: any) => (
+              <S.Item
                 key={uuidv4()}
                 id={el._id}
                 onClick={props.onClickProduct(el)}
               >
-                {/* 게시글 번호 */}
-                <S.TD>{index}</S.TD>
-                <S.TD>
-                  {" "}
-                  {el.name
-                    .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
-                    .split("#$%")
-                    .map((el: any) => (
-                      <S.Word key={uuidv4()} isMatched={props.keyword === el}>
-                        {el}
-                      </S.Word>
-                    ))}
-                </S.TD>
-                <S.TD>{el?.seller?.name}</S.TD>
-                <S.TD>{getDate(el.createdAt)}</S.TD>
-              </S.TRWrapper>
+                {el.images[0] ? (
+                  <S.ItemImg
+                    src={`https://storage.googleapis.com/${el.images[0]}`}
+                  ></S.ItemImg>
+                ) : (
+                  <S.DefaultImg></S.DefaultImg>
+                )}
+
+                <S.Name>{el.name}</S.Name>
+                <S.Remarks>{el.remarks}</S.Remarks>
+                <S.Price>{priceToString(el.price)}</S.Price>
+                <S.ItemFooter>
+                  <S.Img src="/products/list/pick.png"></S.Img>
+                  <S.Span>{el.pickedCount}</S.Span>
+                  <S.Img src="/products/list/user.png"></S.Img>
+                  <S.Span>{el.seller.name}</S.Span>
+                </S.ItemFooter>
+              </S.Item>
             ))}
-          </tbody>
-        </S.Table>
+          </S.BestItemWrapper>
 
-        <S.Footer>
-          <div style={{ width: "80px" }}></div>
+          <S.SearchWrapper>
+            <S.SearchTitle>
+              <S.SearchIcon></S.SearchIcon>
+              <S.SearchInput
+                type="text"
+                placeholder="제품을 검색해주세요."
+                onChange={props.onChangeSearch}
+              ></S.SearchInput>
+            </S.SearchTitle>
+            <S.SearchDate>YYYY. MM.DD ~ YYYY. MM.DD</S.SearchDate>
+            <S.SearchButton>검색하기</S.SearchButton>
+          </S.SearchWrapper>
 
-          <S.NewButton onClick={props.onClickWrite}>
-            <S.NewButtonIcon></S.NewButtonIcon>
-            <S.NewButtonText>내 상품 판매</S.NewButtonText>
-          </S.NewButton>
-        </S.Footer>
-        <S.Table>
-          <thead>
-            <tr>
-              <S.TH
-                style={{
-                  width: "10%",
-                }}
-              >
-                번호
-              </S.TH>
-              <S.TH
-                style={{
-                  width: "65%",
-                }}
-              >
-                제목
-              </S.TH>
-              <S.TH
-                style={{
-                  width: "12.5%",
-                }}
-              >
-                작성자
-              </S.TH>
-              <S.TH
-                style={{
-                  width: "12.5%",
-                }}
-              >
-                날짜
-              </S.TH>
-            </tr>
-          </thead>
-          <S.List>
-            <InfiniteScroll
-              pageStart={0}
-              loadMore={props.onLoadMore} // 스크롤 시 작동하는 함수
-              hasMore={true}
-              useWindow={false}
-            >
+          <S.Footer>
+            <div style={{ width: "80px" }}></div>
+            <S.NewButton onClick={props.onClickWrite}>
+              <S.NewButtonIcon></S.NewButtonIcon>
+              <S.NewButtonText>내 상품 판매</S.NewButtonText>
+            </S.NewButton>
+          </S.Footer>
+
+          <S.TitleWrapper>
+            <S.Title>New In</S.Title>
+            <S.SubTitle>신규 등록 상품</S.SubTitle>
+          </S.TitleWrapper>
+
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={props.onLoadMore} // 스크롤 시 작동하는 함수
+            hasMore={true}
+            useWindow={true}
+          >
+            <S.NewItemWrapper>
               {props.data?.fetchUseditems.map((el: any, index: any) => (
-                <S.TRWrapper
+                <S.Item
                   key={uuidv4()}
                   id={el._id}
                   onClick={props.onClickProduct(el)}
                 >
-                  {/* 게시글 번호 */}
-                  <S.TD>{index}</S.TD>
-                  <S.TD>
-                    {" "}
-                    {el.name
-                      .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
-                      .split("#$%")
-                      .map((el: any) => (
-                        <S.Word key={uuidv4()} isMatched={props.keyword === el}>
-                          {el}
-                        </S.Word>
-                      ))}
-                  </S.TD>
-                  <S.TD>{el?.seller?.name}</S.TD>
-                  <S.TD>{getDate(el.createdAt)}</S.TD>
-                </S.TRWrapper>
+                  {el.images[0] ? (
+                    <S.ItemImg
+                      src={`https://storage.googleapis.com/${el.images[0]}`}
+                    ></S.ItemImg>
+                  ) : (
+                    <S.DefaultImg></S.DefaultImg>
+                  )}
+
+                  <S.Name>{el.name}</S.Name>
+                  <S.Remarks>{el.remarks}</S.Remarks>
+                  <S.Price>{priceToString(el.price)}</S.Price>
+                  <S.ItemFooter>
+                    <S.Img src="/products/list/pick.png"></S.Img>
+                    <S.Span>{el.pickedCount}</S.Span>
+                    <S.Img src="/products/list/user.png"></S.Img>
+                    <S.Span>{el.seller.name}</S.Span>
+                  </S.ItemFooter>
+                </S.Item>
               ))}
-            </InfiniteScroll>
-          </S.List>
-        </S.Table>
+            </S.NewItemWrapper>
+          </InfiniteScroll>
+        </S.Body>
+        <S.TodayWrapper>
+          <S.TodayTitle>오늘 본 상품</S.TodayTitle>
+          <S.TodayCount>{props.todayView.length}</S.TodayCount>
+          {props.todayView.map((el: any, index: any) => (
+            <S.TodayItem
+              key={uuidv4()}
+              id={el._id}
+              onClick={props.onClickProduct(el)}
+            >
+              {el.images[0] ? (
+                <S.TodayImg
+                  src={`https://storage.googleapis.com/${el.images[0]}`}
+                ></S.TodayImg>
+              ) : (
+                <S.TodayDefaultImg></S.TodayDefaultImg>
+              )}
+              <S.TodayName>{el.name}</S.TodayName>
+            </S.TodayItem>
+          ))}
+        </S.TodayWrapper>
       </S.Wrapper>
     </>
   );

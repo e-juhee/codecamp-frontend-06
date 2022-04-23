@@ -1,53 +1,174 @@
 import styled from "@emotion/styled";
 
-export const List = styled.div`
-  overflow: auto;
-  height: 500px;
-  width: 100%;
-`;
 export const Wrapper = styled.div`
+  display: inline-flex;
+  flex-flow: row nowrap;
+  flex-direction: row;
+  margin: 100px auto;
+  width: 100%;
+  justify-content: space-evenly;
+`;
+
+export const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 1200px;
-  margin: 100px auto;
+  /* margin: 100px auto; */
   padding: 60px 100px 100px 100px;
 `;
-export const Title = styled.div`
-  font-family: "Noto Sans CJK KR";
-  font-size: 36px;
-  font-weight: 700;
-  padding-bottom: 40px;
+export const TodayWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90px;
+  border: 1px solid rgb(204, 204, 204);
+  float: none;
+  height: 500px;
+  position: sticky;
+  top: 200px;
+  overflow: scroll;
+  padding: 10px;
 `;
-export const BestProductWrapper = styled.div`
+export const TodayTitle = styled.div`
+  color: #666666;
+  font-size: 12px;
+  font-family: "NanumSquareB";
+`;
+export const TodayCount = styled.div`
+  color: #f70000;
+  font-size: 12px;
+  font-family: "NanumSquareB";
+  padding-bottom: 10px;
+`;
+export const TodayItem = styled.div`
+  margin-bottom: 20px;
+  cursor: pointer;
+`;
+export const TodayImg = styled.img`
+  width: 70px;
+  height: 70px;
+`;
+export const TodayName = styled.div`
+  width: 70px;
+  font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+export const TodayDefaultImg = styled.div`
+  width: 70px;
+  height: 70px;
+  background-color: #f5f4f9;
+`;
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 1200px;
+  margin-bottom: 28px;
+`;
+export const Title = styled.div`
+  font-family: "NanumSquareEB";
+  font-size: 20px;
+`;
+export const SubTitle = styled.div`
+  font-size: 14px;
+  margin-top: -5px;
+  color: rgba(34, 34, 34, 0.5);
+`;
+export const BestItemWrapper = styled.div`
+  flex-wrap: wrap;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 1200px;
   padding-bottom: 80px;
 `;
-export const BestBoard = styled.div`
+export const NewItemWrapper = styled.div`
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1200px;
+  overflow: auto;
+  /* height: 800px; */
+  padding-bottom: 80px;
+`;
+export const Item = styled.div`
   width: 282px;
-  height: 257px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+  height: 400px;
+  margin-bottom: 50px;
   cursor: pointer;
+`;
+export const ItemImg = styled.img`
+  border-radius: 10px;
+
+  width: 100%;
+  height: 282px;
   :hover {
-    background-color: rgba(246, 236, 203, 0.3);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
   }
 `;
-export const BestImage = styled.img`
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
+
+export const DefaultImg = styled.div`
+  border-radius: 10px;
   width: 100%;
+  height: 282px;
+  background-color: #f5f4f9;
+  :hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
 `;
 
-export const BestTitle = styled.div`
-  height: 50px;
-  font-weight: 500;
-  font-size: 18px;
-  padding: 20px;
+export const Name = styled.div`
+  font-size: 14px;
+  padding-top: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: "NanumSquareB";
+  color: #333;
+  text-decoration: underline;
+  text-underline-position: under;
+`;
+export const Remarks = styled.div`
+  padding-top: 8.5px;
+  font-size: 14px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgba(34, 34, 34);
+`;
+export const Price = styled.div`
+  font-size: 15px;
+  padding-top: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: "NanumSquareB";
+  color: #333;
+  margin-bottom: 5px;
+`;
+
+export const ItemFooter = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+export const Img = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+export const Span = styled.div`
+  font-size: 12px;
+  margin-left: 5px;
+  width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -60,26 +181,6 @@ export const Word = styled.span`
   color: ${(props: IProps) => (props.isMatched ? "hotpink" : "none")};
 `;
 
-export const BestBoardBody = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 20px;
-`;
-export const BestLeftWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-export const BestProfile = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 10px;
-`;
-export const ProfileImg = styled.div`
-  background-image: url("./boards/list/Profile.png");
-  width: 20px;
-  height: 20px;
-`;
 export const Writer = styled.div`
   padding-left: 6px;
   height: 24px;

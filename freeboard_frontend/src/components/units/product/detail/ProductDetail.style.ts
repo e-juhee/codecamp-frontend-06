@@ -18,13 +18,7 @@ export const Item = styled.img`
   object-fit: cover;
   cursor: pointer;
 `;
-export const ModalItem = styled.img`
-  width: 100%;
-  height: 500px;
-  background-color: lightgray;
-  border: 1px solid lightgray;
-  object-fit: contain;
-`;
+
 export const MySlider = styled(Slider)`
   width: 428px;
   height: 428px;
@@ -49,6 +43,7 @@ export const MySlider = styled(Slider)`
     color: black;
   }
 `;
+
 export const ModalSlider = styled(Slider)`
   width: 100%;
   height: 100%;
@@ -73,7 +68,18 @@ export const ModalSlider = styled(Slider)`
     color: black;
   }
 `;
-
+export const ModalItem = styled.img`
+  width: 100%;
+  height: 500px;
+  background-color: lightgray;
+  border: 1px solid lightgray;
+  object-fit: contain;
+`;
+export const DefaultImg = styled.div`
+  width: 100%;
+  height: 500px;
+  background-color: #f5f4f9;
+`;
 export const Info = styled.div`
   display: flex;
   flex-direction: column;
