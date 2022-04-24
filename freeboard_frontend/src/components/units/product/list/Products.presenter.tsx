@@ -72,6 +72,16 @@ export default function ProductsUI(props: IBoardsUIProps) {
             <S.Title>New In</S.Title>
             <S.SubTitle>신규 등록 상품</S.SubTitle>
           </S.TitleWrapper>
+          <S.SoldOutWrapper>
+            <S.SoldOutLabel>
+              <S.SoldOutCheckBox
+                type="checkbox"
+                onChange={props.onChangeCheck}
+                checked={!props.isChecked}
+              />
+              품절 상품 보기
+            </S.SoldOutLabel>
+          </S.SoldOutWrapper>
 
           <InfiniteScroll
             pageStart={0}

@@ -100,6 +100,7 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
           <S.Label>거래 장소</S.Label>
           <S.AddressWrapper>
             <KakaoMapUI
+              addressState={props.address}
               setAddress={props?.setAddress}
               address={props?.data?.fetchUseditem?.useditemAddress?.address}
               addressDetail={

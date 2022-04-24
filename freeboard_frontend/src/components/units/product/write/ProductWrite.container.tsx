@@ -131,8 +131,11 @@ export default function ProductWrite(props: IProductWriteProps) {
     if (!data.contents) data.contents = defaultData?.fetchUseditem?.contents;
     if (!data.remarks) data.remarks = defaultData?.fetchUseditem?.remarks;
     if (!data.tags) data.tags = [...defaultData?.fetchUseditem?.tags];
-    if (!data.useditemAddress)
-      data.useditemAddress = { ...defaultData?.fetchUseditem?.useditemAddress };
+    if (!address.address)
+      setAddress((prev) => ({
+        ...prev,
+        address: defaultData?.fetchUseditem?.address,
+      }));
     if (data.tags) {
       data.tags = data.tags
         .toString()
@@ -170,6 +173,7 @@ export default function ProductWrite(props: IProductWriteProps) {
       onClickImage={onClickImage}
       onCompleteAddressSearch={onCompleteAddressSearch}
       setAddress={setAddress}
+      address={address}
       onClickUpdate={onClickUpdate}
       isEdit={props.isEdit}
       data={props.data}

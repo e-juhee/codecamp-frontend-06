@@ -84,11 +84,13 @@ export default function Products() {
     const today = JSON.parse(localStorage.getItem("today") || "[]");
     // temp : 같은 글을 같은 날짜에 누른 경우
     const temp = today.filter(
-      (todayEl: any) => todayEl._id === now._id && todayEl.date === now.date
+      (todayEl: any) => todayEl._id === now._id && todayEl.date === todayDate()
     );
+    // console.log(today[0]._id, now._id);
+    // console.log(today[0].date, now.date);
 
     // 같은 글이 아니거나 같은 날짜가 아닐 경우에만 실행
-    if (!temp.length) {
+    if (temp.length === 0) {
       const { __typename, ...rest } = now;
       const withDateEl = { ...rest, date: todayDate() };
       today.push(withDateEl);
@@ -111,6 +113,13 @@ export default function Products() {
     setTodayView(temp);
   }, []);
 
+  const [isChecked, setIsChecked] = useState(true);
+  const onChangeCheck = () => {
+    setIsChecked((prev) => !prev);
+    if (!data) return;
+    refetch({ isSoldout: isChecked });
+  };
+
   return (
     <ProductsUI
       onClickWrite={onClickWrite}
@@ -126,6 +135,8 @@ export default function Products() {
       keyword={keyword}
       todayView={todayView}
       onLoadMore={onLoadMore}
+      onChangeCheck={onChangeCheck}
+      isChecked={isChecked}
     />
   );
 }

@@ -18,6 +18,10 @@ export const FETCH_USEDITEM = gql`
         lat
         lng
       }
+      buyer {
+        _id
+        name
+      }
     }
   }
 `;

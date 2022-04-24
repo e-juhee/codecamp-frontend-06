@@ -5,18 +5,17 @@ export const FETCH_USEDITEM_QUESTIONS = gql`
     fetchUseditemQuestions(useditemId: $useditemId) {
       _id
       contents
-      # useditem {
-      #   _id
-      #   # name
-      #   remarks
-      #   contents
-      #   price
-      # }
       user {
         name
         picture
       }
       createdAt
     }
+  }
+`;
+
+export const DELETE_USEDITEM_QUESTION = gql`
+  mutation deleteUseditemQuestion($useditemQuestionId: ID!) {
+    deleteUseditemQuestion(useditemQuestionId: $useditemQuestionId)
   }
 `;

@@ -29,5 +29,6 @@ export interface IProductWriteUIProps {
   onClickImage: any;
   onCompleteAddressSearch: any;
   setAddress: any;
+  address: any;
   data: any;
 }

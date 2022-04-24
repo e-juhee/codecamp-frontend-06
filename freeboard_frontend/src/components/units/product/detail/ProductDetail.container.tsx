@@ -21,6 +21,7 @@ export default function ProductDetail() {
   >(FETCH_USEDITEM, {
     variables: { useditemId: String(router.query.useditemId) },
   });
+  console.log("구매한사람" + (data?.fetchUseditem?.buyer?.name || ""));
   console.log(data);
 
   const [deleteUseditem] = useMutation<

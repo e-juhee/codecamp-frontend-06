@@ -22,6 +22,8 @@ export interface IBoardsUIProps {
   keyword: string;
   todayView: any;
   onLoadMore: any;
+  onChangeCheck: any;
+  isChecked: boolean;
 }
 export interface IPaginationProps {
   lastPage: number;

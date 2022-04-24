@@ -69,7 +69,6 @@ export const TitleWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 1200px;
-  margin-bottom: 28px;
 `;
 export const Title = styled.div`
   font-family: "NanumSquareEB";
@@ -79,6 +78,18 @@ export const SubTitle = styled.div`
   font-size: 14px;
   margin-top: -5px;
   color: rgba(34, 34, 34, 0.5);
+`;
+export const SoldOutWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 1200px;
+`;
+export const SoldOutLabel = styled.label``;
+export const SoldOutCheckBox = styled.input`
+  margin-right: 5px;
+  margin-bottom: 28px;
 `;
 export const BestItemWrapper = styled.div`
   flex-wrap: wrap;

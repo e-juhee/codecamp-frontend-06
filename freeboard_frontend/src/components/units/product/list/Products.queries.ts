@@ -20,6 +20,10 @@ export const FETCH_USEDITEMS = gql`
         name
         picture
       }
+      buyer {
+        _id
+        name
+      }
       createdAt
     }
   }

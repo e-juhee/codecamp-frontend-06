@@ -126,6 +126,19 @@ export default function KakaoMapUI(props: any) {
                       ? result[0].road_address.address_name
                       : result[0].address.address_name
                   );
+
+                  props.setAddress((prev: any) => ({
+                    ...prev,
+                    address: result[0].road_address
+                      ? result[0].road_address.address_name
+                      : result[0].address.address_name,
+                  }));
+
+                  // props.setAddress({
+                  //   address: result[0].road_address
+                  //     ? result[0].road_address.address_name
+                  //     : result[0].address.address_name,
+                  // });
                 }
               }
             );
@@ -152,10 +165,18 @@ export default function KakaoMapUI(props: any) {
                   result[0].y,
                   result[0].x
                 );
-                props.setAddress({
+
+                props.setAddress((prev: any) => ({
+                  ...prev,
                   lat: Number(result[0].y),
                   lng: Number(result[0].x),
-                });
+                }));
+
+                // props.setAddress({
+                //   ...props.addressState,
+                //   lat: Number(result[0].y),
+                //   lng: Number(result[0].x),
+                // });
 
                 // 마커를 생성합니다
                 const marker = new window.kakao.maps.Marker({
@@ -219,7 +240,6 @@ export default function KakaoMapUI(props: any) {
             <Input
               onChange={onChangeInput}
               placeholder="주소로 검색하세요. 예) 디지털로 200길"
-              // value={searchText}
               defaultValue={props?.address || searchText}
             />
             <Input
