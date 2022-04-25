@@ -1,17 +1,18 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { Modal, Button } from "antd";
 import { useState } from "react";
 import * as S from "./styles";
 
-export const LOGIN_USER = gql`
-  mutation loginUser($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
+export const LOGIN_USER_EXAMPLE = gql`
+  mutation loginUserExample($email: String!, $password: String!) {
+    loginUserExample(email: $email, password: $password) {
       accessToken
     }
   }
 `;
+
 interface IData {
   email: string;
   password: string;
@@ -20,10 +21,10 @@ interface IData {
 export default function MainPage() {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [loginUserExample] = useMutation(LOGIN_USER_EXAMPLE);
   const onClickSubmit = async (data: IData) => {
     try {
-      const result = await loginUser({
+      const result = await loginUserExample({
         variables: { ...data },
       });
       const basket = JSON.parse(localStorage.getItem("basket") || "[]");
@@ -48,6 +49,7 @@ export default function MainPage() {
 
   return (
     <>
+      {/* <div>{data?.fetchUserLoggedIn.name}로그인이 필요합니다.</div> */}
       <S.Wrapper onSubmit={handleSubmit(onClickSubmit)}>
         <S.TopTitle>로그인</S.TopTitle>
         <S.InputWrapper>
@@ -60,7 +62,6 @@ export default function MainPage() {
         </S.InputWrapper>
         <S.Reset>로그인</S.Reset>
       </S.Wrapper>
-
       <Modal
         visible={isModal}
         title="로그인 성공"
