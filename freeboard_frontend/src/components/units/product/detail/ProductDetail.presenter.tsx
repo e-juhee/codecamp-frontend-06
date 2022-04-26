@@ -50,6 +50,24 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
       >
         {props.data?.fetchUseditem?.images ? (
           <S.ModalSlider {...settings}>
+            {props.data?.fetchUseditem?.images.map((el, i) =>
+              el !== "" ? (
+                <div key={i}>
+                  <S.ModalItem
+                    style={{ backgroundColor: "#f8f8f8" }}
+                    src={`https://storage.googleapis.com/${el}`}
+                  ></S.ModalItem>
+                </div>
+              ) : (
+                <S.DefaultImg key={i}></S.DefaultImg>
+              )
+            )}
+          </S.ModalSlider>
+        ) : (
+          <S.DefaultImg></S.DefaultImg>
+        )}
+        {/* {props.data?.fetchUseditem?.images ? (
+          <S.ModalSlider {...settings}>
             {props.data?.fetchUseditem?.images.map((el, i) => (
               <div key={i}>
                 <S.ModalItem
@@ -61,22 +79,26 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
           </S.ModalSlider>
         ) : (
           <S.DefaultImg></S.DefaultImg>
-        )}
+        )} */}
       </Modal>
       <S.Wrapper>
         <S.Header>
           <S.SliderWrapper>
             <S.MySlider {...settings}>
               {props.data?.fetchUseditem?.images &&
-                props.data?.fetchUseditem?.images.map((el, i) => (
-                  <div key={i}>
-                    <S.Item
-                      onClick={onClickImage(i)}
-                      style={{ backgroundColor: "#f8f8f8" }}
-                      src={`https://storage.googleapis.com/${el}`}
-                    ></S.Item>
-                  </div>
-                ))}
+                props.data?.fetchUseditem?.images.map((el, i) =>
+                  el ? (
+                    <div key={i}>
+                      <S.Item
+                        onClick={onClickImage(i)}
+                        style={{ backgroundColor: "#f8f8f8" }}
+                        src={`https://storage.googleapis.com/${el}`}
+                      ></S.Item>
+                    </div>
+                  ) : (
+                    <div key={i}></div>
+                  )
+                )}
             </S.MySlider>
           </S.SliderWrapper>
 
@@ -84,6 +106,7 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
             <S.Name>{props.data?.fetchUseditem.name}</S.Name>
             <S.Price>{props.data?.fetchUseditem.price}원</S.Price>
             <S.Remarks>{props.data?.fetchUseditem.remarks}</S.Remarks>
+            <S.Remarks>찜: {props.data?.fetchUseditem.pickedCount}</S.Remarks>
             <S.ButtonWrapper>
               <S.Button onClick={props.onClickUpdate}>수정하기</S.Button>
               <S.Button
@@ -97,6 +120,12 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
                 style={{ backgroundColor: "#f70000" }}
               >
                 구매하기
+              </S.Button>
+              <S.Button
+                onClick={props.onClickPick}
+                style={{ backgroundColor: "#f70000" }}
+              >
+                찜하기
               </S.Button>
             </S.ButtonWrapper>
           </S.Info>

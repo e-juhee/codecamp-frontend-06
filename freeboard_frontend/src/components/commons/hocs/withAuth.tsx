@@ -1,14 +1,19 @@
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { accessTokenState } from "../../../commons/store";
 // @ts-ignore
 export const withAuth = (Component) => (props) => {
-  const router = useRouter();
+  const [accessToken] = useRecoilState(accessTokenState);
+
+  // const router = useRouter();
 
   /* 권한 분기 */
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
+    if (!accessToken) {
       alert("로그인 화면으로 이동합니다.");
-      router.push("/login");
+      console.log(accessToken);
+      // router.push("/login");
     }
   }, []);
 

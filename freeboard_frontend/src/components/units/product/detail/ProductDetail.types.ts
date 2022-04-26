@@ -5,4 +5,5 @@ export interface IProductDetailUIProps {
   onClickDelete: () => void;
   onClickBuy: () => void;
   onClickUpdate: () => void;
+  onClickPick: () => void;
 }

@@ -69,7 +69,7 @@ export default function Login() {
     });
     const accessToken = result.data.loginUser.accessToken;
     setAccessToken(accessToken);
-    localStorage.setItem("accessToken", accessToken);
+    // localStorage.setItem("accessToken", accessToken);
     router.push("/boards");
   };
 

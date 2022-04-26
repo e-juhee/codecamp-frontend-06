@@ -12,6 +12,7 @@ import {
 import { ChangeEvent, useEffect, useState } from "react";
 import { IProductWriteProps } from "./ProductWrite.types";
 import { FETCH_USEDITEM } from "../detail/ProductDetail.queries";
+import { withAuth } from "../../../commons/hocs/withAuth";
 
 const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
@@ -26,7 +27,9 @@ const schema = yup.object({
   contents: yup.string().required("상품 설명을 입력해주세요."),
 });
 
-export default function ProductWrite(props: IProductWriteProps) {
+function ProductWrite(props: IProductWriteProps) {
+  const router = useRouter();
+
   const [address, setAddress] = useState({
     zipcode: "",
     address: "",
@@ -40,41 +43,56 @@ export default function ProductWrite(props: IProductWriteProps) {
     trigger("contents");
   };
 
-  const router = useRouter();
   const { register, handleSubmit, formState, setValue, trigger } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
 
   const [imageUrl, setImageUrl] = useState<any[]>([]);
+  const [imageFile, setImageFile] = useState<any[]>([]);
   const [uploadFile] = useMutation<
     Pick<IMutation, "uploadFile">,
     IMutationUploadFileArgs
   >(UPLOAD_FILE);
 
   const onChangeImage = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file: any = event.target.files; // 인덱스 떼서 리스트로 바꾸기
+    const file: any = event.target.files;
     const fileList = [...file];
     fileList.map(async (el) => {
-      try {
-        const result = await uploadFile({ variables: { file: el } });
-        setImageUrl((prev: any) => [...prev, result.data?.uploadFile.url]);
-      } catch (error: any) {
-        alert(error.message);
-      }
+      const fileReader = new FileReader(); // JS의 내장기능이다.
+      fileReader.readAsDataURL(el);
+      fileReader.onload = (data) => {
+        // file을 다 읽으면 읽어진 결과물이 data로 들어오고 이 함수가 실행된다.
+        if (typeof data.target?.result === "string") {
+          const tempUrls = [data.target?.result];
+          setImageUrl((prev) => [...prev, ...tempUrls]);
+          // const tempFiles = [...imageFile, file];
+          setImageFile((prev) => [...prev, el]); // uploadFile API에 보내기 위한 *File*
+        }
+      };
     });
   };
 
   /* 수정화면에 기존 이미지 불러오기 */
   useEffect(() => {
-    console.log(props.data?.fetchUseditem.images);
-    if (props.data?.fetchUseditem.images?.length)
-      setImageUrl([...props.data?.fetchUseditem.images]);
+    if (props.data?.fetchUseditem.images?.length) {
+      setImageUrl(
+        props.data?.fetchUseditem.images.map(
+          (el: string) => `https://storage.googleapis.com/${el}`
+        )
+      );
+      setImageFile(props.data?.fetchUseditem.images);
+    }
+    // setImageFile(...props.data?.fetchUseditem.images)
+    // setImageUrl([...props.data?.fetchUseditem.images]);
   }, [props.data]);
 
   /* 선택한 이미지 삭제 */
-  const onClickImage = (el: any) => () => {
-    setImageUrl([...imageUrl].filter((image) => image !== el));
+  const onClickImage = (_: any, deleteNum: number) => () => {
+    setImageUrl([...imageUrl].filter((_, i) => i !== deleteNum));
+    if (props.isEdit) {
+      setImageFile([...imageFile].filter((_, i) => i !== deleteNum));
+    }
   };
 
   const onCompleteAddressSearch = (data: any) => {
@@ -83,6 +101,13 @@ export default function ProductWrite(props: IProductWriteProps) {
 
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const onSubmit = handleSubmit(async (data) => {
+    const results = await Promise.all(
+      imageFile.map((el) => el && uploadFile({ variables: { file: el } }))
+    );
+    const resultUrls = results.map((el) => {
+      // el.data가 없으면 파일을 업로드 하지 않은 것이기 때문에 빈 문자열로 받는다.
+      return el ? el?.data.uploadFile.url : "";
+    });
     if (data.tags) {
       data.tags = data.tags
         .replaceAll(" ", "")
@@ -94,7 +119,7 @@ export default function ProductWrite(props: IProductWriteProps) {
         variables: {
           createUseditemInput: {
             ...data,
-            images: imageUrl,
+            images: resultUrls,
             useditemAddress: address,
           },
         },
@@ -109,7 +134,7 @@ export default function ProductWrite(props: IProductWriteProps) {
   const { data: defaultData } = useQuery(FETCH_USEDITEM, {
     variables: { useditemId: String(router.query.useditemId) },
   });
-  console.log(defaultData);
+  // console.log(defaultData);
   // const defaultAddress = {
   //   address: defaultData?.fetchUseditem?.useditemAddress?.address,
   //   addressDetail: defaultData?.fetchUseditem?.useditemAddress?.addressDetail,
@@ -126,6 +151,8 @@ export default function ProductWrite(props: IProductWriteProps) {
 
   // const defaultData = data;
   const onClickUpdate = handleSubmit(async (data) => {
+    imageFile.map((el) => console.log(el));
+
     if (!data.name) data.name = defaultData?.fetchUseditem?.name;
     if (!data.price) data.price = defaultData?.fetchUseditem?.price;
     if (!data.contents) data.contents = defaultData?.fetchUseditem?.contents;
@@ -144,11 +171,21 @@ export default function ProductWrite(props: IProductWriteProps) {
         .filter((el: string) => el !== "");
     }
     try {
+      const results = await Promise.all(
+        imageFile.map((el) =>
+          typeof el === "string" ? el : uploadFile({ variables: { file: el } })
+        )
+      );
+      console.log(results);
+      const resultUrls = results.map((el: any) =>
+        typeof el === "string" ? el : el?.data.uploadFile.url
+      );
+      console.log(resultUrls);
       await updateUseditem({
         variables: {
           updateUseditemInput: {
             ...data,
-            images: imageUrl,
+            images: resultUrls,
             useditemAddress: address,
           },
           useditemId: String(router.query.useditemId),
@@ -180,3 +217,5 @@ export default function ProductWrite(props: IProductWriteProps) {
     />
   );
 }
+
+export default withAuth(ProductWrite);

@@ -17,7 +17,7 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
           <S.ImageWrapper>
             <S.Input
               type="file"
-              accept="image/png"
+              accept="image/png, image/jpeg,"
               multiple
               id="fileTag"
               style={{ display: "none" }}
@@ -29,11 +29,7 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
             </S.ImageUpload>
             {props?.imageUrl &&
               props.imageUrl.map((el: any, i: number) => (
-                <S.Image
-                  key={i}
-                  src={`https://storage.googleapis.com/${el}`}
-                  onClick={props.onClickImage(el)}
-                />
+                <S.Image key={i} src={el} onClick={props.onClickImage(el, i)} />
               ))}
           </S.ImageWrapper>
         </S.InputWrapper>
