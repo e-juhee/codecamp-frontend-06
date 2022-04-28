@@ -12,7 +12,7 @@ import {
 import { ChangeEvent, useEffect, useState } from "react";
 import { IProductWriteProps } from "./ProductWrite.types";
 import { FETCH_USEDITEM } from "../detail/ProductDetail.queries";
-import { withAuth } from "../../../commons/hocs/withAuth";
+// import useAuth from "../../../commons/hocs/withAuth";
 
 const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
@@ -27,7 +27,8 @@ const schema = yup.object({
   contents: yup.string().required("상품 설명을 입력해주세요."),
 });
 
-function ProductWrite(props: IProductWriteProps) {
+export default function ProductWrite(props: IProductWriteProps) {
+  // useAuth();
   const router = useRouter();
 
   const [address, setAddress] = useState({
@@ -218,4 +219,4 @@ function ProductWrite(props: IProductWriteProps) {
   );
 }
 
-export default withAuth(ProductWrite);
+// withAuth(ProductWrite);

@@ -67,8 +67,10 @@ export default function Login() {
     const result = await loginUser({
       variables: { email, password },
     });
+
     const accessToken = result.data.loginUser.accessToken;
     setAccessToken(accessToken);
+    console.log(accessToken + "이거이거이거");
     // localStorage.setItem("accessToken", accessToken);
     router.push("/boards");
   };

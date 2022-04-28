@@ -35,10 +35,13 @@ export default function My() {
   };
   const [logoutUser] = useMutation(LOGOUT_USER);
 
-  const onClickLogOut = () => {
+  const onClickLogOut = async () => {
     try {
-      logoutUser();
+      await logoutUser();
+      // router.reload();
       console.log("로그아웃성공");
+      router.push("/products/new");
+      location.reload();
     } catch (error) {
       console.log(error);
       console.log("로가웃실패");
