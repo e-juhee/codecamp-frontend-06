@@ -3,10 +3,13 @@ import { IProductWriteUIProps } from "./ProductWrite.types";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import KakaoMapUI from "../../../commons/map/KakaoMap";
+import HashTagPage from "../../../commons/HashTag";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function ProductWriteUI(props: IProductWriteUIProps) {
+  console.log(props.getValues("contents"));
+
   return (
     <>
       <S.Wrapper onSubmit={props.isEdit ? props.onClickUpdate : props.onSubmit}>
@@ -70,6 +73,7 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
             <ReactQuill
               onChange={props.onChangeContents}
               style={{ width: "856px", height: "300px", marginBottom: "40px" }}
+              value={props.getValues("contents") || ""}
             />
 
             <S.Error>{props.errors.contents?.message}</S.Error>
@@ -85,12 +89,17 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Label>연관 태그</S.Label>{" "}
-          <S.Input
+          <HashTagPage
+            setHashArr={props.setHashArr}
+            hashArr={props.hashArr}
+            // tags={props?.data?.fetchUseditem?.tags}
+          />
+          {/* <S.Input
             type="text"
             {...props.register("tags")}
             placeholder="#태그"
             defaultValue={props?.data?.fetchUseditem?.tags.join("#")}
-          />
+          /> */}
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Label>거래 장소</S.Label>

@@ -6,8 +6,8 @@ import {
 } from "react-hook-form";
 
 export interface IProductWriteProps {
-  isEdit: boolean;
-  data: any;
+  isEdit?: boolean;
+  data?: any;
 }
 
 export interface IProductWriteUIProps {
@@ -31,4 +31,7 @@ export interface IProductWriteUIProps {
   setAddress: any;
   address: any;
   data: any;
+  hashArr: any;
+  setHashArr: any;
+  getValues: any;
 }

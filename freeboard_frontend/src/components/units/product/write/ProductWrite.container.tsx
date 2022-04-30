@@ -28,6 +28,14 @@ const schema = yup.object({
 });
 
 export default function ProductWrite(props: IProductWriteProps) {
+  const [hashArr, setHashArr] = useState<string[]>(
+    props?.data?.fetchUseditem?.tags || []
+  );
+  // 수정화면에 기존 해시태그 불러오기
+  useEffect(() => {
+    setHashArr(props?.data?.fetchUseditem?.tags || []);
+  }, [props?.data?.fetchUseditem?.tags]);
+
   // useAuth();
   const router = useRouter();
 
@@ -44,7 +52,20 @@ export default function ProductWrite(props: IProductWriteProps) {
     trigger("contents");
   };
 
-  const { register, handleSubmit, formState, setValue, trigger } = useForm({
+  // react-quill default value
+  useEffect(() => {
+    reset({ contents: props.data?.fetchUseditem.contents });
+  }, [props.data]);
+
+  const {
+    register,
+    handleSubmit,
+    formState,
+    setValue,
+    trigger,
+    getValues,
+    reset,
+  } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
@@ -109,12 +130,12 @@ export default function ProductWrite(props: IProductWriteProps) {
       // el.data가 없으면 파일을 업로드 하지 않은 것이기 때문에 빈 문자열로 받는다.
       return el ? el?.data.uploadFile.url : "";
     });
-    if (data.tags) {
-      data.tags = data.tags
-        .replaceAll(" ", "")
-        .split("#")
-        .filter((el: string) => el !== "");
-    }
+    // if (data.tags) {
+    //   data.tags = data.tags
+    //     .replaceAll(" ", "")
+    //     .split("#")
+    //     .filter((el: string) => el !== "");
+    // }
     try {
       const result = await createUseditem({
         variables: {
@@ -122,6 +143,7 @@ export default function ProductWrite(props: IProductWriteProps) {
             ...data,
             images: resultUrls,
             useditemAddress: address,
+            tags: hashArr,
           },
         },
       });
@@ -164,13 +186,13 @@ export default function ProductWrite(props: IProductWriteProps) {
         ...prev,
         address: defaultData?.fetchUseditem?.address,
       }));
-    if (data.tags) {
-      data.tags = data.tags
-        .toString()
-        .replaceAll(" ", "")
-        .split("#")
-        .filter((el: string) => el !== "");
-    }
+    // if (data.tags) {
+    //   data.tags = data.tags
+    //     .toString()
+    //     .replaceAll(" ", "")
+    //     .split("#")
+    //     .filter((el: string) => el !== "");
+    // }
     try {
       const results = await Promise.all(
         imageFile.map((el) =>
@@ -188,6 +210,7 @@ export default function ProductWrite(props: IProductWriteProps) {
             ...data,
             images: resultUrls,
             useditemAddress: address,
+            tags: hashArr,
           },
           useditemId: String(router.query.useditemId),
         },
@@ -215,6 +238,9 @@ export default function ProductWrite(props: IProductWriteProps) {
       onClickUpdate={onClickUpdate}
       isEdit={props.isEdit}
       data={props.data}
+      hashArr={hashArr}
+      setHashArr={setHashArr}
+      getValues={getValues}
     />
   );
 }
