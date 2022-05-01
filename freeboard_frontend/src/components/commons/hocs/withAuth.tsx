@@ -49,7 +49,6 @@ export const withAuth = (Component) => (props) => {
 
   /* 권한 분기 */
   useEffect(() => {
-    // 방법 1
     if (!accessToken) {
       getAccessToken().then((newAccessToken) => {
         setAccessToken(newAccessToken);
@@ -60,8 +59,6 @@ export const withAuth = (Component) => (props) => {
         }
       });
     }
-
-    // isLoaded
   }, []);
 
   return <Component {...props} />;

@@ -8,8 +8,6 @@ import HashTagPage from "../../../commons/HashTag";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function ProductWriteUI(props: IProductWriteUIProps) {
-  console.log(props.getValues("contents"));
-
   return (
     <>
       <S.Wrapper onSubmit={props.isEdit ? props.onClickUpdate : props.onSubmit}>
@@ -59,7 +57,7 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
             <S.Input
               type="number"
               {...props.register("price")}
-              defaultValue={props?.data?.fetchUseditem?.price ?? 0}
+              defaultValue={props?.data?.fetchUseditem?.price || 0}
             />
             <S.Error>{props.errors.price?.message}</S.Error>
           </S.InputErrorWrapper>
@@ -111,6 +109,7 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
               addressDetail={
                 props?.data?.fetchUseditem?.useditemAddress?.addressDetail
               }
+              isEdit={props.isEdit}
             ></KakaoMapUI>
           </S.AddressWrapper>
         </S.InputWrapper>

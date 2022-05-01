@@ -11,7 +11,7 @@ export interface IProductWriteProps {
 }
 
 export interface IProductWriteUIProps {
-  isEdit: boolean;
+  isEdit?: boolean;
   onClickUpdate: any;
   onSubmit: (
     e?: BaseSyntheticEvent<object, any, any> | undefined

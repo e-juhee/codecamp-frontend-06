@@ -61,11 +61,10 @@ export default function KakaoMapUI(props: any) {
       addressDetail: event.target.value,
     }));
   };
-
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=0f8eaab205858289af49e81c538882e4&autoload=false&libraries=services,clusterer"; // 카카오맵이 로드되면 실행
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=0f8eaab205858289af49e81c538882e4&libraries=services&autoload=false"; // 카카오맵이 로드되면 실행
 
     document.head.appendChild(script); // header에 script를 자식으로 추가한다.
 
@@ -104,8 +103,14 @@ export default function KakaoMapUI(props: any) {
         //     }
         //   }
         // }
+        let geocoder: any;
+        try {
+          geocoder = new window.kakao.maps.services.Geocoder();
+        } catch (e) {
+          console.log(e);
+          return;
+        }
         // 주소-좌표 변환 객체를 생성합니다
-        const geocoder = new window.kakao.maps.services.Geocoder();
 
         function searchDetailAddrFromCoords(coords: any, callback: any) {
           // 좌표로 법정동 상세 주소 정보를 요청합니다
@@ -154,10 +159,10 @@ export default function KakaoMapUI(props: any) {
           imageSize,
           imageOption
         );
-        if (searchText)
+        if (geocoder)
           // 주소로 좌표를 검색합니다
           geocoder.addressSearch(
-            searchText,
+            searchText || props.address,
             function (result: any, status: any) {
               // 정상적으로 검색이 완료됐으면
               if (status === window.kakao.maps.services.Status.OK) {
@@ -172,12 +177,6 @@ export default function KakaoMapUI(props: any) {
                   lng: Number(result[0].x),
                 }));
 
-                // props.setAddress({
-                //   ...props.addressState,
-                //   lat: Number(result[0].y),
-                //   lng: Number(result[0].x),
-                // });
-
                 // 마커를 생성합니다
                 const marker = new window.kakao.maps.Marker({
                   map: map,
@@ -186,37 +185,35 @@ export default function KakaoMapUI(props: any) {
                 });
 
                 marker.setMap(map);
-                // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
-                // marker.setMap(null);
 
-                window.kakao.maps.event.addListener(
-                  map,
-                  "click",
-                  (mouseEvent: any) => {
-                    // 클릭한 위도, 경도 정보를 가져옵니다
-                    const latlng = mouseEvent.latLng;
-                    // 마커 위치를 클릭한 위치로 옮깁니다
-                    marker.setPosition(latlng);
-                    props.setAddress({
-                      lat: latlng.getLat(),
-                      lng: latlng.getLng(),
-                    });
-                    // searchDetailAddrFromCoords(latlng, displayCenterInfo);
-                  }
-                );
+                // window.kakao.maps.event.addListener(
+                //   map,
+                //   "click",
+                //   (mouseEvent: any) => {
+                //     // 클릭한 위도, 경도 정보를 가져옵니다
+                //     const latlng = mouseEvent.latLng;
+                //     // 마커 위치를 클릭한 위치로 옮깁니다
+                //     marker.setPosition(latlng);
+                //     props.setAddress({
+                //       lat: latlng.getLat(),
+                //       lng: latlng.getLng(),
+                //     });
+                //     // searchDetailAddrFromCoords(latlng, displayCenterInfo);
+                //   }
+                // );
 
                 map.setCenter(coords);
               } else {
-                alert(
-                  "검색 결과가 없습니다. 주소 검색 버튼을 눌러서 다시 검색해주세요."
-                );
+                // alert(
+                //   "검색 결과가 없습니다. 주소 검색 버튼을 눌러서 다시 검색해주세요."
+                // );
                 setSearchText("");
               }
             }
           );
       });
     };
-  }, [searchText]);
+  }, [searchText, props.address]);
   const [isOpen, setIsOpen] = useState(false);
   const onToggleModal = () => {
     setIsOpen((prev) => !prev);
