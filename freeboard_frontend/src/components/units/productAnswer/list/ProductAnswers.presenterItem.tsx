@@ -11,7 +11,11 @@ import {
   FETCH_USEDITEM_QUESTION_ANSWERS,
 } from "./ProductAnswers.queries";
 
-const Comment = styled.div``;
+const Comment = styled.div`
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid gray;
+`;
 const Contents = styled.div``;
 export default function ProductAnswersItemUI(props: any) {
   const [deleteUseditemQuestionAnswer] = useMutation(

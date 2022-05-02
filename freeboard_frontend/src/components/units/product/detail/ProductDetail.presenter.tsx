@@ -121,37 +121,51 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
               >
                 구매하기
               </S.Button>
-              <S.Button
+
+              <S.PickButton onClick={props.onClickPick}>
+                <S.PickIcon></S.PickIcon>찜{" "}
+                {props?.data?.fetchUseditem?.pickedCount}
+              </S.PickButton>
+
+              {/* <S.Button
                 onClick={props.onClickPick}
                 style={{ backgroundColor: "#f70000" }}
               >
                 찜하기
-              </S.Button>
+              </S.Button> */}
             </S.ButtonWrapper>
           </S.Info>
         </S.Header>
-        {props.data?.fetchUseditem?.tags &&
+        <S.Body>
+          <S.TagsWrapper>
+            {props.data?.fetchUseditem?.tags &&
+              props.data?.fetchUseditem?.tags.map((el, i) =>
+                el !== "" ? <S.Tags key={i}>{el}</S.Tags> : <div></div>
+              )}
+          </S.TagsWrapper>
+          {/* {props.data?.fetchUseditem?.tags &&
           props.data?.fetchUseditem?.tags.map((el, i) => (
             <div key={i}>{el}</div>
-          ))}
-        {/* <div>{props.data?.fetchUseditem.contents}</div> */}
-        {typeof window !== "undefined" ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(
-                props.data?.fetchUseditem.contents || ""
-              ),
-            }}
-          ></div>
-        ) : (
-          <div></div>
-        )}
-        {props.data?.fetchUseditem?.useditemAddress && (
-          <KakaoMapView
-            lat={Number(props.data?.fetchUseditem?.useditemAddress?.lat)}
-            lng={Number(props.data?.fetchUseditem?.useditemAddress?.lng)}
-          />
-        )}
+          ))} */}
+          {/* <div>{props.data?.fetchUseditem.contents}</div> */}
+          {typeof window !== "undefined" ? (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(
+                  props.data?.fetchUseditem.contents || ""
+                ),
+              }}
+            ></div>
+          ) : (
+            <div></div>
+          )}
+          {props.data?.fetchUseditem?.useditemAddress && (
+            <KakaoMapView
+              lat={Number(props.data?.fetchUseditem?.useditemAddress?.lat)}
+              lng={Number(props.data?.fetchUseditem?.useditemAddress?.lng)}
+            />
+          )}
+        </S.Body>
       </S.Wrapper>
     </>
   );

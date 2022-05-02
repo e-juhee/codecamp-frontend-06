@@ -6,12 +6,12 @@ export default function ProductAnswerWriteUI(props: ICommentWriteUIProps) {
   return (
     <>
       <S.CWrapper>
-        {props.isEdit || (
+        {/* {props.isEdit || (
           <S.CHeader>
             <S.CTitleIcon></S.CTitleIcon>
             <S.CTitle>댓글</S.CTitle>
           </S.CHeader>
-        )}
+        )} */}
 
         <S.CInputHeader>
           {props.isEdit && (

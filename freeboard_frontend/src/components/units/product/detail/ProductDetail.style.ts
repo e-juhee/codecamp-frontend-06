@@ -127,3 +127,50 @@ export const Button = styled.button`
   background: rgb(204, 204, 204);
   cursor: pointer;
 `;
+export const TagsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 821px;
+  height: 30px;
+  margin-bottom: 32px;
+`;
+
+export const Body = styled.div`
+  margin-top: 100px;
+  border-top: 1px solid gray;
+  padding: 50px 0;
+`;
+export const Tags = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* width: 100px; */
+  height: 30px;
+  /* background-image: url("./tags.png"); */
+  padding: 0 17px;
+  margin-right: 10px;
+  background-color: #ffe004;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 400;
+`;
+export const PickButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 152px;
+  height: 60px;
+  background-color: #c9c9c9;
+  cursor: pointer;
+`;
+export const PickIcon = styled.div`
+  z-index: 2;
+  width: 32px;
+  height: 26.94px;
+  background-image: url("/pick.png");
+  background-size: cover;
+  margin-right: 5px;
+`;

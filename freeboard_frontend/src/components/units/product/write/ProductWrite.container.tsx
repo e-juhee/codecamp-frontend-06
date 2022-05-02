@@ -12,6 +12,7 @@ import {
 import { ChangeEvent, useEffect, useState } from "react";
 import { IProductWriteProps } from "./ProductWrite.types";
 import { FETCH_USEDITEM } from "../detail/ProductDetail.queries";
+import { withAuth } from "../../../commons/hocs/withAuth";
 // import useAuth from "../../../commons/hocs/withAuth";
 
 const UPLOAD_FILE = gql`
@@ -27,7 +28,7 @@ const schema = yup.object({
   contents: yup.string().required("상품 설명을 입력해주세요."),
 });
 
-export default function ProductWrite(props: IProductWriteProps) {
+function ProductWrite(props: IProductWriteProps) {
   const [hashArr, setHashArr] = useState<string[]>(
     props?.data?.fetchUseditem?.tags || []
   );
@@ -245,4 +246,4 @@ export default function ProductWrite(props: IProductWriteProps) {
   );
 }
 
-// withAuth(ProductWrite);
+export default withAuth(ProductWrite);

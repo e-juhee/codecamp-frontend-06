@@ -6,8 +6,8 @@ import { priceToString } from "../../../commons/libraries/utils";
 export default function MyUI(props: any) {
   return (
     <>
-      <div>마이페이지</div>
-      <div onClick={props.onClickLogOut}>로그아웃</div>
+      <h1>마이페이지</h1>
+      {/* <div onClick={props.onClickLogOut}>로그아웃</div> */}
       <Point />
       <S.TitleWrapper>
         <S.Title>Like It</S.Title>

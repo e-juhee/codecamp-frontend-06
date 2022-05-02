@@ -1,17 +1,18 @@
 import styled from "@emotion/styled";
 
-export const CWrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 1200px;
   margin: 0 auto;
-  /* padding-top: 40px; */
+  padding-top: 40px;
 `;
 export const CHeader = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding-bottom: 40px;
 `;
 export const CTitleIcon = styled.div`
   width: 20px;
@@ -114,7 +115,8 @@ interface disabled {
 export const CCreateButton = styled.button`
   width: 91px;
   height: 100%;
-  background: rgba(227, 22, 128, 1);
+  background: ${(props: disabled) =>
+    props.isDisabled && !props.isEdit ? "lightgray" : "rgba(227, 22, 128, 1)"};
   border: none;
   font-weight: 500;
   font-size: 16px;

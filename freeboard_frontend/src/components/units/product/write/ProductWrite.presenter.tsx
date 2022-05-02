@@ -57,7 +57,9 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
             <S.Input
               type="number"
               {...props.register("price")}
-              defaultValue={props?.data?.fetchUseditem?.price || 0}
+              defaultValue={
+                props.isEdit ? props?.data?.fetchUseditem?.price : 0
+              }
             />
             <S.Error>{props.errors.price?.message}</S.Error>
           </S.InputErrorWrapper>

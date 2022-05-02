@@ -12,7 +12,7 @@ export const CHeader = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-bottom: 40px;
+  /* padding-bottom: 40px; */
 `;
 export const CTitleIcon = styled.div`
   width: 20px;
@@ -115,8 +115,7 @@ interface disabled {
 export const CCreateButton = styled.button`
   width: 91px;
   height: 100%;
-  background: ${(props: disabled) =>
-    props.isDisabled && !props.isEdit ? "lightgray" : "rgba(227, 22, 128, 1)"};
+  background: rgba(227, 22, 128, 1);
   border: none;
   font-weight: 500;
   font-size: 16px;

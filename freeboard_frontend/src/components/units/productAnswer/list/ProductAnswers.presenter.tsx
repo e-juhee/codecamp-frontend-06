@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
+// import styled from "@emotion/styled";
+// import * as S from "./styles"
 import ProductAnswersItemUI from "./ProductAnswers.presenterItem";
 import { v4 as uuidv4 } from "uuid";
-
-const Wrapper = styled.div``;
+import { Wrapper } from "./ProductAnswers.style";
 
 export default function ProductAnswersUI(props: any) {
   console.log(props.data?.fetchUseditemQuestionAnswers);

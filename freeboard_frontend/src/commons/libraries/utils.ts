@@ -71,3 +71,8 @@ export const checkFileValidation = (file?: File) => {
 export const priceToString = (price: number) => {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
 };
+export const priceToStringWithoutWon = (price: number) => {
+  if (!price) return 0;
+
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};

@@ -43,18 +43,29 @@ import { getAccessToken } from "../../../commons/libraries/getAccessToken";
 import { accessTokenState } from "../../../commons/store";
 // @ts-ignore
 export const withAuth = (Component) => (props) => {
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [accessToken] = useRecoilState(accessTokenState);
 
   const router = useRouter();
 
   /* 권한 분기 */
+  // useEffect(() => {
+  //   if (!accessToken) {
+  //     getAccessToken().then((newAccessToken) => {
+  //       setAccessToken(newAccessToken);
+  //       if (!newAccessToken) {
+  //         // apolloSetting에서도 getAccessToken을 하고있어서 두번 요청이 가게 된다. 비효율적이다.
+  //         alert("로그인 화면으로 이동합니다.");
+  //         router.push("/login");
+  //       }
+  //     });
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (!accessToken) {
       getAccessToken().then((newAccessToken) => {
-        setAccessToken(newAccessToken);
         if (!newAccessToken) {
-          // apolloSetting에서도 getAccessToken을 하고있어서 두번 요청이 가게 된다. 비효율적이다.
-          alert("로그인 화면으로 이동합니다.");
+          alert("로그인 후 이용해주세요.");
           router.push("/login");
         }
       });

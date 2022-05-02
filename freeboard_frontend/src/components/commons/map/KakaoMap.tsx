@@ -61,6 +61,7 @@ export default function KakaoMapUI(props: any) {
       addressDetail: event.target.value,
     }));
   };
+  let geocoder: any;
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
@@ -103,7 +104,8 @@ export default function KakaoMapUI(props: any) {
         //     }
         //   }
         // }
-        let geocoder: any;
+        // if(!new window.kakao.maps.services.Geocoder().addressSearch) return;
+        // let geocoder: any;
         try {
           geocoder = new window.kakao.maps.services.Geocoder();
         } catch (e) {
@@ -159,61 +161,61 @@ export default function KakaoMapUI(props: any) {
           imageSize,
           imageOption
         );
-        if (geocoder)
-          // 주소로 좌표를 검색합니다
-          geocoder.addressSearch(
-            searchText || props.address,
-            function (result: any, status: any) {
-              // 정상적으로 검색이 완료됐으면
-              if (status === window.kakao.maps.services.Status.OK) {
-                const coords = new window.kakao.maps.LatLng(
-                  result[0].y,
-                  result[0].x
-                );
+        // if (geocoder)
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch(
+          searchText || props.address || "서울 구로구 디지털로 300",
+          function (result: any, status: any) {
+            // 정상적으로 검색이 완료됐으면
+            if (status === window.kakao.maps.services.Status.OK) {
+              const coords = new window.kakao.maps.LatLng(
+                result[0].y,
+                result[0].x
+              );
 
-                props.setAddress((prev: any) => ({
-                  ...prev,
-                  lat: Number(result[0].y),
-                  lng: Number(result[0].x),
-                }));
+              props.setAddress((prev: any) => ({
+                ...prev,
+                lat: Number(result[0].y),
+                lng: Number(result[0].x),
+              }));
 
-                // 마커를 생성합니다
-                const marker = new window.kakao.maps.Marker({
-                  map: map,
-                  position: coords,
-                  image: markerImage, // 마커이미지 설정
-                });
+              // 마커를 생성합니다
+              const marker = new window.kakao.maps.Marker({
+                map: map,
+                position: coords,
+                image: markerImage, // 마커이미지 설정
+              });
 
-                marker.setMap(map);
+              marker.setMap(map);
 
-                // window.kakao.maps.event.addListener(
-                //   map,
-                //   "click",
-                //   (mouseEvent: any) => {
-                //     // 클릭한 위도, 경도 정보를 가져옵니다
-                //     const latlng = mouseEvent.latLng;
-                //     // 마커 위치를 클릭한 위치로 옮깁니다
-                //     marker.setPosition(latlng);
-                //     props.setAddress({
-                //       lat: latlng.getLat(),
-                //       lng: latlng.getLng(),
-                //     });
-                //     // searchDetailAddrFromCoords(latlng, displayCenterInfo);
-                //   }
-                // );
+              // window.kakao.maps.event.addListener(
+              //   map,
+              //   "click",
+              //   (mouseEvent: any) => {
+              //     // 클릭한 위도, 경도 정보를 가져옵니다
+              //     const latlng = mouseEvent.latLng;
+              //     // 마커 위치를 클릭한 위치로 옮깁니다
+              //     marker.setPosition(latlng);
+              //     props.setAddress({
+              //       lat: latlng.getLat(),
+              //       lng: latlng.getLng(),
+              //     });
+              //     // searchDetailAddrFromCoords(latlng, displayCenterInfo);
+              //   }
+              // );
 
-                map.setCenter(coords);
-              } else {
-                // alert(
-                //   "검색 결과가 없습니다. 주소 검색 버튼을 눌러서 다시 검색해주세요."
-                // );
-                setSearchText("");
-              }
+              map.setCenter(coords);
+            } else {
+              // alert(
+              //   "검색 결과가 없습니다. 주소 검색 버튼을 눌러서 다시 검색해주세요."
+              // );
+              setSearchText("");
             }
-          );
+          }
+        );
       });
     };
-  }, [searchText, props.address]);
+  }, [searchText, props.address, geocoder]);
   const [isOpen, setIsOpen] = useState(false);
   const onToggleModal = () => {
     setIsOpen((prev) => !prev);
@@ -237,7 +239,9 @@ export default function KakaoMapUI(props: any) {
             <Input
               onChange={onChangeInput}
               placeholder="주소로 검색하세요. 예) 디지털로 200길"
-              defaultValue={props?.address || searchText}
+              defaultValue={
+                props.isEdit ? searchText || props?.address : searchText
+              }
             />
             <Input
               onChange={onChangeDetail}
