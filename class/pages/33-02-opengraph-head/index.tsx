@@ -4,6 +4,8 @@ export default function OpenGraphHeadPage() {
   return (
     <div>
       <Head>
+        {/* meta 태그는 내 사이트를 알릴 때 사용된다. */}
+        {/* og는 존재하는 것이 아니다. */}
         <meta property="og:title" content="나만의 사이트" />
         <meta
           property="og:description"

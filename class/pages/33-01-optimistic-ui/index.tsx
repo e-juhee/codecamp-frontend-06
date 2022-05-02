@@ -25,7 +25,7 @@ export default function OptimisticUIPage() {
     likeBoard({
       variables: { boardId: "6269ecf7a8255b002988d65e" },
 
-      /* 방법 1: refetch - api가 두번 요청된다. */
+      /* 방법 1: refetch - api가 LIKE_BOARD 한번, FETCH_BOARD 한번 해서 총 두번 요청된다. */
       // refetchQueries: [
       //   {
       //     query: FETCH_BOARD,
@@ -34,23 +34,27 @@ export default function OptimisticUIPage() {
       // ],
 
       optimisticResponse: {
-        likeBoard: (data.fetchBoard.likeCount || 0) + 1, // API 응답이 오기 전에 일단 이 값을 보여주고, 응답이 오면 진짜 값으로 바뀐다.
+        // API 응답이 오기 전에 일단 이 값을 보여주고,
+        // 응답이 오면 진짜 값으로 바꿔준다!
+        // 좋아요가 실패하면 이전 값으로 들어오게 된다.
+        likeBoard: (data.fetchBoard.likeCount || 0) + 1,
       },
 
       /* 방법 2: 직접 cache를 수정해서 globalState를 바꿔줌, optimisticResponse를 같이 사용할 수 있다. */
       update(cache, { data }) {
-        // data는 likeBoard API를 request해서 response로 받는 값이다.
+        // data: likeBoard의 결과값
+        // data는 likeBoard API의 response로 받는 값이다.
         cache.writeQuery({
           // 기존의 데이터를 직접 바꾼다.
           query: FETCH_BOARD,
-          variables: { boardId: "6269ecf7a8255b002988d65e" }, // useQuery 할 때 쓴 두 줄을 그대로 써야 한다.
+          variables: { boardId: "6269ecf7a8255b002988d65e" }, // 위에서 useQuery 선언할 때 쓴 쿼리명과 variables를 그대로 똑같이 써야 한다.
           data: {
-            // 조작할 것, 여기서는 data를 조작한다.
+            // 조작할 것을 적는다. 여기서는 data를 조작한다.
             fetchBoard: {
               _id: "6269ecf7a8255b002988d65e",
-              __typename: "Board", // 조건: 이 두개를 가지고 globalState에 저장된 것을 구분하기 때문에 id와 typename은 둘 다 꼭 입력해야 한다.
-              // likeCount:10, // 기존에 fetch해온 값을 무시하고 여기에서 입력한 10이 된다. 백엔드와는 상관 없이 조작하는 것이다.
-              likeCount: data.likeBoard, // likeBoard의 결과이다.
+              __typename: "Board", // 조건: 이 두개를 가지고 globalState에 저장된 것에서 찾아내기 때문에 id와 typename은 둘 다 꼭~ 입력해야 한다.
+              // likeCount:10, // 요로케 입력하면 기존에 fetch해온 값을 무시하고 여기에서 입력한 10이 된다. (백엔드의 값과는 상관 없이 조작만 하는 것이다.)
+              likeCount: data.likeBoard, // data.likeBoard : likeBoard의 결과이다.
             },
           },
         });

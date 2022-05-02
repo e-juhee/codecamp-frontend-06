@@ -17,7 +17,7 @@ const UPLOAD_FILE = gql`
 `;
 export default function ImageUploadPreviewPage() {
   const [files, setFiles] = useState<(File | undefined)[]>([
-    // 타입: File 또는 undefined가 들어있는 배열
+    // 타입: File 또는 undefined가 들어있는 배열 (파일이 항상 3개일 필요는 없으니까~)
     undefined,
     undefined,
     undefined,
@@ -38,11 +38,11 @@ export default function ImageUploadPreviewPage() {
       fileReader.onload = (data) => {
         // file을 다 읽으면 읽어진 결과물이 data로 들어오고 이 함수가 실행된다.
         if (typeof data.target?.result === "string") {
-          const tempUrls = [...imageUrls];
-          tempUrls[number] = data.target?.result;
+          const tempUrls = [...imageUrls]; // 여기에 값을 바꿔서 다시 setImageUrls 해줄건데, 그냥 넣으면 얕은복사때문에 값이 안바뀌니까 tempUrls에 스프레드시켜서 복사한다.
+          tempUrls[number] = data.target?.result; // 변경된 number(배열의 인덱스로 사용)만 변경한다.
           setImageUrls(tempUrls);
 
-          const tempFiles = [...files];
+          const tempFiles = [...files]; // file도 위의 imageUrls와 동일하게 복사해준다.
           tempFiles[number] = file;
           setFiles(tempFiles); // uploadFile API에 보내기 위한 *File*
         }
@@ -60,8 +60,6 @@ export default function ImageUploadPreviewPage() {
       return el?.data ? el?.data.uploadFile.url : "";
     });
 
-    // onChange에서 받은 url을 넣어도 되지만, 데이터 크기를 줄이기 위해서 uploadFile API를 이용한다.
-    // const result1 = await uploadFile({ variables: { file: files } });
     const result2 = await createBoard({
       variables: {
         createBoardInput: {
