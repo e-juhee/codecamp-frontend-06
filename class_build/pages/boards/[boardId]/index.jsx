@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 // import Head from "next/head";
-import Head from "next";
+import Head from "next/head";
 import { gql, request } from "graphql-request";
 
 export default function BoardDetailPage(props) {
