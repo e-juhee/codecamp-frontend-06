@@ -20,15 +20,13 @@ export default function BoardDetailPage(props) {
 }
 
 const FETCH_BOARD = gql`
-    query fetchBoard($boardId : ID!)){
-        fetchBoard(boardId:$boardId){
-          title
-          contents
-          images
-
-        }
+  query fetchBoard($boardId: ID!) {
+    fetchBoard(boardId: $boardId) {
+      title
+      contents
+      images
     }
-
+  }
 `;
 
 // 이 페이지는 서버사이드 렌더링을 한다는 것을 알 수 있다.
